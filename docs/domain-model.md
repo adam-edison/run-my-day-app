@@ -51,7 +51,7 @@ A project is one-time work that you create or mark as a project yourself. A one-
 
 ### Unlock conditions
 
-Any task, one-time or recurring, can have a list of unlock conditions. A locked task stays hidden until it unlocks. A condition can be:
+Any task, one-time or recurring, can have a list of unlock conditions. Each task chooses whether it unlocks when all of its conditions are met or when any one of them is met. A locked task stays hidden until it unlocks. A condition can be:
 
 - another task completed a set number of times, including once
 - a metric condition
@@ -84,6 +84,5 @@ Work runs in small steps, so nothing gets cut off midway. Transition time betwee
 
 ## Open
 
-- **Unlock conditions:** whether a task needs all its conditions met, or any one of them.
 - **Goal, achievement, progression, level:** not yet reviewed.
 - **Task fields:** custom status names over fixed status categories, and fixed or custom priority levels. Deferred to the task spec.
