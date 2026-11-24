@@ -49,9 +49,15 @@ A one-time task can hold one-time subtasks, nested to any depth you need. A recu
 
 A project is one-time work that you create or mark as a project yourself. A one-time task with subtasks stays a plain task until you mark it. A project grows as you learn: you add parts you could not foresee, reorder them, and break them down across as many levels as you need. A project never contains a recurring task.
 
+Subtasks run in their set order. A later subtask waits for the earlier ones without any stored condition. Waiting subtasks stay visible as "up next" and are never hidden.
+
+### Condition
+
+A condition is a check against your history of completions, metric values, and dates. Unlock conditions, habits, goals, and progression levels all use the same condition concept.
+
 ### Unlock conditions
 
-Any task, one-time or recurring, can have a list of unlock conditions. Each task chooses whether it unlocks when all of its conditions are met or when any one of them is met. A locked task stays hidden until it unlocks. A condition can be:
+Any task, one-time or recurring, can have a list of unlock conditions. Most tasks have none: order covers the common case, and unlock conditions handle exceptions such as a dependency on a task in another project, a date, or a metric. Each task chooses whether it unlocks when all of its conditions are met or when any one of them is met. A locked task stays hidden until it unlocks. A condition can be:
 
 - another task completed a set number of times, including once
 - a metric condition
@@ -84,5 +90,6 @@ Work runs in small steps, so nothing gets cut off midway. Transition time betwee
 
 ## Open
 
+- **Condition placement:** whether each condition lives on the thing whose state it changes. Under that rule, a task carries its own unlock conditions, and anything that chooses between tasks, such as moving a level up or down, belongs to a progression.
 - **Goal, achievement, progression, level:** not yet reviewed.
 - **Task fields:** custom status names over fixed status categories, and fixed or custom priority levels. Deferred to the task spec.
