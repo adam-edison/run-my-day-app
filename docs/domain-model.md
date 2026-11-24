@@ -43,6 +43,12 @@ A task view is a saved filter and sort over tasks. It is the only way a task out
 
 A task is the center of the domain. A task holds an ordered list of steps. A task with no steps runs as a single step. A recurring task comes back on its own schedule.
 
+A one-time task can hold one-time subtasks, nested to any depth you need. A recurring task never has subtasks and never sits inside another task.
+
+### Project
+
+A project is one-time work that you create or mark as a project yourself. A one-time task with subtasks stays a plain task until you mark it. A project grows as you learn: you add parts you could not foresee, reorder them, and break them down across as many levels as you need. A project never contains a recurring task.
+
 ### Step
 
 A step is a small unit of work inside a task. Steps run in order. A step can record a metric value.
@@ -68,6 +74,6 @@ Work runs in small steps, so nothing gets cut off midway. Transition time betwee
 
 ## Open
 
-- **Project:** one-time ordered tasks. Open question: a flat list, or projects inside projects.
+- **Dependencies:** which tasks can block which.
 - **Goal, achievement, progression, level:** not yet reviewed.
 - **Task fields:** custom status names over fixed status categories, and fixed or custom priority levels. Deferred to the task spec.
