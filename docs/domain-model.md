@@ -49,6 +49,16 @@ A one-time task can hold one-time subtasks, nested to any depth you need. A recu
 
 A project is one-time work that you create or mark as a project yourself. A one-time task with subtasks stays a plain task until you mark it. A project grows as you learn: you add parts you could not foresee, reorder them, and break them down across as many levels as you need. A project never contains a recurring task.
 
+### Unlock conditions
+
+Any task, one-time or recurring, can have a list of unlock conditions. A locked task stays hidden until it unlocks. A condition can be:
+
+- another task completed a set number of times, including once
+- a metric condition
+- a start date: the task stays hidden until that date
+
+Circular conditions are impossible. Run My Day refuses any condition that would make a task wait on itself.
+
 ### Step
 
 A step is a small unit of work inside a task. Steps run in order. A step can record a metric value.
@@ -74,6 +84,6 @@ Work runs in small steps, so nothing gets cut off midway. Transition time betwee
 
 ## Open
 
-- **Dependencies:** which tasks can block which.
+- **Unlock conditions:** whether a task needs all its conditions met, or any one of them.
 - **Goal, achievement, progression, level:** not yet reviewed.
 - **Task fields:** custom status names over fixed status categories, and fixed or custom priority levels. Deferred to the task spec.
