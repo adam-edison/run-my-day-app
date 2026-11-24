@@ -63,7 +63,13 @@ Any task, one-time or recurring, can have a list of unlock conditions. Most task
 - a metric condition
 - a start date: the task stays hidden until that date
 
+A condition lives on the thing whose state it changes. A task carries its own unlock conditions. Anything that chooses between tasks belongs to a progression.
+
 Circular conditions are impossible. Run My Day refuses any condition that would make a task wait on itself.
+
+### Progression
+
+A progression is an ordered list of levels, such as "run 1 km, then 3 km, then 5 km". Each level points at a task. Exactly one level is active at a time. Each level has move-up and move-down conditions, and the progression changes levels automatically when they pass. The tasks inside a progression carry no level logic.
 
 ### Step
 
@@ -90,6 +96,5 @@ Work runs in small steps, so nothing gets cut off midway. Transition time betwee
 
 ## Open
 
-- **Condition placement:** whether each condition lives on the thing whose state it changes. Under that rule, a task carries its own unlock conditions, and anything that chooses between tasks, such as moving a level up or down, belongs to a progression.
-- **Goal, achievement, progression, level:** not yet reviewed.
+- **Goal, achievement:** not yet reviewed. Whether habits also have levels.
 - **Task fields:** custom status names over fixed status categories, and fixed or custom priority levels. Deferred to the task spec.
