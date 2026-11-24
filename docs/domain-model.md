@@ -69,7 +69,7 @@ Circular conditions are impossible. Run My Day refuses any condition that would 
 
 ### Progression
 
-A progression is an ordered list of levels, such as "run 1 km, then 3 km, then 5 km". Each level points at a task. Exactly one level is active at a time. Each level has move-up and move-down conditions, and the progression changes levels automatically when they pass. The tasks inside a progression carry no level logic.
+A progression is an ordered list of levels. Each level is a whole training plan: a set of recurring tasks, each with its own schedule and step targets, over any span of days or weeks. For example, a push-up progression starts at 10 push-ups twice a week. It moves to four times a week, then to changing sets and reps, then to a two-week rotation of push-up types such as handstand push-ups one day and triangle push-ups another. Exactly one level is active at a time. Each level has move-up and move-down conditions, and the progression changes levels automatically when they pass. The tasks inside a progression carry no level logic.
 
 ### Step
 
@@ -82,6 +82,8 @@ A metric is a measured value. A step can record a metric value. You can also add
 ### Habit
 
 A habit is a set of rules over metrics. A habit updates automatically from metric values. You never tick off a habit directly.
+
+A habit can have levels. Each level sets a higher target, and conditions move the habit up or down automatically. For example, a water habit starts at 60 oz a day. After 7 days in a row at or above the target, it moves to 70 oz, then 80 oz, then 100 oz, which is the top level.
 
 ### Modes
 
@@ -96,5 +98,6 @@ Work runs in small steps, so nothing gets cut off midway. Transition time betwee
 
 ## Open
 
-- **Goal, achievement:** not yet reviewed. Whether habits also have levels.
+- **Progression levels:** whether each level defines its own full set of tasks, or describes changes to a base set.
+- **Goal, achievement:** not yet reviewed.
 - **Task fields:** custom status names over fixed status categories, and fixed or custom priority levels. Deferred to the task spec.
