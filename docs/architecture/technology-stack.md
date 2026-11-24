@@ -86,3 +86,8 @@
 - [GitHub Actions](https://docs.github.com/en/actions) - Automated build, verification, and deployment workflows with integrations for cloud deployment services.
 - [actionlint](https://github.com/rhysd/actionlint) - Static analysis of GitHub Actions workflows, including syntax validation, expression type checking, and configuration error detection.
 - [Expo EAS](https://docs.expo.dev/eas/) - Managed application builds, code signing, app store submission, over-the-air updates, and deployment automation for Expo applications.
+
+## Text-to-Speech
+
+- [kokoro-js](https://www.npmjs.com/package/kokoro-js) - Client-side neural text-to-speech synthesis using Kokoro-82M with WebGPU or WASM inference, enabling on-demand audio generation in the browser without server-side processing or centralized audio storage.
+- [ONNX Runtime](https://onnxruntime.ai/docs/get-started/with-javascript/react-native.html) - On-device model inference for native iOS and Android applications, enabling local text-to-speech synthesis, offline operation, and ephemeral audio playback without centralized audio storage.
