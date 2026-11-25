@@ -4,7 +4,7 @@ This guide explains each task setting with examples, and how settings combine. E
 
 ## Repeats
 
-A recurring task is one task. Each time you complete or skip it, its due date moves forward. A missed recurring task stays overdue until you complete it, skip it, or move its due date.
+A recurring task is one task. Each time you complete it, its due date moves forward. A skip means "not now" and leaves the due date where it is. A missed recurring task stays overdue until you complete it or move its due date.
 
 ### Pattern kinds
 
@@ -39,7 +39,7 @@ Example: "Water plants", every 7 days, due Monday the 1st.
 
 ### If missed: jump to today or every date is owed
 
-This setting applies only to repeats by due date. It decides where the due date moves after a late completion or a skip.
+This setting applies only to repeats by due date. It decides where the due date moves after a late completion.
 
 Example: "Push-ups", weekly on Monday, Wednesday, and Friday. You were sick, and on Friday the task is still due Monday.
 

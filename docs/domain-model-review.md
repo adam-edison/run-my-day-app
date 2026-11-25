@@ -17,49 +17,17 @@ Kinds:
 
 ## 1. How steps advance and when a task completes
 
+- [ ] **OPEN: seasonal tasks.** The user stated this case. "Wipe condensation off the windows" repeats daily, but only from October through March. From April through September the task should not appear at all. The task must show what its condition is, and you must be able to set it. DM's unlock conditions are only "another task completed" and "a metric condition". The task start date was removed, so DM has no date-based condition. To decide: how a task can be active only in part of each year, and how it moves between hidden and active, for example between a backlog status and Ready.
 - [ ] **OPEN: conditions on steps.** A step that runs only when a condition holds, so a task carries no unnecessary steps. DM has unlock conditions on tasks only.
 
-## 2. Extend
 
-- [ ] **MISSING: Extend and nagging.** F587, F589: at the end of extended time, "Time is up for <task>." plays, whether nagging is on or off. Nags stop until the extended time is up.
-
-## 3. Skip
-
-- [ ] **MISSING: skip on a one-time task or a task with no due date.** F525: "the task becomes unfinished." F18–24: an unfinished task is "treated as due on the day it is first put off, so from the next day it is overdue". DM defines skip only for recurring tasks and sessions.
-- [ ] **CONFLICT: block end counts as a skip.** F27–29, F527: the skip count goes up on every skip "and every time a block ends with the task unfinished", including a task the block never reached. DM: the number of times you skipped it since you last completed it.
-- [ ] **CONFLICT: skip on a recurring task.** KIV-50.13: a skip "does not change status or due date". DM: the due date moves forward each time you complete or skip it.
-- [ ] **MISSING: Dismiss resets the skip count.** KIV-50.13 #6. DM computes the skip count from history and has no reset.
-- [ ] **MISSING: skip in history.** KIV-51.2 #7: history records the step as skipped. KIV-162.7 #6: a skip adds nothing to Time spent or Completions.
-
-## 4. Undo
-
-- [ ] **MISSING: Undo.** F533–554:
-  - Undo reverses only the latest done or skip, with no time limit (F537).
-  - The undone task's countdown continues as if the done never happened. The task that started after it goes back to not started, and its start is removed from history (F539–540).
-  - Undoing a skip reverses the skip-count increase (F541).
-  - Undo after the block ended starts nothing (F543).
 
 ## 5. Pause
 
-- [ ] **MISSING: pause.** F560–565: pause is available at any time. Warnings and nags stop while paused. A done or skip while paused ends the pause, and the next task starts at once.
-- [ ] **MISSING: pause reminder.** F569–572: a vibration every 15 minutes while paused, on by default (D48–49).
-- [ ] **MISSING: timed pause.** F576–580: "pause for N minutes" ends by itself, then "Resuming <task>." plays.
 - [ ] **MISSING: block-end warning during a pause.** F1106: it plays on resume, with the minutes actually left.
-- [ ] **MISSING: paused time and view limits.** F987: paused time does not count toward a view's minutes limit.
-- [ ] **OPEN: does a step's elapsed time keep counting during an appointment pause?**
-- [ ] **OPEN: a block that ends while paused.**
 
 ## 6. Nagging, warnings, and announcements
 
-- [ ] **MISSING: nagging.** F484–489, F459: nags for a task waiting past its estimate, on or off with an interval. Off by default, 60-second interval (D24–25).
-- [ ] **MISSING and CONFLICT between sources: warnings.**
-  - F599–600, D18–23: remaining warning at 5 minutes, halfway warning, next-up warning 30 seconds before the end. All off by default. No halfway warning for estimates of 10 minutes or less.
-  - KIV-159 #2, #3, #5, #6: halfway warning, plus a 1-minute warning that says the next step. All on by default. Halfway only on steps longer than 2 minutes.
-- [ ] **MISSING: announcement kinds with an on/off switch each.** F347: block start, task start, item start, warning, nag, routine complete, free time, block end, prompt, moved-past step. KIV-159 #5.
-- [ ] **MISSING: where guidance settings live.** F271–273, F342: "Every sound setting is on the routine… no per-task exception." "One global mode… always wins."
-- [ ] **MISSING: announcements never overlap.** F312–316: a due announcement waits for the one playing. Fixed priority for ties: task start, item start, block-end warning, remaining warning, halfway warning, next-up warning, nagging.
-- [ ] **CONFLICT between sources: estimate end.** F603: "Nothing is announced when a task's estimate ends; that is nagging's job." KIV-51.2 #4: a sound plays at zero.
-- [ ] **MISSING: routine complete announcement.** KIV-159 #4, F1438: "Morning routine complete."
 - [ ] **MISSING: loop number.** KIV-436 #1–3: "1 of 15" at the start of each loop.
 - [ ] **MISSING: sound mode during an appointment.** F317–320, F1140–1142: an appointment sets vibrate mode until you report that you are back.
 
@@ -100,8 +68,6 @@ Kinds:
 
 ## 12. View limits
 
-- [ ] **CONFLICT: a minutes limit cuts the running task.** F972: "the running view ends on time, and the task continues when the same view appears again." DM: a view limit never interrupts a step.
-- [ ] **CONFLICT: fit by task or by step.** F971 fits whole tasks by task estimate. DM fits by the next step's estimate.
 - [ ] **MISSING: a task picked by two views runs in the view listed first.** F977.
 - [ ] **MISSING: a task runs once per block.** F969.
 - [ ] **MISSING: a cut task finished elsewhere is passed over.** F981.
@@ -118,17 +84,16 @@ Kinds:
 
 - [ ] **MISSING: moved-past entries.** F1164–1173: a routine moves past a backlog or blocked task and announces the reason. Complete or canceled tasks are passed silently (F1165). DM does not say what a routine does with an entry that is locked, backlog, Waiting, canceled, or a later project task.
 - [ ] **CONFLICT: Waiting tasks.** KIV-50.12 #2–3: blocks and routines never pick a waiting task. On the follow-up date it shows as "Follow up with plumber". DM: Waiting's due date is the follow-up date, so the task would play on that date.
-- [ ] **CONFLICT: steps that always run.** KIV-51: "A step always runs and always logs." KIV-173 adds a "Run only when the linked task is due" switch. DM: an entry plays only when due, with no switch.
 - [ ] **MISSING: history records an entry as not due.** KIV-173 #4.
 
 ## 14. Calendar changes during a run
 
 - [ ] **MISSING: changes apply at the next task boundary.** F1064–1070: "A running task is never interrupted." A new end time moves the block end. A renamed or deleted event ends the block at the next task boundary. An event renamed to another block's title starts that block. KIV-158.9 leaves the rest open.
+- [ ] **OPEN: lengthening a block that already ended.** The user stated that Run My Day must pick up the new end time and resume where the block left off. Example: the Workout block ended at 10:00 during a pause, and Squats was interrupted with 3 of 5 min elapsed. At 10:05 you move the event's end to 10:30. The block runs again and Squats resumes at 3 min elapsed. To decide: how soon the change is picked up, and whether the block resumes by itself or waits for you.
 - [ ] **MISSING: overflow check after a change.** F1066.
 - [ ] **MISSING: read cadence.** F1056–1061, KIV-158.3 #3, #6–7: read 14 days ahead and 24 hours back. Re-read after every done and every 5 minutes. A failed read keeps the saved events.
 - [ ] **MISSING: calendar warnings.** F953: announced at the next task boundary, once per new problem, and never blocks anything.
 - [ ] **CONFLICT: overlaps.** F1090: no overlaps allowed: two appointments, two blocks, or an appointment and a block. KIV-158.2 #3–4: a block with an overlap does not start until the overlap is fixed. DM: an appointment takes its time out of a block. Block-to-block overlap is not covered.
-- [ ] **CONFLICT: appointment during a routine.** F593, F1077: an appointment cannot interrupt a running routine. KIV-158.4 #2, the newer source, and DM: the routine pauses.
 - [ ] **MISSING: return reminder.** F1146–1148: a vibration every 10 minutes after an appointment ends, until you report that you are back.
 
 ## 15. Manual mode and on-demand runs
@@ -151,7 +116,6 @@ Kinds:
 
 ## 17. Estimates and history
 
-- [ ] **CONFLICT: learned estimate formula.** KIV-168, KIV-50.7: median of the latest 5, after 3. F1316–1317: average of the last 5, with the set estimate as one value until 5 real completions exist. DM: trimmed average of the latest 5, dropping the highest and the lowest.
 - [ ] **MISSING: editing and deleting runs.** KIV-162.10 #2–4: editing a Time spent value changes the source run, and a run can be deleted.
 - [ ] **MISSING: automatic metrics.** KIV-162.7 #1–3: Time spent and Completions per task, step, or routine, computed from history.
 - [ ] **MISSING: what a step record holds.** KIV-164 #1: planned length, real length, and done or skipped.

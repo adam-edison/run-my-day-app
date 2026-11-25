@@ -7,6 +7,8 @@ These behaviors belong in OpenSpec specs once those exist. Each one moves to its
 - You can capture a task from any screen, or by voice during a routine, without pausing the routine.
 - Run My Day announces each appointment 10 minutes and 5 minutes before it starts, such as "Dentist in 10 minutes". After the appointment, you resume the paused routine yourself.
 - Extend offers quick options that you set as a preference, 1, 5, and 10 minutes by default.
+- While a run is paused, the phone keeps its sticky notification and the web app shows a notification that the run is waiting to resume. A pause gives no repeating reminder.
+- Batch editing applies step settings, such as warnings and nagging, to many steps at once.
 - Overdue tasks are easy to find quickly, in a view of their own, so they never get lost.
 - An achievement view shows its trophy, the conditions it took, and the history records that met them.
 - Metric analysis can group entries by hour of day, such as when you drink most of your water or when your self-reported energy is lowest.

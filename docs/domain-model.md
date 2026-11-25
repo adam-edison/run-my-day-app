@@ -2,6 +2,8 @@
 
 The task is the center of the domain. Blocks, routines, task views, and progressions arrange tasks. Steps inside tasks record metrics. Habits measure metrics after the fact.
 
+Each setting controls only its own behavior. No setting changes what another setting does, so Run My Day always behaves the way the setting you chose says.
+
 ## Overview
 
 ### How work reaches your day
@@ -205,7 +207,7 @@ Day starts at 4:00. It is 1:00 on calendar Friday, and you are still up from Thu
 "due Fri 02:00"   (time)     -> due in 1 hour, by the clock
 ```
 
-A recurring task is one task whose due date moves forward each time you complete or skip it. A missed recurring task stays overdue until you complete it, skip it, or move its due date yourself.
+A recurring task is one task whose due date moves forward each time you complete it. A missed recurring task stays overdue until you complete it or move its due date yourself.
 
 A recurring task's repeat builds on TickTick's repeat model. The [task settings guide](task-settings-guide.md) explains each setting with examples.
 
@@ -250,7 +252,21 @@ filter on "Garden" -> matches "Water plants"
 
 A task has notes: one Markdown text that holds the current facts. A task also has comments: a dated log of entries, each of which can hold images.
 
-A task's skip count is the number of times you skipped it since you last completed it. Run My Day computes it from history.
+A task's skip count is the number of times you skipped it since you last completed it. Run My Day computes it from history. Only skips you choose count. A block that ends before reaching a task does not raise its skip count: the task stays due, and a block that keeps running out shows the task as overbooked.
+
+Skipping a task means "not now", for every task, one-time or recurring. A skip changes nothing on the task: its due date stays the same, and a task without one stays without one. History records the skip, and the skip count shows a task you keep avoiding. To pass an occurrence of a recurring task, you move its due date yourself.
+
+```text
+"Fix sink" (one-time, no due date), in the morning routine
+
+Mon  you skip it  -> skip count 1, still no due date
+Tue  it plays again
+
+"Water plants", repeats Mon, Wed, Fri, due Mon
+
+Mon  you skip it  -> still due Mon, skip count 1
+Tue  overdue; it plays again
+```
 
 Tasks have no subtasks. To break work down, you split a task into several tasks in the same place.
 
@@ -343,6 +359,75 @@ Pack gym bag, estimate 5 min, wait for done
            countdown 0    you confirm done -> overtime +2:15, real time 7:15
 ```
 
+Run My Day announces nothing when a step's countdown reaches zero. When a step without "wait for done" reaches zero, it ends and the next step starts. The only sound then is the next step's start announcement, if that step has it on. When a step with "wait for done" reaches zero, it enters overtime with no sound. The only sound in overtime is the nag, if the step has nagging on.
+
+A step with "wait for done" can nag you while it is in overtime. Nagging is a setting on the step, off by default. Turning it on requires an interval of at least 5 seconds, 30 seconds by default. Nagging stops when you confirm done, extend, skip, or pause.
+
+```text
+Pack gym bag, estimate 5 min, wait for done, nagging every 30 s
+
+07:00    step starts
+07:05    countdown hits 0, overtime starts
+07:05:30 nag
+07:06    nag
+07:06:20 you confirm done -> nagging stops
+```
+
+A step can give three warnings, each its own setting on that step. Every step has its own warning settings, with no shared or inherited value:
+
+- **Halfway:** at the middle of the step's time.
+- **Time left:** a set time before the step's time runs out, any positive length.
+- **Next up:** a set time before the step's time runs out, announcing the next step.
+
+A new step starts with all three warnings off.
+
+Each announcement's setting lives on the thing it announces:
+
+| Announcement | Setting lives on |
+| --- | --- |
+| Block start | the block |
+| Step start | the step |
+| Routine start | the routine |
+| Routine complete | the routine |
+| Free time | your app settings, because free time belongs to no block |
+
+Announcements never overlap. Every announcement plays, one after another, in a predictable order. One that falls due while another plays waits for it. Announcements due at the same moment play in this order: block start, routine complete, routine start, step start, block-end warning, time left, halfway, next up, nag.
+
+```text
+Stretch, 10 min, halfway on, time left 5 min; the block ends at 07:30
+
+07:25  three fall due at once -> 1. block-end warning
+                                 2. "5 minutes left"
+                                 3. "Halfway through Stretch"
+```
+
+A new block starts with block start on. The free time announcement is on by default. A new routine starts with routine start and routine complete on. A new step starts with its step start announcement on. A step with step start, all warnings, and nagging off is silent: it starts and runs without a word.
+
+```text
+Workout routine, guided
+  Squats            step start on    "Squats, 5 minutes"
+  Put weights down  step start off   (silent 30-second filler step)
+  Lunges            step start on    "Lunges, 5 minutes"
+```
+
+```text
+07:00  "Morning block"               block start, set on the block
+07:00  "Morning routine"             routine start, set on the routine
+07:00  "Shower, 10 minutes"          step start, set on the step
+07:15  "Morning routine complete"    routine complete, set on the routine
+08:00  "Free time until 09:00"       set in app settings
+```
+
+```text
+Write report, step "Draft", 30 min, next step "Review"
+
+07:00  start
+07:15  halfway     "Halfway through Draft"
+07:25  time left   "5 minutes left"
+07:29  next up     "Next: Review"
+07:30  end
+```
+
 Confirming done before a step's time runs out ends the step early, records its real time, and starts the next step.
 
 ```text
@@ -354,7 +439,7 @@ Dishes, estimate 10 min
 
 #### Extend
 
-Extend adds time to the current step's countdown for this run only. The step's estimate does not change. Its real time, including the extension, still feeds learned estimates. An extension can be any positive length, in seconds, minutes, or hours. Extending a step in overtime gives it that much time from now.
+Extend adds time to the current step's countdown for this run only. The step's estimate does not change. Its real time, including the extension, still feeds learned estimates. An extension can be any positive length, in seconds, minutes, or hours. Extending a step in overtime gives it that much time from now. When an extension runs out, the step follows its own nagging setting, with no extra announcement.
 
 ```text
 Pack gym bag, estimate 5 min, wait for done
@@ -387,6 +472,51 @@ Clean kitchen (estimate 25 min)
   [x] Dishes     10 min
   [x] Counters    5 min
   [ ] Floor      10 min   <- next run starts here; counts 10 min toward block room
+```
+
+#### Pause
+
+You can pause at any time. While paused, all sound from Run My Day stops. Confirming done or skipping while paused ends the pause, and the next step starts at once. Paused time does not count toward a step's elapsed time or toward a view's minutes limit.
+
+```text
+Dishes, estimate 10 min
+
+0 ---- 4 min [paused 6 min] ---- resume at 4 min elapsed, 6 min left
+```
+
+A pause can have a length, any positive length in seconds, minutes, or hours. A timed pause ends by itself, and the run resumes.
+
+An appointment pauses a running routine with the same kind of pause. The pause lasts until you resume, even after the appointment ends.
+
+```text
+Dishes running, 4 min elapsed
+09:30  Dentist starts  -> paused; all sound stops; elapsed stays 4 min
+09:45  Dentist ends    -> still paused until you resume
+```
+
+A block that ends during a pause ends the pause and interrupts the step, the same as a running step.
+
+```text
+Workout block ends 10:00
+09:50  you pause during Squats, 3 of 5 min elapsed
+10:00  block ends -> pause ends; Squats is interrupted with 3 min elapsed
+                     and resumes the next time it runs
+```
+
+```text
+10:00  pause for 10 minutes
+10:10  pause ends by itself -> Dishes resumes
+```
+
+#### Undo
+
+Undo reverses your latest done or skip of a step, with no time limit. Only the latest one can be undone. The undone step's countdown continues as if the done never happened. The step that started after it goes back to not started, and its start is removed. Undoing a skip also takes it out of the skip count. Undo after the block ended starts nothing: the step goes back to not done. History records the undo itself as an action.
+
+```text
+09:00  Dishes starts
+09:06  you confirm done by mistake   -> Counters starts
+09:07  undo                          -> Dishes is current again, 7 min elapsed
+                                        Counters back to not started, its start removed
 ```
 
 #### Interruptions
