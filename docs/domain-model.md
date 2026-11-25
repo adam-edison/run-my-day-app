@@ -23,7 +23,9 @@ You can also run any routine or task on demand, without the calendar.
 ```mermaid
 flowchart LR
     Progression -->|one active at a time| Level["Level<br/>(a full plan)"]
-    Level -->|contains| Task["Recurring task<br/>(active only when its level is)"]
+    Level -->|contains| Session
+    Level -->|schedules by| Rotation
+    Session -->|ordered, at least one| Step
 ```
 
 ### Inside a project and a task
@@ -84,17 +86,13 @@ A recurring task's repeat builds on TickTick's repeat model. The [task settings 
 A repeat has one pattern kind:
 
 - **Every N days, weeks, months, or years**, repeating by due date or by completion date.
-- **Cycle of slots**, where a blank slot is a rest day, repeating by due date or by completion date.
 - **Specific dates**, repeating by due date.
-- **Quota:** a count over a sliding window, with optional rest days between sessions. The task is due whenever the current window is short of its count. Nothing carries over between windows.
 
 A repeat by due date sets the next due date from the old due date. A repeat by completion date sets it from when you finished.
 
 A repeat by due date has an "if missed" setting. **Jump to today**, the default, moves the due date to the next pattern date after today. **Every date is owed** moves it to the next pattern date after the old due date.
 
 A repeat ends never, on a date, or after a number of repeats.
-
-A quota must be achievable: with C sessions and R rest days between, the window must be at least (C - 1) x (R + 1) + 1 days.
 
 Tasks have no subtasks. To break work down, you split a task into several tasks in the same place.
 
@@ -126,30 +124,36 @@ Conditions can never be circular: no task can wait on itself.
 
 ### Progression
 
-A progression is an ordered list of levels. Each level is a whole training plan: a set of recurring tasks, each with its own schedule and step targets, over any span of days or weeks. For example, a push-up progression starts at 10 push-ups twice a week. It moves to four times a week, then to changing sets and reps, then to a two-week rotation of push-up types such as handstand push-ups one day and triangle push-ups another. Each level is a full plan on its own and lists all of its tasks, schedules, and targets. Exactly one level is active at a time.
+A progression is an ordered list of levels. Each level is a whole training plan: a set of sessions and one rotation for them, over any span of days or weeks. For example, a push-up progression starts at 10 push-ups twice a week. It moves to four times a week, then to changing sets and reps, then to a two-week rotation of push-up types such as handstand push-ups one day and triangle push-ups another. Each level is a full plan on its own and lists all of its sessions and its rotation. Exactly one level is active at a time.
 
-Each level owns the schedule for its tasks. The tasks inside a level have no repeat of their own. A level's schedule can be a rotation: an ordered list of slots, where each slot points at one of the level's tasks or is a rest day. For example, a 14-day rotation of standing postures with 2 rest days.
+### Session
 
-A rotation starts at its first slot on the day its level becomes active. A rotation waits for you: a missed slot stays due until you do it, and every later slot shifts by a day. A rest slot passes when a day passes.
+A session is a planned bout of practice inside a progression level, such as "Tree pose" or "Wide push-ups". A session has a title, steps, and an estimate, and its steps record metrics, the same as a task. A session is not a task: it has no repeat, no due date, no unlock conditions, and no place in a project or a task view. The level decides when a session is due. You can also run a session on demand.
 
-A task in a level gives up all its scheduling to the level. It has no repeat, no "if missed" setting, no end, no unlock conditions, and no due date of its own to move. It keeps its title, steps, estimate, and metrics. It shows up when the level says it is due, and you can run it on demand.
+A session belongs to exactly one level of one progression. When two levels or two progressions use the same exercise, each has its own session with its own history. Progress across them is tracked through a shared metric, such as "Tree hold, seconds".
 
-A skip on a level task means "not today": the rotation stays on the same slot, and history records the skip.
+### Rotation
 
-- The active level's tasks come due when the level's schedule says, show in lists, and can be run on demand outside a routine. Their completions count toward the progression's conditions.
-- Inactive levels' tasks are hidden everywhere except the progression editor. A move back down to a level makes that level's same tasks active again.
+A level's schedule is a rotation: an ordered list of slots, where each slot plays one of the level's sessions or is a rest day. For example, a 14-day rotation of standing postures with 2 rest days. Rotations exist only on progression levels.
 
-Blocks offer chances, and the schedule decides whether something plays at each chance. Blocks reserve time, and schedules decide what to do.
+A rotation starts at its first slot on the day its level becomes active. A rotation waits for you: a missed slot stays due until you do it, and every later slot shifts by a day. A rest slot passes when a day passes. A skip on a session means "not today": the rotation stays on the same slot, and history records the skip.
 
-A progression reaches your day only through a routine. A routine entry can be a progression. That entry plays the active level's tasks due that day and is skipped when nothing is due. The routine itself does not change when the level changes.
+### Levels in your day
 
-Each level has move-up and move-down conditions, and the progression changes levels automatically when they pass. The tasks inside a progression carry no level logic.
+- The active level's sessions come due when its rotation says, and their completions count toward the progression's conditions.
+- Inactive levels' sessions are hidden everywhere except the progression editor. A move back down to a level makes that level's same sessions active again.
+
+Blocks offer chances, and schedules decide whether something plays at each chance. Blocks reserve time, and schedules decide what to do.
+
+A progression reaches your day only through a routine. A routine entry can be a progression. That entry plays the active level's session due that day and is skipped on a rest slot. The routine itself does not change when the level changes.
+
+Each level has move-up and move-down conditions, and the progression changes levels automatically when they pass. Sessions carry no level logic.
 
 A move up waits while the new level would not fit in the blocks that run it. The move happens once the blocks have room.
 
 ### Step
 
-A step is a small unit of work inside a task. Steps run in order. Every step has an estimate. A step can record a metric value.
+A step is a small unit of work inside a task or a session. Steps run in order. Every step has an estimate. A step can record a metric value.
 
 ### Metric
 
@@ -198,12 +202,10 @@ Work runs in small steps, so nothing gets cut off midway. Transition time betwee
 These behaviors belong in OpenSpec specs once those exist.
 
 - When a move up waits, Run My Day tells you why, such as "Push-ups is ready for L3, but the Workout block is 10 minutes short".
-- When Run My Day refuses a setting, such as a circular condition or an impossible quota, it shows a plain message that explains how to fix it.
+- A new task gets one step with the task's title and estimate, so a simple task needs only a title and an estimate.- When Run My Day refuses a setting, such as a circular condition, it shows a plain message that explains how to fix it.
 
 ## Open
 
-- **Tasks in a progression:** whether a task view can pick a level task. Whether one task can belong to several levels, several progressions, or a routine entry as well.
-- **Quota and cycle on standalone tasks:** whether they live only on progression levels, with standalone tasks using the TickTick base alone. Whether a level schedule can also be a quota.
 
 - **Achievement:** not yet reviewed.
 - **Waiting level-up:** how to make it easy to give a waiting level-up room. To be designed later.
