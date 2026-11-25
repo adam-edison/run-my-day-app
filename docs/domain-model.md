@@ -23,15 +23,15 @@ You can also run any routine or task on demand, without the calendar.
 ```mermaid
 flowchart LR
     Progression -->|one active at a time| Level["Level<br/>(a full plan)"]
-    Level -->|contains| Task["Task<br/>+ schedule"]
+    Level -->|contains| Task["Recurring task<br/>(active only when its level is)"]
 ```
 
-### Inside a task
+### Inside a project and a task
 
 ```mermaid
 flowchart LR
-    Task -->|ordered| Step
-    Task -->|one-time tasks only| Subtask["Subtask<br/>(also a task)"]
+    Project -->|ordered, one-time only| Task
+    Task -->|ordered, at least one| Step
 ```
 
 ### Metrics and habits
@@ -75,15 +75,38 @@ A task view is a saved filter and sort over tasks. It is the only way a task out
 
 ### Task
 
-A task is the center of the domain. A task holds an ordered list of steps. A task with no steps runs as a single step. A recurring task comes back on its own schedule.
+A task is the center of the domain. A task holds an ordered list of steps and always has at least one step. A task's estimate is the sum of its steps' estimates. A recurring task comes back on its own schedule.
 
-A one-time task can hold one-time subtasks, nested to any depth you need. A recurring task never has subtasks and never sits inside another task.
+A recurring task is one task whose due date moves forward each time you complete or skip it. A missed recurring task stays overdue until you complete it, skip it, or move its due date yourself.
+
+A recurring task's repeat builds on TickTick's repeat model. The [task settings guide](task-settings-guide.md) explains each setting with examples.
+
+A repeat has one pattern kind:
+
+- **Every N days, weeks, months, or years**, repeating by due date or by completion date.
+- **Cycle of slots**, where a blank slot is a rest day, repeating by due date or by completion date.
+- **Specific dates**, repeating by due date.
+- **Quota:** a count over a sliding window, with optional rest days between sessions. The task is due whenever the current window is short of its count. Nothing carries over between windows.
+
+A repeat by due date sets the next due date from the old due date. A repeat by completion date sets it from when you finished.
+
+A repeat by due date has an "if missed" setting. **Jump to today**, the default, moves the due date to the next pattern date after today. **Every date is owed** moves it to the next pattern date after the old due date.
+
+A repeat ends never, on a date, or after a number of repeats.
+
+A quota must be achievable: with C sessions and R rest days between, the window must be at least (C - 1) x (R + 1) + 1 days.
+
+Tasks have no subtasks. To break work down, you split a task into several tasks in the same place.
 
 ### Project
 
-A project is one-time work that you create or mark as a project yourself. A one-time task with subtasks stays a plain task until you mark it. A project grows as you learn: you add parts you could not foresee, reorder them, and break them down across as many levels as you need. A project never contains a recurring task.
+A project is an ordered list of one-time tasks that you create as a project yourself. A project grows as you learn: you add tasks you could not foresee, reorder them, and split tasks into smaller tasks. A project never contains a recurring task. The depth is always project, then task, then step.
 
-Subtasks run in their set order. A later subtask waits for the earlier ones without any stored condition. Waiting subtasks stay visible as "up next" and are never hidden.
+A project's tasks run in their set order. A later task waits for the earlier ones without any stored condition. Waiting tasks stay visible as "up next" and are never hidden. A project's estimate is the sum of its tasks' estimates.
+
+### History
+
+History is the record of every action taken in Run My Day, such as completing a task, skipping a task, moving a due date, or logging a metric value. History belongs to no single entity.
 
 ### Condition
 
@@ -99,30 +122,34 @@ Any task, one-time or recurring, can have a list of unlock conditions. Most task
 
 A condition lives on the thing whose state it changes. A task carries its own unlock conditions. Anything that chooses between tasks belongs to a progression.
 
-Circular conditions are impossible. Run My Day refuses any condition that would make a task wait on itself.
+Conditions can never be circular: no task can wait on itself.
 
 ### Progression
 
 A progression is an ordered list of levels. Each level is a whole training plan: a set of recurring tasks, each with its own schedule and step targets, over any span of days or weeks. For example, a push-up progression starts at 10 push-ups twice a week. It moves to four times a week, then to changing sets and reps, then to a two-week rotation of push-up types such as handstand push-ups one day and triangle push-ups another. Each level is a full plan on its own and lists all of its tasks, schedules, and targets. Exactly one level is active at a time.
 
-Each task in a level has a schedule. A schedule can be one of:
+Each level owns the schedule for its tasks. The tasks inside a level have no repeat of their own. A level's schedule can be a rotation: an ordered list of slots, where each slot points at one of the level's tasks or is a rest day. For example, a 14-day rotation of standing postures with 2 rest days.
 
-- **Fixed days:** such as Monday, Wednesday, and Friday.
-- **Quota:** such as 2 sessions in any 7 days.
-- **Cycle:** an ordered list of slots, where a blank slot is a rest day, such as a 2-week rotation of push-up types.
-- **Interval:** such as every 3 days.
+A rotation starts at its first slot on the day its level becomes active. A rotation waits for you: a missed slot stays due until you do it, and every later slot shifts by a day. A rest slot passes when a day passes.
 
-Blocks offer chances, and the progression's schedule decides whether a session plays at each chance. This works the same way as tasks in blocks: blocks reserve time, and tasks decide what to do.
+A task in a level gives up all its scheduling to the level. It has no repeat, no "if missed" setting, no end, no unlock conditions, and no due date of its own to move. It keeps its title, steps, estimate, and metrics. It shows up when the level says it is due, and you can run it on demand.
+
+A skip on a level task means "not today": the rotation stays on the same slot, and history records the skip.
+
+- The active level's tasks come due when the level's schedule says, show in lists, and can be run on demand outside a routine. Their completions count toward the progression's conditions.
+- Inactive levels' tasks are hidden everywhere except the progression editor. A move back down to a level makes that level's same tasks active again.
+
+Blocks offer chances, and the schedule decides whether something plays at each chance. Blocks reserve time, and schedules decide what to do.
 
 A progression reaches your day only through a routine. A routine entry can be a progression. That entry plays the active level's tasks due that day and is skipped when nothing is due. The routine itself does not change when the level changes.
 
 Each level has move-up and move-down conditions, and the progression changes levels automatically when they pass. The tasks inside a progression carry no level logic.
 
-A move up waits while the new level would not fit in the blocks that run it. Run My Day tells you why the move is waiting, such as "Push-ups is ready for L3, but the Workout block is 10 minutes short". The move happens once the block has room.
+A move up waits while the new level would not fit in the blocks that run it. The move happens once the blocks have room.
 
 ### Step
 
-A step is a small unit of work inside a task. Steps run in order. A step can record a metric value.
+A step is a small unit of work inside a task. Steps run in order. Every step has an estimate. A step can record a metric value.
 
 ### Metric
 
@@ -166,11 +193,19 @@ You can start any routine or task on demand, outside the calendar, in either mod
 
 Work runs in small steps, so nothing gets cut off midway. Transition time between steps lets you catch your breath. Before something ends, Run My Day tells you what comes next and asks you to wrap up and leave the work in a good state. Run My Day encourages this practice and never enforces it.
 
+## Captured for later
+
+These behaviors belong in OpenSpec specs once those exist.
+
+- When a move up waits, Run My Day tells you why, such as "Push-ups is ready for L3, but the Workout block is 10 minutes short".
+- When Run My Day refuses a setting, such as a circular condition or an impossible quota, it shows a plain message that explains how to fix it.
+
 ## Open
 
+- **Tasks in a progression:** whether a task view can pick a level task. Whether one task can belong to several levels, several progressions, or a routine entry as well.
+- **Quota and cycle on standalone tasks:** whether they live only on progression levels, with standalone tasks using the TickTick base alone. Whether a level schedule can also be a quota.
+
 - **Achievement:** not yet reviewed.
-- **Progression:** what the up and down conditions look at; what happens to the old level's tasks when the level changes.
 - **Waiting level-up:** how to make it easy to give a waiting level-up room. To be designed later.
 - **Gap check:** how Run My Day finds tasks that need doing but have no place to run, and how far ahead it looks. Warnings about calendar availability belong here, not in schedules.
-- **Schedules:** whether progression schedules and recurring task repeat options are one shared concept.
 - **Task fields:** custom status names over fixed status categories, and fixed or custom priority levels. Deferred to the task spec.
