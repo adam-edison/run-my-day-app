@@ -36,32 +36,21 @@ Kinds:
 
 ## 12. View limits
 
-- [ ] **MISSING: a task view can include specific tasks.** KIV-50.6 #2.
-- [ ] **OPEN: can routines take part in alternation?** KIV-362.
 
 ## 13. Routine entries that cannot run
 
-- [ ] **MISSING: moved-past entries.** F1164–1173: a routine moves past a backlog or blocked task and announces the reason. Complete or canceled tasks are passed silently (F1165). DM does not say what a routine does with an entry that is locked, backlog, Waiting, canceled, or a later project task.
-- [ ] **CONFLICT: Waiting tasks.** KIV-50.12 #2–3: blocks and routines never pick a waiting task. On the follow-up date it shows as "Follow up with plumber". DM: Waiting's due date is the follow-up date, so the task would play on that date.
-- [ ] **MISSING: history records an entry as not due.** KIV-173 #4.
 
 ## 14. Calendar changes during a run
 
-- [ ] **MISSING: changes apply at the next task boundary.** F1064–1070: "A running task is never interrupted." A new end time moves the block end. A renamed or deleted event ends the block at the next task boundary. An event renamed to another block's title starts that block. KIV-158.9 leaves the rest open.
-- [ ] **OPEN: lengthening a block that already ended.** The user stated that Run My Day must pick up the new end time and resume where the block left off. Example: the Workout block ended at 10:00 during a pause, and Squats was interrupted with 3 of 5 min elapsed. At 10:05 you move the event's end to 10:30. The block runs again and Squats resumes at 3 min elapsed. To decide: how soon the change is picked up, and whether the block resumes by itself or waits for you.
-- [ ] **MISSING: overflow check after a change.** F1066.
-- [ ] **MISSING: read cadence.** F1056–1061, KIV-158.3 #3, #6–7: read 14 days ahead and 24 hours back. Re-read after every done and every 5 minutes. A failed read keeps the saved events.
 - [ ] **MISSING: calendar warnings.** F953: announced at the next task boundary, once per new problem, and never blocks anything.
 - [ ] **CONFLICT: overlaps.** F1090: no overlaps allowed: two appointments, two blocks, or an appointment and a block. KIV-158.2 #3–4: a block with an overlap does not start until the overlap is fixed. DM: an appointment takes its time out of a block. Block-to-block overlap is not covered.
 - [ ] **MISSING: return reminder.** F1146–1148: a vibration every 10 minutes after an appointment ends, until you report that you are back.
 
 ## 15. Manual mode and on-demand runs
 
-- [ ] **CONFLICT: manual mode.** F926: "The calendar always drives the day. There is no manual mode." DM has manual mode.
 - [ ] **MISSING: starting a block by hand.** F927–929: "Start Housework Block for 60 minutes". Refused if it overlaps any event.
 - [ ] **MISSING: an on-demand run creates a block.** F935–938: its length is the total estimate plus the transition buffer, and every block rule applies.
 - [ ] **MISSING: a running routine cannot be edited.** F1182–1183.
-- [ ] **OPEN: "wait for done" in manual mode.**
 - [ ] **OPEN: can an on-demand run overlap a block or an appointment?**
 
 ## 16. Day boundary and downtime
@@ -83,7 +72,6 @@ Kinds:
 
 ## 18. Progressions, habits, and goals
 
-- [ ] **MISSING: go easier.** F1421–1424, KIV-302.4: run today's session at a lower level, one level down by default, recorded like any session. DM levels have no matching sessions across levels.
 - [ ] **MISSING: when level checks run.** F1425: on finished days only, at the start of the day.
 - [ ] **CONFLICT: when a level change takes effect.** KIV-302.1 #12: at the end of the current pass, starting the new level at the first slot. DM: a rotation starts at its first slot on the day its level becomes active.
 - [ ] **CONFLICT: marking a slot missed.** KIV-302.1 #8–9: a missed slot advances to the next slot. DM: a skip keeps the rotation on the same slot.
@@ -93,7 +81,6 @@ Kinds:
 - [ ] **MISSING: lapse clock.** F1418: after a drop by lapse, the lapse clock restarts at the drop.
 - [ ] **MISSING: re-checking a waiting move up.** KIV-302.2 #4, F1428: each day, and on a "Check again" button.
 - [ ] **CONFLICT between sources: changing a level by hand.** KIV-162.8 #5: no button to change the level. F34: every field the app changes by itself can also be changed by hand.
-- [ ] **MISSING: first and last levels.** KIV-162.8 #6: the first level has no move-down conditions. The last level has no move-up conditions.
 - [ ] **MISSING: when celebrations play.** KIV-162.6 #1, KIV-162.8 #4: at the next block start or free time, never during a routine. F1404, F1434: at the next block start.
 - [ ] **CONFLICT: streaks.** KIV-162.4 #5: habits do not show or store streaks. DM: a habit shows its current streak. F1451 also has a miss allowance.
 - [ ] **MISSING: unfinished periods.** KIV-162.4 #4, F1445: only finished spans count. The current span never counts as a miss.
@@ -120,11 +107,11 @@ Kinds:
 - [ ] **OPEN: do Done and Extend act per loop?** KIV-51.5.
 - [ ] **OPEN: one history record per loop or per step?** KIV-51.5.
 - [ ] **OPEN: lowest and highest loop count.** KIV-51.5.
-- [ ] **OPEN: loop announcements.** KIV-436: the full phrase, whether warnings play in each loop, and whether every step in a looped routine says the loop number.
+- [ ] **OPEN: warnings in loops.** KIV-436: whether a looped step's warnings play in each loop.
 
 ## 22. Remaining list items not yet reviewed
 
-- [ ] **OPEN: guidance channels.** Guided mode says guidance comes through your choice of voice, sound cues, music cues, vibration, notifications, or silence. Only voice announcements and start sounds are defined. To decide: what music cues, vibration, and notifications do, and how you choose among the channels.
+- [ ] **OPEN: guidance channels.** The Guidance section says guidance comes through your choice of voice, sound cues, music cues, vibration, notifications, or silence. Only voice announcements and start sounds are defined. To decide: what music cues, vibration, and notifications do, and how you choose among the channels.
 - [ ] **OPEN: custom units for metrics.** The user stated this feature: you can define your own units, such as "bottle of water" = 16 fl oz and "large bottle of water" = 20 fl oz. A value entered in a custom unit converts to the metric's unit, here fluid ounces, when it is recorded. To decide: where custom units live, which metrics can use them, and what history keeps.
 - [ ] Timers (KIV-49)
 - [ ] Background music and playlists in routines (KIV-169, KIV-36)
