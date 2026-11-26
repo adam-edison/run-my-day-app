@@ -40,10 +40,6 @@ Every line of code and documentation is reviewed by a human, with no exceptions.
 
 One codebase serves Android, iOS, and web, with as close to feature parity as possible.
 
-## Offline
-
-The app works fully offline. Changes made offline sync when the connection returns.
-
 ## Event-driven client state
 
 Client state changes only in response to events. Components only display state.

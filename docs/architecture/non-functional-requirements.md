@@ -9,3 +9,7 @@ These constraints shape the architecture. Each one gets worked through when the 
 - **Calendar change latency.** Run My Day reacts to a calendar change within 1 minute of the edit. Example: at 10:05 you move the Workout event's end from 10:00 to 10:30, and the Workout block runs again by 10:06.
 
 - **History volume.** History records every action, including every edit to a definition, for every user every day. Its growth must not slow down Run My Day. Reads such as streaks, conditions, skip counts, and learned estimates scan history, so storage and queries need a design that keeps them fast as history grows.
+
+## Offline
+
+- **Offline use.** Run My Day works fully offline on every platform. Changes made offline sync when the connection returns. Example: on a hike with no signal, you complete a task on the phone, and the web app shows it complete once the phone reconnects.

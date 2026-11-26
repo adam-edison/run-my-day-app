@@ -55,12 +55,8 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
 
 ## 2. Documents to write, one at a time
 
-Each one needs a source for every claim, and each gets shown to the user before the next.
-
-- [ ] `docs/architecture/principles.md`. Move the 10 Guiding Principles out of `docs/architecture/technology-stack.md` and add the principles above. Two old principles change:
-  - "End-to-end verification of critical user workflows" becomes the test tiers.
-  - "Code-enforced constraints over instructional conventions" stays, with a note that meaning in docs and specs is checked by the user's review.
-- [ ] Add to `docs/architecture/non-functional-requirements.md`: "Run My Day works fully offline. Changes made offline sync when the connection returns."
+- [x] `docs/architecture/principles.md`
+- [x] Add offline use to `docs/architecture/non-functional-requirements.md`
 - [ ] Decision records in `docs/decisions/`, one per technology, in the format of DR-0003:
   - [ ] 0004 GitHub Issues for work tracking
   - [ ] 0005 OpenSpec for specs only (replaces part of DR-0002)
