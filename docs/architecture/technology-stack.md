@@ -1,18 +1,5 @@
 # Technology Stack
 
-## Guiding Principles
-
-- Single source of truth for schemas and contracts.
-- Static, deterministic enforcement as much as possible.
-- Runtime validation at boundaries.
-- Database-level enforcement of data integrity.
-- Explicit architectural and module boundaries.
-- Generated documentation over manually maintained documentation.
-- End-to-end verification of critical user workflows.
-- Minimal tooling and abstraction overhead.
-- Efficient context discovery for AI coding agents.
-- Code-enforced constraints over instructional conventions.
-
 ## Language & Type Safety
 
 - [TypeScript (Strict Mode)](https://www.typescriptlang.org/tsconfig/#strict) - Compile-time type safety, strict type checking, and typed interfaces across all application tiers.
