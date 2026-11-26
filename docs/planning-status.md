@@ -57,46 +57,46 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
 
 Each one needs a source for every claim, and each gets shown to the user before the next.
 
-1. `docs/architecture/principles.md`. Move the 10 Guiding Principles out of `docs/architecture/technology-stack.md` and add the principles above. Two old principles change:
-   - "End-to-end verification of critical user workflows" becomes the test tiers.
-   - "Code-enforced constraints over instructional conventions" stays, with a note that meaning in docs and specs is checked by the user's review.
-2. Add to `docs/architecture/non-functional-requirements.md`: "Run My Day works fully offline. Changes made offline sync when the connection returns."
-3. Decision records in `docs/decisions/`, one per technology, in the format of DR-0003:
-   - 0004 GitHub Issues for work tracking
-   - 0005 OpenSpec for specs only (replaces part of DR-0002)
-   - 0006 Expo for Android, iOS, and web (proposed)
-   - 0007 XState for client state
-   - 0008 Vitest
-   - 0009 React Testing Library
-   - 0010 Playwright for web boundary tests
-   - 0011 Maestro for device tests
-   - 0012 Git worktrees, including Varlock
-   - Later: one record for each remaining technology in `technology-stack.md`, such as Fastify, oRPC, Zod, Drizzle, PostgreSQL, TanStack Query, Better Auth, kokoro-js, ONNX Runtime, Sentry, Pino, Renovate, Doppler, ESLint, Knip, Prettier, Husky, commitlint, fast-check, and rrule. Each needs a rationale.
+- [ ] `docs/architecture/principles.md`. Move the 10 Guiding Principles out of `docs/architecture/technology-stack.md` and add the principles above. Two old principles change:
+  - "End-to-end verification of critical user workflows" becomes the test tiers.
+  - "Code-enforced constraints over instructional conventions" stays, with a note that meaning in docs and specs is checked by the user's review.
+- [ ] Add to `docs/architecture/non-functional-requirements.md`: "Run My Day works fully offline. Changes made offline sync when the connection returns."
+- [ ] Decision records in `docs/decisions/`, one per technology, in the format of DR-0003:
+  - [ ] 0004 GitHub Issues for work tracking
+  - [ ] 0005 OpenSpec for specs only (replaces part of DR-0002)
+  - [ ] 0006 Expo for Android, iOS, and web (proposed)
+  - [ ] 0007 XState for client state
+  - [ ] 0008 Vitest
+  - [ ] 0009 React Testing Library
+  - [ ] 0010 Playwright for web boundary tests
+  - [ ] 0011 Maestro for device tests
+  - [ ] 0012 Git worktrees, including Varlock
+  - [ ] Later: one record for each remaining technology in `technology-stack.md`, such as Fastify, oRPC, Zod, Drizzle, PostgreSQL, TanStack Query, Better Auth, kokoro-js, ONNX Runtime, Sentry, Pino, Renovate, Doppler, ESLint, Knip, Prettier, Husky, commitlint, fast-check, and rrule. Each needs a rationale.
 
 ## 3. Domain model wrap-up (step 2 of planning)
 
-1. **Create `docs/glossary.md`:** every term, with a definition and an example. Definitions use only glossary terms.
-2. **Shrink `docs/domain-model.md` to the overview:** the diagrams of how items relate. Behavior rules move into OpenSpec capability specs as requirements with scenarios, and most existing examples become scenarios.
-3. **Open proofread questions:**
-   - A repeating block list that contains a routine plays the routine on every pass. Confirm this. The recommendation is yes, as written.
-   - Fixed numbers that might need to be settings: appointment warnings (10 and 5 minutes), an appointment pause lasting until you resume, the 7-day window for unscheduled tasks, and the 5 and 3 loop counts for learned estimates.
-4. **Open question:** two blocks whose events overlap. Options: the later block takes over, the running block finishes first, or overlaps are refused.
-5. **`docs/domain-model-review.md`** has about 60 remaining items. Most are edge cases, and they should be decided inside each capability's OpenSpec change rather than all up front. The new features in it aren't needed for an MVP:
-   - seasonal tasks, conditions on steps, and custom metric units
-   - guidance channels (music cues, vibration, notifications)
-   - timers, background music and playlists, and summaries
-   - QR scan tasks, Sleep events, and the return reminder after an appointment
-   - on-demand runs
-   - more repeat options, projects in any order, and project dependencies
-   - editing past runs, spacing between steps, and draft or paused progressions
+- [ ] **Create `docs/glossary.md`:** every term, with a definition and an example. Definitions use only glossary terms.
+- [ ] **Shrink `docs/domain-model.md` to the overview:** the diagrams of how items relate. Behavior rules move into OpenSpec capability specs as requirements with scenarios, and most existing examples become scenarios.
+- [ ] **Open proofread questions:**
+  - [ ] A repeating block list that contains a routine plays the routine on every pass. Confirm this. The recommendation is yes, as written.
+  - [ ] Fixed numbers that might need to be settings: appointment warnings (10 and 5 minutes), an appointment pause lasting until you resume, the 7-day window for unscheduled tasks, and the 5 and 3 loop counts for learned estimates.
+- [ ] **Open question:** two blocks whose events overlap. Options: the later block takes over, the running block finishes first, or overlaps are refused.
+- [ ] **`docs/domain-model-review.md`** has about 60 remaining items. Most are edge cases, and they should be decided inside each capability's OpenSpec change rather than all up front. The new features in it aren't needed for an MVP:
+  - seasonal tasks, conditions on steps, and custom metric units
+  - guidance channels (music cues, vibration, notifications)
+  - timers, background music and playlists, and summaries
+  - QR scan tasks, Sleep events, and the return reminder after an appointment
+  - on-demand runs
+  - more repeat options, projects in any order, and project dependencies
+  - editing past runs, spacing between steps, and draft or paused progressions
 
 ## 4. Remaining planning steps
 
-1. **MVP scope:** pick the capabilities for the first version.
-2. **Architecture:** finish principles, constraints, security, and performance.
-3. **Technology decisions:** the decision records above, plus the Expo web trial and service worker.
-4. **Feature roadmap:** an ordered list of GitHub issues.
-5. **First OpenSpec change.**
+- [ ] **MVP scope:** pick the capabilities for the first version.
+- [ ] **Architecture:** finish principles, constraints, security, and performance.
+- [ ] **Technology decisions:** the decision records above, plus the Expo web trial and service worker.
+- [ ] **Feature roadmap:** an ordered list of GitHub issues.
+- [ ] **First OpenSpec change.**
 
 ## 5. How the user wants to work
 
