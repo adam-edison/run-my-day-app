@@ -24,60 +24,19 @@ Kinds:
 
 ## 5. Pause
 
-- [ ] **MISSING: block-end warning during a pause.** F1106: it plays on resume, with the minutes actually left.
 
 ## 6. Nagging, warnings, and announcements
 
-- [ ] **MISSING: loop number.** KIV-436 #1–3: "1 of 15" at the start of each loop.
-- [ ] **MISSING: sound mode during an appointment.** F317–320, F1140–1142: an appointment sets vibrate mode until you report that you are back.
 
 ## 7. Prompts and metrics on done
 
-- [ ] **MISSING: prompts repeat.** F430–435: a prompt that waits for an answer repeats every 30 seconds until answered. The interval is a global setting.
-- [ ] **MISSING: metric recording modes.** F503–521, KIV-162.2 #2–6: each metric on a task or step records Automatic, Default with prompt, or Prompt. Silence for 5 seconds records the default. "done with N" records N. Every way of completing records the metrics (F517). The next task is announced after the last metric (F521).
-- [ ] **OPEN: metrics per loop or after the last loop.** KIV-51.5.
 
-## 8. Waits
 
-- [ ] **MISSING: waits, such as laundry.** F129–136, F493–499: "A wait counts from the done of the task before it. During a wait, the routine waits and the block continues: the block's next view starts." A wait sits between tasks, never inside one. If nothing else is left, free time runs until the wait ends. DM routine entries cannot express a wait.
 
-## 9. Block start
-
-- [ ] **MISSING: overstuffing prompt.** F1119–1131: when a block starts with more content than time, no task starts. "Tasks overflow by N minutes. Continue, or fix?" The check runs again at every task boundary, including a skip. After Continue, it does not ask again in that block.
-- [ ] **MISSING: transition buffer.** F1109: every block has a transition buffer, 5 minutes by default, counted in the overstuffing check. DM's Transitions section gives no amount.
-- [ ] **MISSING: block start announcement.** F958, KIV-158.2 #6: a block's name is announced every time it starts.
-- [ ] **MISSING: title match ignores case.** F925, KIV-158.2 #1.
-- [ ] **MISSING: all-day events never start blocks.** KIV-158.2 #8.
-- [ ] **MISSING: minimum block length.** F1082–1084: an event shorter than 15 minutes is ignored, with a warning.
-- [ ] **MISSING: events that match no block.** F946–947: the event still reserves its time and nothing runs. KIV-158.2 #7: it does not count as free time.
-
-## 10. Block end
-
-- [ ] **MISSING: five-minute warning.** F1103–1105: global setting, on by default. It does not play once free time was announced.
-- [ ] **CONFLICT: what happens at block end.** KIV-158.5 #2–5: "Finish routine or Stop at block end", and with no answer the routine finishes. F1102: the routine stops. KIV-158.2 #5: a block starting while a routine overruns waits for it. DM: a running step stops at the block end.
-- [ ] **CONFLICT: Catch up block.** F1111–1113: every unfinished task becomes unfinished at block end, and a "Catch up" block appears. DM: the task stays due, with no leftovers list.
-- [ ] **MISSING: a routine cut short is incomplete in history.** F1110.
-- [ ] **OPEN: a block that ends while a step is in overtime.**
-- [ ] **OPEN: what a non-repeating block does when its list finishes early.**
-
-## 11. Free time
-
-- [ ] **MISSING: free time.** KIV-158.7 #1–4, F960–963: time without a running routine, a running block, or an appointment. It is announced with its end and the next event, or "for the rest of the day".
-- [ ] **MISSING and CONFLICT between sources: a block that finishes early.** KIV-158.7 #4: the block ends early and free time starts. F1114: free time is announced, and nothing plays at the event's end.
-- [ ] **MISSING: free time never runs unfinished tasks.** F1241.
 
 ## 12. View limits
 
-- [ ] **MISSING: a task picked by two views runs in the view listed first.** F977.
-- [ ] **MISSING: a task runs once per block.** F969.
-- [ ] **MISSING: a cut task finished elsewhere is passed over.** F981.
-- [ ] **MISSING: a task cut at its view's last appearance waits for the block's end.** F983.
-- [ ] **MISSING: resuming says "Resuming Write report." and does not repeat the step.** F973, F979.
-- [ ] **MISSING: planning counts what each appearance plans to run.** F985–986.
-- [ ] **MISSING: a view's end is not a task boundary and plays no warning.** F988.
 - [ ] **MISSING: a task view can include specific tasks.** KIV-50.6 #2.
-- [ ] **OPEN: does a resumed partial task count toward a tasks limit?**
-- [ ] **OPEN: Extend or overtime against a minutes limit.**
 - [ ] **OPEN: can routines take part in alternation?** KIV-362.
 
 ## 13. Routine entries that cannot run
@@ -165,6 +124,7 @@ Kinds:
 
 ## 22. Remaining list items not yet reviewed
 
+- [ ] **OPEN: custom units for metrics.** The user stated this feature: you can define your own units, such as "bottle of water" = 16 fl oz and "large bottle of water" = 20 fl oz. A value entered in a custom unit converts to the metric's unit, here fluid ounces, when it is recorded. To decide: where custom units live, which metrics can use them, and what history keeps.
 - [ ] Timers (KIV-49)
 - [ ] Background music and playlists in routines (KIV-169, KIV-36)
 - [ ] Routine run history (KIV-164)
