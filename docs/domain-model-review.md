@@ -124,6 +124,7 @@ Kinds:
 
 ## 22. Remaining list items not yet reviewed
 
+- [ ] **OPEN: guidance channels.** Guided mode says guidance comes through your choice of voice, sound cues, music cues, vibration, notifications, or silence. Only voice announcements and start sounds are defined. To decide: what music cues, vibration, and notifications do, and how you choose among the channels.
 - [ ] **OPEN: custom units for metrics.** The user stated this feature: you can define your own units, such as "bottle of water" = 16 fl oz and "large bottle of water" = 20 fl oz. A value entered in a custom unit converts to the metric's unit, here fluid ounces, when it is recorded. To decide: where custom units live, which metrics can use them, and what history keeps.
 - [ ] Timers (KIV-49)
 - [ ] Background music and playlists in routines (KIV-169, KIV-36)

@@ -1,7 +1,5 @@
 # Domain Model
 
-The task is the center of the domain. Blocks, routines, task views, and progressions arrange tasks. Steps inside tasks record metrics. Habits measure metrics after the fact.
-
 Each setting controls only its own behavior. No setting changes what another setting does.
 
 ## Overview
@@ -90,7 +88,7 @@ flowchart LR
 
 ### Calendar
 
-The calendar holds your schedule. Run My Day reads it and never changes it.
+Run My Day reads the calendar and never changes it.
 
 Each connected calendar is a blocks calendar or an appointments calendar. An event on a blocks calendar starts a block. An event on an appointments calendar is an appointment, such as a dentist visit. Run My Day warns you before each appointment, and a running routine pauses during it.
 
@@ -146,7 +144,7 @@ Morning block event 07:00-07:30, Tidy view picks tasks tagged "Home"
 07:22  you capture "Wipe mirror" tagged Home -> "Morning" -> Wipe mirror runs
 ```
 
-A block reserves no transition time. Time inside a block is shaped only by its list and its views' limits, which block planning shows ahead of time.
+A block reserves no transition time.
 
 A block runs its list in order. The list can hold the same task view more than once. Each time a view appears again, it continues where it left off. A block can repeat its list until the block ends. A repeating block stops early when no view in its list has a task left to pick.
 
@@ -200,7 +198,7 @@ Errands view: limit 10 min
 7 min   next step C is 5 min, only 3 min left -> switch now, C waits
 ```
 
-When several views in a block would pick the same task, the view whose appearance reaches it first runs it. Once a task completes, no view picks it again in that block run. A skipped task stays out of every view for the rest of the block's calendar event, because a skip means "not now". This holds across restarts of the block within the same event. The task can come back in a later event of that block, or in another block.
+When several views in a block would pick the same task, the view whose appearance reaches it first runs it. Once a task completes, no view picks it again in that block run. A skipped task stays out of every view for the rest of the block's calendar event, because a skip means "not now". This holds across restarts of the block within the same event.
 
 ```text
 Work block event 09:00-10:00, repeating: Email view (limit 1), Urgent view (limit 1)
@@ -241,7 +239,7 @@ history: Shower done, Pack gym bag interrupted (3 of 5 min), Vitamins not reache
          Morning routine run: incomplete
 ```
 
-A task that a stopped routine did not reach stays due. It plays at the routine's next run and shows wherever due and overdue tasks show. A routine keeps no list of leftovers.
+A task that a stopped routine did not reach stays due. It plays at the routine's next run and shows wherever due and overdue tasks show.
 
 Each entry plays only when its own schedule says:
 
@@ -283,7 +281,7 @@ A task view is a saved filter and sort over tasks. It is the only way a task out
 
 ### Task
 
-A task holds an ordered list of steps and always has at least one step. A task's estimate is the sum of its steps' estimates. A recurring task comes back on its own schedule.
+A task holds an ordered list of steps and always has at least one step. A task's estimate is the sum of its steps' estimates.
 
 A task can have a due date, with an optional due time. A due time follows the clock: "due Friday 02:00" means 02:00 on calendar Friday. A due date without a time lasts until your day ends: with the day starting at 4:00, "due Friday" ends at 4:00 on Saturday. A "day starts at" setting, 4:00 by default, decides which date counts as today for every day rule, such as due today and repeats. Every day rule uses the time zone stored in your settings.
 
@@ -360,7 +358,7 @@ Tasks have no subtasks. To break work down, you split a task into several tasks 
 
 ### Project
 
-A project is an ordered list of one-time tasks that you create as a project yourself. A project never contains a recurring task. The depth is always project, then task, then step.
+A project is an ordered list of one-time tasks. A project never contains a recurring task. The depth is always project, then task, then step.
 
 A project's tasks run in their set order. A later task waits for the earlier ones without any stored condition. Waiting tasks stay visible as "up next" and are never hidden. A project's estimate is the sum of its tasks' estimates.
 
@@ -385,7 +383,7 @@ Any task, one-time or recurring, can have a list of unlock conditions. Each task
 
 A task has no start date. A project can have one instead.
 
-A condition lives on the thing whose state it changes. A task carries its own unlock conditions.
+A condition lives on the thing whose state it changes.
 
 Conditions can never be circular: no task can wait on itself.
 
@@ -393,7 +391,7 @@ Run My Day refuses to delete anything that an unmet condition points at, such as
 
 ### Progression
 
-A progression is an ordered list of levels. Each level is a whole training plan: a set of sessions and one rotation for them, over any span of days or weeks. For example, a push-up progression starts at 10 push-ups twice a week. It moves to four times a week, then to changing sets and reps, then to a two-week rotation of push-up types such as handstand push-ups one day and triangle push-ups another. Exactly one level is active at a time.
+A progression is an ordered list of levels. Each level is a whole training plan: a set of sessions and one rotation for them. For example, a push-up progression starts at 10 push-ups twice a week. It moves to four times a week, then to changing sets and reps, then to a two-week rotation of push-up types such as handstand push-ups one day and triangle push-ups another. Exactly one level is active at a time.
 
 ### Session
 
@@ -411,9 +409,10 @@ A rotation starts at its first slot on the day its level becomes active. A rotat
 
 - The active level's sessions come due when its rotation says, and their completions count toward the progression's conditions.
 - Inactive levels' sessions are hidden everywhere except the progression editor. A move back down to a level makes that level's same sessions active again.
-A progression reaches your day only through a routine. A routine entry can be a progression. That entry plays the active level's session due that day and is skipped on a rest slot. The routine itself does not change when the level changes.
 
-Each level has move-up and move-down conditions, and the progression changes levels automatically when they pass. Sessions carry no level logic.
+A progression reaches your day only through a routine. A routine entry that is a progression plays the active level's session due that day and is skipped on a rest slot. The routine itself does not change when the level changes.
+
+Each level has move-up and move-down conditions, and the progression changes levels automatically when they pass.
 
 A level's number is its position in the progression's order. Goals and conditions point at a level itself, never at its number. Adding or reordering levels renumbers them, and each goal and condition still points at the same level. The active level stays active when levels are added around it. A move up goes to the next level in the current order. Every level stays editable, including reached levels.
 
@@ -433,7 +432,7 @@ A step is a small unit of work inside a task or a session. Steps run in order. E
 
 #### Running steps
 
-Exactly one step is current at a time. It stays current until you confirm it done, its time runs out without "wait for done", you skip it, you start a wait on it, a view limit ends at its boundary, or an interruption stops it. You complete steps one at a time, wherever the task runs: in a routine, from a task view, or on demand.
+Exactly one step is current at a time. It stays current until you confirm it done, its time runs out without "wait for done", you skip it, you start a wait on it, a view limit ends at its boundary, or an interruption stops it.
 
 Each step has a "wait for done" setting. In guided mode, a step without it moves to the next step when its time runs out. A step with it counts into overtime until you confirm it is done. Confirming sets the step's real end time. The last step of a task follows its own setting too, so a task whose last step does not wait for done completes when that step's time runs out.
 
@@ -463,7 +462,7 @@ Pack gym bag, estimate 5 min, wait for done, nagging every 30 s
 07:06:20 you confirm done -> nagging stops
 ```
 
-A step can give three warnings, each its own setting on that step. Every step has its own warning settings, with no shared or inherited value:
+A step can give three warnings, each its own setting on that step:
 
 - **Halfway:** at the middle of the step's time.
 - **Time left:** a set time before the step's time runs out, any positive length.
@@ -485,7 +484,7 @@ Each announcement's setting lives on the thing it announces:
 | Routine complete | the routine |
 | Free time | your app settings, because free time belongs to no block |
 
-Announcements never overlap. Every announcement plays, one after another, in a predictable order. One that falls due while another plays waits for it. Announcements due at the same moment play in this order: block end, block start, overbooked, routine complete, routine start, resuming, step start, block-end warning, time left, halfway, next up, nag.
+Announcements never overlap. One that falls due while another plays waits for it. Announcements due at the same moment play in this order: block end, block start, overbooked, routine complete, routine start, resuming, step start, block-end warning, time left, halfway, next up, nag.
 
 ```text
 Stretch, 10 min, halfway on, time left 5 min; the block ends at 07:30
@@ -688,7 +687,7 @@ A wait step is a kind of step that sits between two steps of a task, such as "Dr
 | Pause and appointments | its timer stops | its timer keeps running |
 | After it ends | the next step starts at once | the next step returns at the next step boundary |
 
-When a wait step starts, its task goes to the background, and Run My Day runs the block's other work in the foreground. When the wait step's time runs out, the task returns at the next step boundary, so the returning task does not cut the current step. The task plays its resuming announcement, and its next step becomes the current step. A wait step's timer keeps running through pauses and appointments, because it tracks something in the real world, such as a dryer. A wait step that ends during a pause returns its task when you resume.
+When a wait step starts, its task goes to the background, and Run My Day runs the block's other work in the foreground. When the wait step's time runs out, the task returns at the next step boundary, so the returning task does not cut the current step. The task plays its resuming announcement, and its next step becomes the current step. A wait step that ends during a pause returns its task when you resume.
 
 ```text
 Laundry task
@@ -772,7 +771,7 @@ You can start a wait at any time, even in free time with no task running. Run My
 10:17  the wait ends -> "Ride is here" interrupts whatever is running
 ```
 
-You can also make the current step wait, for any length you choose. Run My Day inserts a temporary wait step of that length before the current step, and the task goes to the background. When the wait step ends, the current step returns with its elapsed time, and the temporary wait step is deleted. History keeps the record of it. A wait is not a skip: the skip count does not change.
+You can also make the current step wait, for any length you choose. Run My Day inserts a temporary wait step of that length before the current step, and the task goes to the background. When the wait step ends, the current step returns with its elapsed time, and the temporary wait step is deleted. A wait is not a skip: the skip count does not change.
 
 ```text
 "Call dentist" task:  Call
@@ -854,6 +853,7 @@ A step records its metrics however it ends: when you confirm done, or when its t
 A habit measures unplanned behavior after the fact. You log it when it happens, such as logging 24 oz each time you finish a water bottle. A habit's metric values come mostly from free entries, and sometimes from steps in tasks. A habit creates no tasks. A habit updates automatically from metric values. You never tick off a habit directly.
 
 A habit can nudge you during the day based on how you are doing against its target, such as "30 of 60 oz, and it's 3 pm". Each habit sets how often it nudges, including never.
+
 A habit can have levels. Each level sets a higher target, and conditions move the habit up or down automatically. For example, a water habit starts at 60 oz a day. After 7 days in a row at or above the target, it moves to 70 oz, then 80 oz, then 100 oz, which is the top level. A habit stays at its top level once it gets there. A habit level's number is its position. Goals and conditions point at a habit level itself, never at its number.
 
 A habit measures its target over a sliding window of N days, weeks, months, or years. For example, "gym 3 times in any 7 days".
@@ -924,8 +924,3 @@ Free time is time with no block running, no appointment, no unmatched block even
 09:00-09:30  Dentist, an appointment, not free time
 09:30-       free time   "Free time for the rest of the day"
 ```
-
-### Transitions
-
-Before something ends, Run My Day tells you what comes next and asks you to wrap up and leave the work in a good state.
-
