@@ -61,7 +61,7 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
   - [x] 0004 Expo for Android, iOS, and web (proposed)
   - [x] 0005 XState for client state
   - [x] 0006 Vitest for core and server tests
-  - [ ] 0007 Jest, jest-expo, and React Native Testing Library for display tests
+  - [x] 0007 Jest, jest-expo, and React Native Testing Library for display tests
   - [ ] 0008 Playwright for web boundary tests
   - [ ] 0009 Maestro for device tests
   - [ ] 0010 Git worktrees, including Varlock
