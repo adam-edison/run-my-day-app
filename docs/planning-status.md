@@ -66,6 +66,7 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
   - [x] 0009 Playwright for web boundary tests
   - [ ] 0010 Maestro for device tests
   - [ ] 0011 Git worktrees, including Varlock
+  - [ ] Update `docs/architecture/technology-stack.md` to match decision records 0004 to 0011, such as adding Jest, jest-expo, and React Native Testing Library
   - [ ] Later: work tracking with GitHub Issues, and whether OpenSpec is used
   - [ ] Later: one record for each remaining technology in `technology-stack.md`, such as Fastify, oRPC, Zod, Drizzle, PostgreSQL, TanStack Query, Better Auth, kokoro-js, ONNX Runtime, Sentry, Pino, Renovate, Doppler, ESLint, Knip, Prettier, Husky, commitlint, fast-check, and rrule. Each needs a rationale.
 
