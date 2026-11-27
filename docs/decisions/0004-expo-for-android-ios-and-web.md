@@ -11,6 +11,8 @@ Run My Day runs on Android, iOS, and web. The phone is used both to plan the day
 
 The client is one Expo codebase for Android, iOS, and web.
 
+Code is shared by default. Code for one platform is added only where that platform needs it, such as background audio, which iOS and Android each configure differently. Platform code is kept in platform-specific files, such as `Player.ios.tsx`, and never in the client state actors.
+
 Expo's web build is exported as static files. Offline use on the web is provided by a service worker, generated with Workbox after the export. Expo API routes are not used. The server is a separate Fastify server.
 
 The status stays Proposed until a trial passes: one screen plus a service worker in Expo web, working offline.
