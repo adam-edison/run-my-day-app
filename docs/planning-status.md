@@ -2,85 +2,15 @@
 
 Repository: `/Users/aedison/repositories/run-my-day-app`, branch `main`. This is planning only: no code yet.
 
-## 1. Decisions made
+## 1. Documents to write
 
-### Domain model (written into `docs/domain-model.md`)
+- [ ] Update `docs/architecture/technology-stack.md` to match decision records 0004 to 0016, such as adding Jest, jest-expo, React Native Testing Library, and expo-sqlite
 
-- **Task view filters** follow the Notion model. A filter is a group that matches all or any of its conditions. A condition is a field condition or another group. Groups nest at most 3 levels deep. One condition type matches tasks whose ID is in a chosen list.
-- **Routines take no limit.** Each run of a routine runs it from start to end. Only task views take limits.
-- **Lower level for one run.** Right before a session starts, you can choose a lower level, never a higher one, and then pick one of that level's sessions. The run records metrics like any other run. Level conditions are metric conditions, so the run counts toward a condition only if its metrics meet it. The active level and its rotation slot don't change.
-- **Level limits.** Move-down conditions are optional. The top level has no move-up conditions, and the bottom level has no move-down conditions. This applies to both progressions and habits.
-- **Entries that can't run.** A task entry that can't run is passed over, with no announcement: a task in backlog, canceled, or complete; a task with an unmet unlock condition; or a project task with an earlier task in the project not complete.
-- **Waiting status.** A task in the Waiting status plays like any other task when it's due. Its due date is the follow-up date.
-- **History** records only actions. Passing over an entry that isn't due isn't recorded.
-- **Calendar changes.** A block's times always come from its event as last read, and the existing block start and end rules apply. When an event is extended past now after its block ended, the block starts again from the point where it ended.
-- **Calendar reads** cover 24 hours back to 14 days ahead. A failed read keeps the last good read.
-- **Loop numbers.** There's no separate loop number announcement. Loop number and loop total are variables in the step start template, so you add a step to speak the count wherever it belongs. Examples: "Round 1 of 3" at the start of a circuit round, or a "Count" step after In, Hold, Out in breathing.
-- **Guidance is always on.** There's no guided or manual mode, and no on/off.
-- **Project tasks** run in order. A task can run only when every earlier task in the project is complete. Every project task stays visible.
-- **Terms:** a block list has *positions*, and each time a task view's position runs is a *run*.
-
-### Non-functional requirement (written)
-
-Run My Day reacts to a calendar change within 1 minute.
-
-### Process and architecture (agreed, not yet written as decision records)
-
-- **Work tracking (DR-0015):** a milestone holds parent issues, one per feature. Each feature is built through one OpenSpec change, and each group in its `tasks.md` is one pull request.
-- **No custom process tooling.** Use off-the-shelf tools only. Kivaro failed partly because maintaining its factory, tickets, scripts, and test runners replaced building the product.
-- **One repository with git worktrees,** no repository copies.
-- **Client:** one Expo codebase for Android, iOS, and web, with feature parity, so the phone can do both planning and running.
-  - The server stays a custom Fastify server with oRPC, WebSockets, and Postgres.
-  - Expo's web output is static files, and Expo API routes aren't used.
-  - Status: proposed, until a trial of one screen plus a service worker in Expo web passes.
-- **Client state:** an event-driven state model, using the Elm Architecture with XState actors.
-  - Every input is an event: user actions, audio events, timer ticks, server messages, online and offline.
-  - Pure update logic returns the new state plus effects, and a thin shell carries out the effects.
-  - The state is split into small actors that talk only through events: Day, Block run, Task run, Waits, Announcer, and Sync.
-  - Each actor uses nested and parallel states (statecharts), and each module is built around one type.
-  - Actors live in a shared core package. Components display state only.
-  - This targets the race conditions that were most of kivaro's front-end bugs.
-- **Offline is required** on every platform.
-- **Test tiers:**
-
-| Tier | Tool | When it runs |
-| --- | --- | --- |
-| Unit and display | Vitest, React Testing Library | Every commit |
-| Boundary: web, service worker, APIs, database | Vitest, Playwright (`--changed`, `--only-changed`, Actions `paths` filters) | When that boundary changes, before a release, and on a schedule |
-| Device: emulator | Maestro in CI (stock emulator action) | When native code changes, and before a release |
-| Device: real phone | Maestro, `phone` tag, run by the user | Before a release |
-| Perception: sound, speech, timing by ear | Manual checklist in the GitHub issue | When that behavior changes |
-
-There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be reused, but not its 42 runner scripts or its manual-testing app.
-
-## 2. Documents to write, one at a time
-
-- [x] `docs/architecture/principles.md`
-- [x] Add offline use to `docs/architecture/non-functional-requirements.md`
-- [ ] Decision records in `docs/decisions/`, one per technology, in the format of DR-0003:
-  - [x] 0004 Expo for Android, iOS, and web (proposed)
-  - [x] 0005 XState for client state
-  - [x] 0006 Vitest for core and server tests
-  - [x] 0007 Jest, jest-expo, and React Native Testing Library for display tests
-  - [x] 0008 Chromium-based desktop browsers only
-  - [x] 0009 Playwright for web boundary tests
-  - [x] 0010 Maestro for device tests
-  - [x] 0011 Git worktrees, including Varlock
-  - [ ] Update `docs/architecture/technology-stack.md` to match decision records 0004 to 0011, such as adding Jest, jest-expo, and React Native Testing Library
-
-### Open decisions, in order
-
-Build approach:
-
-- [x] Web first (DR-0012): every feature is built in the Expo web build before mobile work. Early mobile work is limited to trials of phone capabilities: background audio with the screen locked, on-device text-to-speech speed, audio timing, and local storage. The Expo web trial from DR-0004 is the first task.
-- [x] Layers or vertical slices (DR-0013: walking skeleton, then vertical slices by feature)
-- [x] Parallel worktrees or single-threaded work, with one human reviewer (DR-0014: parallel worktrees, with one big task at a time)
-- [x] Work tracking with GitHub Issues and OpenSpec changes (DR-0015)
+## 2. Open decisions, in order
 
 Core architecture:
 
-- [ ] Offline storage on the client: SQLite, IndexedDB, or one library for both
-- [ ] Sync: how offline changes queue, and how conflicts between devices are resolved
+- [ ] Sync: how offline changes queue, how conflicts between devices are resolved, and the length of the recent history window kept on each device
 - [ ] TanStack Query: kept, dropped, or limited, given that the Sync actor holds server data
 - [ ] Real-time updates from the server to clients, and how they work with offline sync
 - [ ] Calendar integration: which calendars, sign-in, and push or polling within the 1-minute requirement
