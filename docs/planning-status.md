@@ -64,7 +64,7 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
   - [x] 0007 Jest, jest-expo, and React Native Testing Library for display tests
   - [x] 0008 Chromium-based desktop browsers only
   - [x] 0009 Playwright for web boundary tests
-  - [ ] 0010 Maestro for device tests
+  - [x] 0010 Maestro for device tests
   - [ ] 0011 Git worktrees, including Varlock
   - [ ] Update `docs/architecture/technology-stack.md` to match decision records 0004 to 0011, such as adding Jest, jest-expo, and React Native Testing Library
   - [ ] Later: work tracking with GitHub Issues, and whether OpenSpec is used
