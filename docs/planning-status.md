@@ -58,8 +58,8 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
 - [x] `docs/architecture/principles.md`
 - [x] Add offline use to `docs/architecture/non-functional-requirements.md`
 - [ ] Decision records in `docs/decisions/`, one per technology, in the format of DR-0003:
-  - [ ] 0004 Expo for Android, iOS, and web (proposed)
-  - [ ] 0005 XState for client state
+  - [x] 0004 Expo for Android, iOS, and web (proposed)
+  - [x] 0005 XState for client state
   - [ ] 0006 Vitest
   - [ ] 0007 React Testing Library
   - [ ] 0008 Playwright for web boundary tests
