@@ -25,7 +25,7 @@ OpenSpec was selected for its comparatively lightweight, flexible, and increment
 - **Token efficiency:** Minimize AI context consumption and unnecessary artifact generation.
 - **Development velocity:** Prioritize rapid iteration with minimal process overhead.
 - **AI-assisted development:** Provide coding agents with structured requirements and persistent project context.
-- **Incremental delivery:** Define and implement capabilities individually as the product evolves.
+- **Incremental delivery:** Define and implement features individually as the product evolves.
 - **Living documentation:** Maintain specifications that reflect current system behavior.
 - **Traceability:** Preserve the history and intent behind implemented changes.
 - **Developer flexibility:** Avoid dependence on a specific AI coding agent or provider.

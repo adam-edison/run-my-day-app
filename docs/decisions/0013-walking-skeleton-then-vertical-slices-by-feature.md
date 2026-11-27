@@ -1,4 +1,4 @@
-# DR-0013: Walking Skeleton, then Vertical Slices by Capability
+# DR-0013: Walking Skeleton, then Vertical Slices by Feature
 
 **Status:** Accepted  
 **Date:** 2026-11-27
@@ -31,18 +31,18 @@ Development runs in two stages.
 
 Stage 1, walking skeleton:
 
-* One small feature is built through all five layers first.
-* The feature works in the web build with the network turned off.
+* One user story of the Tasks feature is built through all five layers first.
+* That user story works in the web build with the network turned off.
 * The skeleton is split into small pull requests. Each pull request adds one layer or one tool.
 * Each pull request is merged to `main` with passing tests.
 
-Example: a task is created with a title and shown in a list. With the network turned off, a new task is still created and shown. When the network returns, the task is saved on the server.
+Example: "As a user, I can create a task with a title and see it in my list, with the network turned off." When the network returns, the task is saved on the server.
 
-Stage 2, vertical slices by capability:
+Stage 2, vertical slices by feature:
 
-* The app is built one capability at a time, such as Tasks, Routines, Calendar blocks, and Progressions.
-* Each capability is built in every layer it needs before the next capability starts.
-* Each pull request covers one layer of one capability.
+* The app is built one feature at a time, such as Tasks, Routines, Calendar blocks, and Progressions.
+* Each feature is built in every layer it needs before the next feature starts.
+* Each pull request covers one layer of one feature.
 
 Example: Routines is built before Progressions starts. The Routines pull requests add the routines table, the routine endpoints, the Task run actor's routine steps, and the routine screens. While building the routine screens, a step's spoken count turns out to be needed. The change is made in the Routines work that is still open.
 
@@ -53,9 +53,9 @@ One layer at a time for the whole app, rejected:
 * The layers first run together near the end.
 * A requirement found in a higher layer reopens lower layers that were already reviewed.
 
-Vertical slices of one small feature each, rejected:
+Vertical slices of one user story each, rejected:
 
-* Each capability would be split into many tickets.
+* Each feature would be split into many tickets.
 
 Example: Tasks would become separate slices for creating a task, completing a task, skipping a task, and editing a due date, each with its own ticket.
 
@@ -65,9 +65,9 @@ Walking skeleton:
 
 * All five layers are shown to work together before any feature depends on them.
 
-Vertical slices by capability:
+Vertical slices by feature:
 
-* A requirement found while building a screen changes only the capability in progress.
+* A requirement found while building a screen changes only the feature in progress.
 * Each pull request stays small enough to review.
 
 ## Consequences

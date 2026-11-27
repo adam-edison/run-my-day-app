@@ -19,9 +19,9 @@ Work runs in parallel git worktrees, with these limits:
 * Up to 3 small tasks at the same time as the big one.
 * At most 4 worktrees have work in progress at once.
 
-A big task is one pull request in a vertical slice by capability, or in the walking skeleton.
+A big task is one pull request in a vertical slice by feature, or in the walking skeleton.
 
-A small task is any other change that adds no capability behavior, such as a docs fix, a bug fix, or a dependency update.
+A small task is any other change that adds no feature behavior, such as a docs fix, a bug fix, or a dependency update.
 
 Example: the routine endpoints pull request is the big task in worktree 1. At the same time, worktree 2 fixes a typo in the domain model, and worktree 3 updates a dependency.
 
@@ -43,4 +43,4 @@ Several big tasks at once, rejected:
 
 ## Consequences
 
-* A second capability can't start until the big task in progress is merged.
+* A second feature can't start until the big task in progress is merged.

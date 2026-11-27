@@ -73,7 +73,7 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
 Build approach:
 
 - [x] Web first (DR-0012): every feature is built in the Expo web build before mobile work. Early mobile work is limited to trials of phone capabilities: background audio with the screen locked, on-device text-to-speech speed, audio timing, and local storage. The Expo web trial from DR-0004 is the first task.
-- [x] Layers or vertical slices (DR-0013: walking skeleton, then vertical slices by capability)
+- [x] Layers or vertical slices (DR-0013: walking skeleton, then vertical slices by feature)
 - [x] Parallel worktrees or single-threaded work, with one human reviewer (DR-0014: parallel worktrees, with one big task at a time)
 - [ ] Work tracking with GitHub Issues: milestones, parent issues, and sub-issues of one pull request each are agreed. Whether and how OpenSpec is used is open.
 
@@ -114,12 +114,12 @@ Remaining technology records:
 ## 3. Domain model wrap-up (step 2 of planning)
 
 - [ ] **Create `docs/glossary.md`:** every term, with a definition and an example. Definitions use only glossary terms.
-- [ ] **Shrink `docs/domain-model.md` to the overview:** the diagrams of how items relate. Behavior rules move into OpenSpec capability specs as requirements with scenarios, and most existing examples become scenarios.
+- [ ] **Shrink `docs/domain-model.md` to the overview:** the diagrams of how items relate. Behavior rules move into OpenSpec feature specs as requirements with scenarios, and most existing examples become scenarios.
 - [ ] **Open proofread questions:**
   - [ ] A repeating block list that contains a routine plays the routine on every pass. Confirm this. The recommendation is yes, as written.
   - [ ] Fixed numbers that might need to be settings: appointment warnings (10 and 5 minutes), an appointment pause lasting until you resume, the 7-day window for unscheduled tasks, and the 5 and 3 loop counts for learned estimates.
 - [ ] **Open question:** two blocks whose events overlap. Options: the later block takes over, the running block finishes first, or overlaps are refused.
-- [ ] **`docs/domain-model-review.md`** has about 60 remaining items. Most are edge cases, and they should be decided inside each capability's OpenSpec change rather than all up front. The new features in it aren't needed for an MVP:
+- [ ] **`docs/domain-model-review.md`** has about 60 remaining items. Most are edge cases, and they should be decided inside each feature's OpenSpec change rather than all up front. The new features in it aren't needed for an MVP:
   - seasonal tasks, conditions on steps, and custom metric units
   - guidance channels (music cues, vibration, notifications)
   - timers, background music and playlists, and summaries
@@ -130,7 +130,7 @@ Remaining technology records:
 
 ## 4. Remaining planning steps
 
-- [ ] **MVP scope:** pick the capabilities for the first version.
+- [ ] **MVP scope:** pick the features for the first version.
 - [ ] **Architecture:** finish principles, constraints, security, and performance.
 - [ ] **Technology decisions:** the decision records above, plus the Expo web trial and service worker.
 - [ ] **Feature roadmap:** an ordered list of GitHub issues.
