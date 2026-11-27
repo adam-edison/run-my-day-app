@@ -67,8 +67,49 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
   - [x] 0010 Maestro for device tests
   - [x] 0011 Git worktrees, including Varlock
   - [ ] Update `docs/architecture/technology-stack.md` to match decision records 0004 to 0011, such as adding Jest, jest-expo, and React Native Testing Library
-  - [ ] Later: work tracking with GitHub Issues, and whether OpenSpec is used
-  - [ ] Later: one record for each remaining technology in `technology-stack.md`, such as Fastify, oRPC, Zod, Drizzle, PostgreSQL, TanStack Query, Better Auth, kokoro-js, ONNX Runtime, Sentry, Pino, Renovate, Doppler, ESLint, Knip, Prettier, Husky, commitlint, fast-check, and rrule. Each needs a rationale.
+
+### Open decisions, in order
+
+Build approach:
+
+- [x] Web first (DR-0012): every feature is built in the Expo web build before mobile work. Early mobile work is limited to trials of phone capabilities: background audio with the screen locked, on-device text-to-speech speed, audio timing, and local storage. The Expo web trial from DR-0004 is the first task.
+- [ ] Layers or vertical slices
+- [ ] Parallel worktrees or single-threaded work, with one human reviewer
+- [ ] Work tracking with GitHub Issues: milestones, parent issues, and sub-issues of one pull request each are agreed. Whether and how OpenSpec is used is open.
+
+Core architecture:
+
+- [ ] Offline storage on the client: SQLite, IndexedDB, or one library for both
+- [ ] Sync: how offline changes queue, and how conflicts between devices are resolved
+- [ ] TanStack Query: kept, dropped, or limited, given that the Sync actor holds server data
+- [ ] Real-time updates from the server to clients, and how they work with offline sync
+- [ ] Calendar integration: which calendars, sign-in, and push or polling within the 1-minute requirement
+- [ ] Audio timing and text-to-speech in the web build
+- [ ] Recurrence with rrule
+
+Hosting and operations:
+
+- [ ] Hosting of the server and Postgres for the single-user, self-hosted version
+- [ ] Remote access from phones and other machines, such as Tailscale
+- [ ] Hosting of the static web build
+- [ ] Database backups and restore
+- [ ] Observability: what is logged to Pino and reported to Sentry, and what raises an alert
+- [ ] Choices that must not block the paid hosted version
+
+CI/CD and release:
+
+- [ ] GitHub Actions pipeline: checks on each pull request, on a schedule, and before a release
+- [ ] Releases: how a version is cut and numbered
+- [ ] App distribution: EAS builds, TestFlight, Play internal testing, and EAS over-the-air updates
+
+Security:
+
+- [ ] Authentication with Better Auth: sign-in methods, sessions, and tokens on phones
+- [ ] Threat model and security review
+
+Remaining technology records:
+
+- [ ] One record for each remaining technology in `technology-stack.md`: Fastify, oRPC, Zod, Drizzle, PostgreSQL, ESLint and its plugins, Knip, Prettier, Husky, lint-staged, commitlint, fast-check, Renovate, Betterleaks, actionlint, and @fastify/rate-limit. Each needs a rationale.
 
 ## 3. Domain model wrap-up (step 2 of planning)
 
