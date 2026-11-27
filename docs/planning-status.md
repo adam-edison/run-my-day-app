@@ -26,7 +26,7 @@ Run My Day reacts to a calendar change within 1 minute.
 
 ### Process and architecture (agreed, not yet written as decision records)
 
-- **Work tracking:** GitHub Issues with a GitHub Project board, where the order is set by hand. OpenSpec holds specs only, one spec per capability, as requirements with scenarios.
+- **Work tracking (open):** GitHub Issues. A milestone holds parent issues, and each sub-issue is one pull request. How OpenSpec is used, if at all, is still open.
 - **No custom process tooling.** Use off-the-shelf tools only. Kivaro failed partly because maintaining its factory, tickets, scripts, and test runners replaced building the product.
 - **One repository with git worktrees,** no repository copies. Making Varlock work with worktrees is still open.
 - **Client:** one Expo codebase for Android, iOS, and web, with feature parity, so the phone can do both planning and running.
@@ -58,15 +58,14 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
 - [x] `docs/architecture/principles.md`
 - [x] Add offline use to `docs/architecture/non-functional-requirements.md`
 - [ ] Decision records in `docs/decisions/`, one per technology, in the format of DR-0003:
-  - [ ] 0004 GitHub Issues for work tracking
-  - [ ] 0005 OpenSpec for specs only (replaces part of DR-0002)
-  - [ ] 0006 Expo for Android, iOS, and web (proposed)
-  - [ ] 0007 XState for client state
-  - [ ] 0008 Vitest
-  - [ ] 0009 React Testing Library
-  - [ ] 0010 Playwright for web boundary tests
-  - [ ] 0011 Maestro for device tests
-  - [ ] 0012 Git worktrees, including Varlock
+  - [ ] 0004 Expo for Android, iOS, and web (proposed)
+  - [ ] 0005 XState for client state
+  - [ ] 0006 Vitest
+  - [ ] 0007 React Testing Library
+  - [ ] 0008 Playwright for web boundary tests
+  - [ ] 0009 Maestro for device tests
+  - [ ] 0010 Git worktrees, including Varlock
+  - [ ] Later: work tracking with GitHub Issues, and whether OpenSpec is used
   - [ ] Later: one record for each remaining technology in `technology-stack.md`, such as Fastify, oRPC, Zod, Drizzle, PostgreSQL, TanStack Query, Better Auth, kokoro-js, ONNX Runtime, Sentry, Pino, Renovate, Doppler, ESLint, Knip, Prettier, Husky, commitlint, fast-check, and rrule. Each needs a rationale.
 
 ## 3. Domain model wrap-up (step 2 of planning)
