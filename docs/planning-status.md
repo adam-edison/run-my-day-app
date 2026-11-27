@@ -73,8 +73,8 @@ There are no end-to-end screen flows. Kivaro's Maestro flows and lessons can be 
 Build approach:
 
 - [x] Web first (DR-0012): every feature is built in the Expo web build before mobile work. Early mobile work is limited to trials of phone capabilities: background audio with the screen locked, on-device text-to-speech speed, audio timing, and local storage. The Expo web trial from DR-0004 is the first task.
-- [x] Layers or vertical slices (DR-0013: walking skeleton, then capability slices)
-- [ ] Parallel worktrees or single-threaded work, with one human reviewer
+- [x] Layers or vertical slices (DR-0013: walking skeleton, then vertical slices by capability)
+- [x] Parallel worktrees or single-threaded work, with one human reviewer (DR-0014: parallel worktrees, with one big task at a time)
 - [ ] Work tracking with GitHub Issues: milestones, parent issues, and sub-issues of one pull request each are agreed. Whether and how OpenSpec is used is open.
 
 Core architecture:
