@@ -26,7 +26,7 @@ Run My Day reacts to a calendar change within 1 minute.
 
 ### Process and architecture (agreed, not yet written as decision records)
 
-- **Work tracking (open):** GitHub Issues. A milestone holds parent issues, and each sub-issue is one pull request. How OpenSpec is used, if at all, is still open.
+- **Work tracking (DR-0015):** a milestone holds parent issues, one per feature. Each feature is built through one OpenSpec change, and each group in its `tasks.md` is one pull request.
 - **No custom process tooling.** Use off-the-shelf tools only. Kivaro failed partly because maintaining its factory, tickets, scripts, and test runners replaced building the product.
 - **One repository with git worktrees,** no repository copies.
 - **Client:** one Expo codebase for Android, iOS, and web, with feature parity, so the phone can do both planning and running.
@@ -75,7 +75,7 @@ Build approach:
 - [x] Web first (DR-0012): every feature is built in the Expo web build before mobile work. Early mobile work is limited to trials of phone capabilities: background audio with the screen locked, on-device text-to-speech speed, audio timing, and local storage. The Expo web trial from DR-0004 is the first task.
 - [x] Layers or vertical slices (DR-0013: walking skeleton, then vertical slices by feature)
 - [x] Parallel worktrees or single-threaded work, with one human reviewer (DR-0014: parallel worktrees, with one big task at a time)
-- [ ] Work tracking with GitHub Issues: milestones, parent issues, and sub-issues of one pull request each are agreed. Whether and how OpenSpec is used is open.
+- [x] Work tracking with GitHub Issues and OpenSpec changes (DR-0015)
 
 Core architecture:
 
