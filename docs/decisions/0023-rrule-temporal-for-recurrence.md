@@ -1,6 +1,6 @@
-# DR-0023: Temporal Plain Dates for Recurrence
+# DR-0023: rrule-temporal for Recurrence
 
-**Status:** Draft  
+**Status:** Accepted  
 **Date:** 2026-11-28
 
 ## Context
@@ -27,52 +27,41 @@ Example: "Water plants" repeats every 3 days by completion date. It is completed
 
 ## Decision
 
-* The core package stores a repeat as the fields the domain model defines.
-* The core package computes the next due date with Temporal `PlainDate` arithmetic.
-* The "day starts at" setting and the time zone decide only which date is today.
-* The next date itself is plain-date arithmetic.
-* The supported patterns are every N units, chosen weekdays, a day of the month, and specific dates.
-* If calendar-style patterns or iCalendar import are needed, rrule-temporal expands the patterns. The by-completion and if-missed rules stay in the core package.
+* rrule-temporal expands repeat patterns in the core package.
+* Patterns include calendar-style patterns, such as "the 2nd Tuesday" or "the last business day of each month."
+* The core package adds the repeat options that RFC 5545 does not define: repeating by completion date, the "if missed" setting, and specific dates.
+* The "day starts at" setting and the time zone decide which date is today.
+* The core package converts each date that rrule-temporal returns to a calendar date.
 
-Example: "Water plants" is due Thursday. It is missed, and the "if missed" setting is "jump to today". On Saturday the core package computes the next due date from Saturday's plain date.
+Example: "Team report" repeats on the 2nd Tuesday of each month, by due date, with "if missed" set to "jump to today." rrule-temporal lists the 2nd Tuesdays. The report due on Tuesday is missed, and on Thursday the core package picks the next 2nd Tuesday after today.
 
 ## Alternatives Considered
 
 rrule (jkbrzt/rrule), rejected:
 
 * The last npm release is 2.8.1, published 2023-11-10.
-* The README states the project is in maintenance mode, with no new features planned.
-* The repository shows 188 issues.
 * It works with JavaScript `Date` objects that must be read as "UTC dates meant as local time". This makes time zone handling easy to get wrong.
 
-rrule-temporal for every pattern, rejected for the patterns in the domain model today:
+Hand-written patterns on Temporal plain dates only, rejected:
 
-* The domain model's rules for by-completion date, if missed, and specific dates are not RFC 5545 concepts. Code for them is written in every option.
-* It returns `Temporal.ZonedDateTime` values, and due dates are calendar dates.
-* It is maintained by one person.
-* Running a Temporal polyfill inside React Native (Hermes engine) was not checked.
+* Calendar-style patterns, such as "the last Friday of each month," would be written and tested by hand.
 
 ## Rationale
 
-* Plain dates have no time zone. The device and the server give the same answer by construction.
-* The code for the domain model's patterns is small.
-* rrule is unmaintained.
-* rrule-temporal stays available for richer patterns. It claims full RFC 5545 compliance. Version 2.3.0 was published 2026-11-18.
+* rrule-temporal reduces the code written for repeat patterns.
+* It claims full RFC 5545 compliance.
+* It is built on Temporal, with time zone aware results.
+* It is maintained. Version 2.3.0 was published 2026-11-18.
 
 ## Consequences
 
-* Rules like "the last Friday of each month" must be written and tested by hand.
-* No standard text format exists for import or export.
-* No official source states that hand-written plain-date code is simpler than a library for these patterns.
-* No official source states that plain dates give the same answer on every device for this case.
-* No official source states that the domain model's repeat rules fall outside RFC 5545.
-* Running a Temporal polyfill inside React Native (Hermes engine) is not checked.
+* The core package still contains the code for repeating by completion date, the "if missed" setting, and specific dates.
+* rrule-temporal is maintained by one person.
+* rrule-temporal uses native Temporal when present and otherwise bundles `temporal-polyfill`. Running the polyfill inside React Native (Hermes engine) is not checked.
 
 ## Open Questions
 
-1. Do repeats need patterns beyond every N units and chosen weekdays? Example: "Pay credit card on the last business day of each month" or "Team report on the 2nd Tuesday".
-2. Should a repeat be importable from or exportable to a calendar as an RRULE string? Example: copying a Google Calendar repeating event into a task.
-3. Is a Temporal polyfill in the shared core acceptable on Android, iOS, and web? Example: every due-date calculation in the phone app would go through it.
+1. Should a repeat be importable from or exportable to a calendar as an RRULE string? Example: copying a Google Calendar repeating event into a task.
 
 ## Sources
 

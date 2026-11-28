@@ -31,7 +31,7 @@
 ## Database & Persistence
 
 - [Drizzle ORM](https://orm.drizzle.team/) - Type-safe SQL queries, declarative database schemas, relational modeling, and migration management, on the server and on each device.
-- [PostgreSQL](https://www.postgresql.org/) - Relational data storage, database-level constraints, transactions, indexing, and data integrity enforcement on the server.
+- [PostgreSQL 18](https://www.postgresql.org/) - Relational data storage, database-level constraints, transactions, indexing, and data integrity enforcement on the server.
 - [expo-sqlite](https://docs.expo.dev/versions/latest/sdk/sqlite/) - Offline client storage on Android, iOS, and web, with one SQLite schema and one set of queries for every platform. Holds definitions, the last calendar read, 90 days of history, history snapshots, and the outbox.
 
 ## Testing & Verification
@@ -65,7 +65,7 @@
 
 ## Domain Utilities
 
-- [rrule](https://github.com/jkbrzt/rrule) - RFC 5545-based recurrence rule parsing, serialization, and occurrence generation for recurring tasks, events, and schedules.
+- [rrule-temporal](https://github.com/ggaabe/rrule-temporal) - RFC 5545 repeat pattern expansion on Temporal. The core package adds repeating by completion date, the "if missed" setting, and specific dates.
 
 ## Security
 

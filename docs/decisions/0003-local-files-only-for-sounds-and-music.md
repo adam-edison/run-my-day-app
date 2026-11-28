@@ -33,7 +33,7 @@ Run My Day suggests sync and download apps for getting files to and from Google 
 - A user with several devices keeps a copy of their files on each one.
 - Matching by file name and metadata can pick a different file than intended when two files are similar.
 - Users rely on separate sync apps to move files between devices and cloud storage.
-- Earlier plans for cloud music sources, such as kivaro tickets KIV-48.1 to KIV-48.5, are dropped.
+- Earlier plans for cloud music sources are dropped.
 
 ## Sources
 

@@ -1,6 +1,6 @@
-# DR-0027: Nightly pg_dump Backups
+# DR-0027: Scheduled pg_dump Backups
 
-**Status:** Draft  
+**Status:** Accepted  
 **Date:** 2026-11-28
 
 ## Context
@@ -13,17 +13,22 @@ Postgres runs in Docker Compose in development, as recorded in DR-0011.
 
 The PostgreSQL docs state that databases should be backed up regularly. The docs describe three approaches: SQL dump, file-level backup, and continuous archiving.
 
-Example: a nightly dump runs at 3:00. A disk fails at 18:00. The day's edits that no device still holds are lost.
+Example: on a self-hosted Mac mini, a dump runs at 17:00. The disk fails at 17:40. The edits from those 40 minutes that no device still holds are lost.
 
 ## Decision
 
-* A scheduled job runs `pg_dump -Fc` each night.
-* Each dump is kept for a set number of days.
-* A copy of each dump is kept off the machine, such as in cloud storage.
+* A scheduled job runs `pg_dump -Fc` every hour in local hosting and self-hosting.
+* A scheduled job runs `pg_dump -Fc` every day in the hosted version.
+* Local hosting and self-hosting keep the last 24 hourly, 7 daily, and 4 weekly dumps. Older dumps are deleted.
+* In local hosting and self-hosting, each dump is written to a folder set by an environment variable.
+* The user chooses the folder, such as a second disk or a folder that a sync app copies to cloud storage.
+* In the hosted version, each dump is kept in the hosting provider's storage, off the server machine.
 * Restores use `pg_restore`.
-* A scheduled test restores the latest dump into an empty database and checks it.
+* After each dump, the job checks that the file exists, is not empty, and that `pg_restore --list` can read its table of contents.
+* The server reports an error when a dump check fails, or when no new dump exists for 2 hours in local hosting and self-hosting.
+* The restore steps, including creating the database roles first, are documented.
 
-Example: at 3:00 the job writes a custom-format dump and copies it to cloud storage. A later test restores it into an empty database and finds the "Morning" routine.
+Example: at 14:00 the job on a Mac mini writes a custom-format dump to a Dropbox folder. `pg_restore --list` reads it, and Dropbox copies it to the cloud. At 16:00 the disk is full and no dump has been written since 14:00, so the server reports an error.
 
 ## Alternatives Considered
 
@@ -31,6 +36,10 @@ Continuous archiving (WAL archiving) with point-in-time recovery, rejected:
 
 * It is more complex to run than a dump.
 * It restores only the whole database cluster.
+
+Built-in upload to S3-compatible storage in local hosting and self-hosting, rejected:
+
+* Each user would need a storage account and keys.
 
 Copying the Docker volume's files, rejected:
 
@@ -50,13 +59,8 @@ Copying the Docker volume's files, rejected:
 * Roles must exist before a restore.
 * No official source states the schedule, the retention, or the restore test for this case.
 * The conditions of a file-level backup are not checked in detail.
-
-## Open Questions
-
-1. How much loss is acceptable? Example: with a nightly dump at 3:00, a disk failure at 18:00 loses the day's edits that no device still holds.
-2. Where are copies kept? Example: a second disk at home, or cloud storage such as Backblaze B2 or S3.
-3. How long are copies kept? Example: 7 nightly and 4 weekly copies.
-4. Is the restore test automated, for example in a scheduled job, or done by hand each month?
+* A dump folder on the same disk as the database is lost with that disk. The user must choose a folder elsewhere.
+* The dump check does not restore the data. A full restore is not tested automatically.
 
 ## Sources
 

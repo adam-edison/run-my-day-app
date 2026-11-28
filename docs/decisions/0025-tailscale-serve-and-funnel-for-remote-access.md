@@ -1,6 +1,6 @@
 # DR-0025: Tailscale Serve and Funnel for Remote Access
 
-**Status:** Draft  
+**Status:** Proposed  
 **Date:** 2026-11-28
 
 ## Context
@@ -24,8 +24,10 @@ Example: at 10:05 the Workout event moves while the phone is on mobile data. Goo
 
 * Tailscale Serve shares the server with the phone and the laptop.
 * Tailscale Funnel publishes only the Google webhook path to the internet.
-* The app and the API stay private to the user's devices.
-* Before the status moves past Draft, a test checks SSE through Tailscale Serve.
+* The app and the API stay private to the user's devices, in local hosting and self-hosting.
+* Every phone and laptop that uses a local or self-hosted server has the Tailscale app installed and signed in.
+* Funnel's beta status is accepted. A lost push notification is found by the 5-minute backup check.
+* The status stays Proposed until a test shows that SSE works through Tailscale Serve.
 
 Example: the laptop opens the app at its tailnet address. Google posts a push notification to the Funnel address of the webhook path. No other path is public.
 
@@ -62,14 +64,6 @@ A VPS with a public IP address and a normal certificate, rejected:
 * Every phone and laptop needs the Tailscale app installed and signed in.
 * No official source describes SSE through Tailscale Serve or Funnel. The test checks it.
 * No official source compares these options for this case. The choice is not verified.
-
-## Open Questions
-
-1. Must the app stay private to your devices, or may it be public behind sign-in? Example: with Cloudflare Tunnel, `runmyday.example.com` is reachable by anyone who finds it.
-2. Is the Funnel beta acceptable for the webhook? Example: if Funnel stops, the moved Workout event arrives by the 5-minute check, by 10:10 instead of 10:06.
-3. Is installing Tailscale on every phone acceptable? Example: a phone without Tailscale cannot sync on mobile data.
-4. Do you own a domain to use with Cloudflare?
-
 ## Sources
 
 ### [Tailscale Funnel](https://tailscale.com/kb/1223/funnel)

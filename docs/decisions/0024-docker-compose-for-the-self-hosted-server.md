@@ -1,6 +1,6 @@
 # DR-0024: Docker Compose for the Self-Hosted Server
 
-**Status:** Draft  
+**Status:** Accepted  
 **Date:** 2026-11-28
 
 ## Context
@@ -17,27 +17,31 @@ Facts from earlier decisions:
 * The server needs a public HTTPS address for Google's push notifications, as recorded in DR-0021.
 * The server sends web push at each block start when the web tab is closed, as recorded in DR-0019.
 * The server must run all day.
-* A paid hosted multi-user version follows later.
+* Run My Day is offered as local hosting, self-hosting, and a paid hosted version, as recorded in DR-0049.
 
 Example: a Mac mini at home runs the server. The server sends the phone's 7:00 "Morning" alert.
 
 ## Decision
 
-* The documented default runs the self-hosted version with Docker Compose on an always-on home machine, such as a Mac mini, a NAS, or a Raspberry Pi.
-* The same `compose.yaml` also runs on a rented server (a VPS).
-* `compose.yaml` starts two containers: the server and the official `postgres` image.
+* Local hosting and self-hosting both run with Docker Compose.
+* One `compose.yaml` runs on the user's own computer, an always-on home machine, or a rented server (a VPS).
+* `compose.yaml` starts two containers: the server and the official `postgres:18` image.
 * The database files live in a named volume.
 * Postgres has a health check that runs `pg_isready`.
 * Compose starts the server only after the Postgres health check passes.
+* Secrets come from a plain `.env` file by default. The user copies `.env.example` to `.env` and fills in the values.
+* A user with their own Doppler project can start the server through `doppler run` in place of the `.env` file.
+* Varlock checks the variables against `.env.schema` in both cases.
+* Each release publishes a server image to GitHub Container Registry.
+* `compose.yaml` uses the published image by default. A user can build the image from source in its place.
 
 Example: the self-hoster runs `docker compose up` on the Mac mini. Postgres reports ready, then the server starts and sends the 7:00 "Morning" alert.
 
 ## Alternatives Considered
 
-Docker Compose on a VPS as the default, rejected:
+Doppler only, rejected:
 
-* It has a monthly bill.
-* The server is open to the internet, so the self-hoster must keep it patched.
+* A user who clones the public repository has no access to the project's Doppler workspace. Each user would need a Doppler account.
 
 Plain Node.js process with Postgres installed on the machine, rejected:
 
@@ -48,8 +52,8 @@ Plain Node.js process with Postgres installed on the machine, rejected:
 
 * The same Docker Compose setup already runs Postgres in development.
 * The official image needs only one required variable, `POSTGRES_PASSWORD`.
-* A home machine has no monthly server bill.
-* One `compose.yaml` serves a home machine and a VPS.
+* One `compose.yaml` serves a laptop, a home machine, and a VPS.
+* A `.env` file needs no account.
 
 ## Consequences
 
@@ -57,17 +61,29 @@ Plain Node.js process with Postgres installed on the machine, rejected:
 * Alerts and calendar reads stop when the machine sleeps or loses power.
 * Postgres 18 images store data in a versioned folder. The volume path must match the major version.
 * Init scripts run only on an empty data folder.
-* No official source compares home machines with VPS hosting for this case.
-* No official source states that a home machine avoids a monthly bill, or that a VPS needs patching. These points are not verified.
-
-## Open Questions
-
-1. Is the reference setup a home machine or a VPS? Example: a Mac mini at home runs the server, and the phone's 7:00 "Morning" alert is sent by it.
-2. Does the self-hoster use Doppler, or a plain `.env` file? Example: a stranger who clones the public repository has no access to the project's Doppler workspace.
-3. Is the server published as a ready-made Docker image, for example on GitHub Container Registry, or built from source by the self-hoster?
-4. Which Postgres major version is pinned? Example: `postgres:18` stores data under `/var/lib/postgresql/18/docker`, and moving to 19 needs an upgrade step.
-
+* A `.env` file stores secret values on disk on the user's machine.
+* GitHub Container Registry storage and bandwidth are currently free. GitHub promises at least one month's notice before any change.
+* GitHub's Container registry page states that public images can be accessed anonymously. The same page also states that an access token is needed to install public packages.
 ## Sources
+
+### [GitHub Packages billing](https://docs.github.com/en/billing/concepts/product-billing/github-packages)
+
+Retrieved 2026-11-28.
+
+- Fact: GitHub Container Registry storage and bandwidth are currently free.
+  > "GitHub Packages usage is **free** for **public packages**."
+  > "Container image storage and bandwidth for the Container registry is currently free."
+- Fact: GitHub promises at least one month's notice before any change.
+  > "If you use Container registry, you'll be informed at least one month in advance of any change to this policy."
+
+### [Working with the Container registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry)
+
+Retrieved 2026-11-28.
+
+- Fact: Public images can be accessed anonymously.
+  > "You can also access public container images anonymously."
+- Fact: The same page states that an access token is needed to install public packages.
+  > "You need an access token to publish, install, and delete private, internal, and public packages."
 
 ### [Control startup order | Docker Docs](https://docs.docker.com/compose/how-tos/startup-order/)
 
