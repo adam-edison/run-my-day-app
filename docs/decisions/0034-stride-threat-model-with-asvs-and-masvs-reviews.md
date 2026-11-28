@@ -62,7 +62,7 @@ ASVS as the only method, rejected:
 
 MASVS as the only method, rejected:
 
-* MASVS covers only the phone apps.
+* MASVS covers only the phone apps. OWASP points to ASVS for the server.
 
 ## Rationale
 
@@ -73,12 +73,14 @@ MASVS as the only method, rejected:
 ## Consequences
 
 * STRIDE produces a list of threats, not a list of tests to pass.
-* The choice of an ASVS level is not verified.
-* No official source states when the security review should run. The timing before the hosted version and in each OpenSpec change is own reasoning.
-* The threats listed for Run My Day are own reasoning, apart from the facts with a source.
-* No official source states that MASVS covers only the phone apps.
 * Whether the offline SQLite file is encrypted is open.
 * Encrypting Google refresh tokens in the database is an option, not a decision.
+
+## Assumptions
+
+* A security review before the paid hosted version takes other people's data catches security problems early enough. Not found in official sources as of 2026-11-28.
+* A short security review in each OpenSpec change that touches authentication, sync, or Google tokens catches security problems in those changes. Not found in official sources as of 2026-11-28.
+* The threats listed for Run My Day without a source are real threats to the app. Not found in official sources as of 2026-11-28.
 
 ## Open Questions
 
@@ -88,6 +90,15 @@ MASVS as the only method, rejected:
 4. Who runs the security review? Example: you with Claude's security-review skill, or an outside reviewer before launch.
 
 ## Sources
+
+### [The Mobile Application Security Verification Standard](https://mas.owasp.org/MASVS/03-Using_the_MASVS/)
+
+Retrieved 2026-11-28.
+
+- Fact: MASVS evaluates mobile apps.
+  > "The MASVS is designed to evaluate the security of mobile apps that can be analyzed statically"
+- Fact: OWASP points to ASVS for the server.
+  > "should be used to ensure that the server is secure."
 
 ### [Threat Modeling Cheat Sheet | OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Threat_Modeling_Cheat_Sheet.html)
 

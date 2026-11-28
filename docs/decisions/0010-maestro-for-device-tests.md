@@ -7,7 +7,7 @@
 
 The Android and iOS apps include native code that Jest and Vitest can't run, such as background audio and platform-specific files. Device tests run the built app on an Android emulator and an iOS simulator.
 
-Simulators and emulators don't show some behavior:
+Simulators and emulators differ from real devices in some hardware and API behavior. This behavior is checked on real devices:
 
 - background audio with the screen locked
 - audio timing by ear
@@ -19,12 +19,12 @@ Simulators and emulators don't show some behavior:
 
 Maestro runs device tests on an Android emulator and an iOS simulator in GitHub Actions. The tests run on a schedule and before a release.
 
-The behavior that simulators and emulators don't show is checked by hand before a release, on an Android phone and an iPad.
+The behavior in that list is checked by hand before a release, on an Android phone and an iPad.
 
 ## Alternatives Considered
 
 - **Maestro on real phones:** Rejected because Maestro runs only on iOS simulators, not on physical iPhones or iPads.
-- **Appium:** Rejected because its tests are written in code and run slower, and a real iPhone needs a signed WebDriverAgent.
+- **Appium:** Rejected because its tests are written in code, and a real iPhone needs a signed WebDriverAgent.
 - **Detox:** Rejected because its Expo support comes from a community-maintained config plugin. The Expo team removed Detox support from its own config plugins.
 
 ## Rationale
@@ -37,6 +37,11 @@ The behavior that simulators and emulators don't show is checked by hand before 
 
 - iPhone layout is checked only in the iOS simulator. The manual checks run on an iPad.
 - iOS simulator tests need macOS runners. If the repository became private, a macOS minute would cost about 10 times a Linux minute: $0.062 against $0.006.
+
+## Assumptions
+
+* Appium tests run slower than Maestro tests. Not found in official sources as of 2026-11-28.
+* Simulators and emulators don't show Android battery saving in the background. A source contradicts this.
 
 ## Sources
 
@@ -99,6 +104,27 @@ Retrieved 2026-11-27.
 - Fact: Simulators don't show some behavior of a real device.
   > "Finally, there are some hardware and API differences in Simulator. These differences may affect your app when testing in Simulator."
   > "As a result, the simulator is not an accurate test of an app's performance, memory usage, and networking speed."
+- Fact: The iOS Simulator does not offer the background modes key that background audio needs.
+  > "Simulator APIs don't have all the features that are available on a device. For example, the APIs don't offer:"
+  > "The `UIBackgroundModes` key"
+- Fact: The iOS Simulator does not show on-device speed, such as text-to-speech speed.
+  > "As a result, the simulator is not an accurate test of an app's performance, memory usage, and networking speed."
+- Fact: Touch in the Simulator differs from touch on a real screen.
+  > "Also keep in mind that some user interface elements can be easier to interact with in Simulator using a mouse than when trying to interact with the app through touch on a device."
+
+### [Audio latency | Android NDK](https://developer.android.com/ndk/guides/audio/audio-latency)
+
+Retrieved 2026-11-28.
+
+- Fact: Audio timing depends on the device model.
+  > "Round-trip audio latency varies greatly depending on device model and Android build."
+
+### [Optimize for Doze and App Standby](https://developer.android.com/training/monitoring-device-state/doze-standby)
+
+Retrieved 2026-11-28.
+
+- Fact: Android's documentation tests Doze and App Standby on a virtual device as well as a hardware device.
+  > "Configure a hardware device or virtual device with an Android 6.0 (API level 23) or higher system image."
 
 ### [GitHub Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions)
 

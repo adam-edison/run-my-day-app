@@ -27,6 +27,7 @@ ts-prune and depcheck, rejected:
 
 TypeScript's `noUnusedLocals`, rejected:
 
+* It reports unused local variables.
 * It finds unused code inside one file only.
 * It does not find unused exports or dependencies.
 
@@ -38,9 +39,11 @@ TypeScript's `noUnusedLocals`, rejected:
 
 ## Consequences
 
-* Each plugin must understand the project's entry points. A missing entry point shows up as a false report of unused code. This point is not verified.
-* The current maintenance status of ts-prune and depcheck is not verified.
-* No official source was read for the limits of `noUnusedLocals`. This point is not verified.
+* Knip reports a file as unused when no entry file reaches it. A plugin that misses an entry file pattern causes false reports of unused files.
+
+## Assumptions
+
+* TypeScript's `noUnusedLocals` finds unused code inside one file only and does not find unused exports or dependencies. Not found in official sources as of 2026-11-28.
 
 ## Sources
 
@@ -59,6 +62,27 @@ Retrieved 2026-11-27.
 
 - Fact: The Expo plugin turns on when Expo is a dependency.
   > "This plugin is enabled if `\"expo\"` is listed in `\"dependencies\"` or `\"devDependencies\"` in `package.json`."
+
+### [Configuring Project Files | Knip](https://knip.dev/guides/configuring-project-files)
+
+Retrieved 2026-11-28.
+
+- Fact: Knip reports a file as unused when no entry file reaches it.
+  > "Files are reported as unused if they are in the set of `project` files, but are not resolved from the `entry` files:"
+
+### [Handling Issues | Knip](https://knip.dev/guides/handling-issues)
+
+Retrieved 2026-11-28.
+
+- Fact: A plugin that misses an entry file pattern causes false reports of unused files.
+  > "Files may be reported as unused if existing plugins do not include that entry file pattern yet."
+
+### [noUnusedLocals | TSConfig Reference](https://www.typescriptlang.org/tsconfig/#noUnusedLocals)
+
+Retrieved 2026-11-28.
+
+- Fact: `noUnusedLocals` reports unused local variables.
+  > "Report errors on unused local variables."
 
 ### [npm registry: knip](https://www.npmjs.com/package/knip)
 

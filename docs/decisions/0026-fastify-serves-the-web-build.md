@@ -52,7 +52,7 @@ Cloudflare Pages or Netlify, rejected:
 
 GitHub Pages, rejected:
 
-* No source read describes custom HTTP headers on GitHub Pages. Without the COOP and COEP headers, expo-sqlite web cannot work.
+* GitHub Pages cannot set custom HTTP headers.* Without the COOP and COEP headers, expo-sqlite web cannot work.
 * The app and the API are on different origins, as with Cloudflare Pages or Netlify.
 
 ## Rationale
@@ -67,12 +67,18 @@ GitHub Pages, rejected:
 ## Consequences
 
 * The Fastify process also serves static files. For one user the load is small.
-* No official source compares one origin with a static host for this case. The choice is not verified.
 * A cached `sw.js` does not delay an update. Chrome ignores caching headers when it checks for a new service worker script.
 * A CDN may be added to the hosted version later, if load times require it.
 * A tab left open keeps the old version until the user presses the update button.
 
 ## Sources
+
+### [HTTP Headers (e.g. Content-Security-Policy) on Pages | GitHub Community](https://github.com/orgs/community/discussions/54257)
+
+Retrieved 2026-11-28.
+
+- Fact: GitHub Pages does not support custom HTTP headers.
+  > "We don't support this feature today so a `meta` tag unfortunately is the only way."
 
 ### [The service worker lifecycle | web.dev](https://web.dev/articles/service-worker-lifecycle)
 

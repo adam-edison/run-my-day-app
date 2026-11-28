@@ -64,7 +64,8 @@ Single-user shortcuts now, migration later, rejected:
 
 ## Rationale
 
-* Putting the tenant ID in every table is the advised design for multi-tenancy.
+* Putting the tenant ID in every table is the advised design for multi-tenancy. Push channels, outbox entries, and history rows are tables too.
+* OWASP advises limiting how often a single client or user can run an operation. A per-user rate limit follows this advice.
 * Policies restrict rows per user for normal queries and for changes.
 * With the current user ID set for the request, every query in the request is filtered to that user.
 * RLS matches the principle that the database enforces data integrity.
@@ -79,11 +80,15 @@ Single-user shortcuts now, migration later, rejected:
 * When the encryption key is lost, the stored Google tokens cannot be read. Each user must connect Google Calendar again.
 * The user must back up the `.env` file apart from the database dumps.
 * Each request must set the user ID in its transaction. This adds work to every Drizzle query.
-* No official source states that one multi-user code path should serve the self-hosted version.
-* No official source states that push channels, outbox entries, and history rows need `user_id` for this case.
-* No official source states that rate limits should be per user for this case.
 
 ## Sources
+
+### [OWASP API4:2023 Unrestricted Resource Consumption](https://api-security.owasp.org/editions/2023/en/0xa4-unrestricted-resource-consumption)
+
+Retrieved 2026-11-28.
+
+- Fact: OWASP advises limiting how often a single client or user can run an operation.
+  > "Limit/throttle how many times or how often a single API client/user can execute a single operation"
 
 ### [PostgreSQL: Row Security Policies](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)
 

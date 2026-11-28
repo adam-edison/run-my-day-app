@@ -20,6 +20,12 @@ Better Auth facts:
 * With the cookie cache turned on, a revoked session may keep working until the cache expires.
 * The docs do not describe offline behavior.
 
+Better Auth published release v1.7.29 on 28 November 2026.
+
+Passkeys resist phishing. Browsers and operating systems use a passkey only for the service that created it.
+
+A browser `EventSource` sends cookies on same-origin requests by default. The web build is served from the same origin as the API, as recorded in DR-0026.
+
 A Google Cloud project in Testing status issues refresh tokens that expire after 7 days.
 
 Example: the phone is offline for 8 days while the user ticks off routine steps. Back online, the server rejects the session. The queued ticks must still reach the server.
@@ -77,21 +83,49 @@ Magic links, rejected:
 
 ## Consequences
 
-* No official source supports email and password sign-in with a separate calendar step for this case.
 * Passwords can be reused or phished.
-* No official source states that passkeys resist phishing.
-* The Better Auth docs for passkey setup on Expo native apps are not yet read.
-* No official source states that an SSE stream from the same site sends the session cookie in the web build.
-* No official source describes the offline expiry behavior.
 * A device unused for more than 7 days asks for sign-in again.
 * If the cookie cache is turned on, a revoked session may keep working until the cache expires.
-* Better Auth has 30.9k GitHub stars, 8,169 commits, and an MIT license. Release dates were not visible on the page. The maintenance pace is not verified.
+* Better Auth has 30.9k GitHub stars, 8,169 commits, and an MIT license. Release dates were not visible on the page.
+
+## Assumptions
+
+* A separate calendar step after sign-in leaves room to add Outlook and iCloud calendars later. Not found in official sources as of 2026-11-28.
+* Better Auth supports passkey setup on Expo native apps. Not found in official sources as of 2026-11-28.
 
 ## Open Questions
 
 1. Is signing out other devices needed in the first version? Example: you lose the phone and sign it out from the laptop.
 
 ## Sources
+
+### [Releases · better-auth/better-auth](https://github.com/better-auth/better-auth/releases)
+
+Retrieved 2026-11-28.
+
+- Fact: Better Auth published release v1.7.29 on 28 November 2026.
+  > "released this 28 Nov 16:27"
+
+### [What are passkeys? | passkeys.dev](https://passkeys.dev/docs/intro/what-are-passkeys/)
+
+Retrieved 2026-11-28.
+
+- Fact: Browsers and operating systems use a passkey only for the service that created it.
+  > "browsers and operating systems enforce that passkeys are only ever used for the appropriate service."
+
+### [HTML Standard: Server-sent events](https://html.spec.whatwg.org/multipage/server-sent-events.html)
+
+Retrieved 2026-11-28.
+
+- Fact: An `EventSource` without `withCredentials` uses the Anonymous CORS state.
+  > "Let corsAttributeState be Anonymous."
+
+### [HTML Standard: URLs and fetching](https://html.spec.whatwg.org/multipage/urls-and-fetching.html)
+
+Retrieved 2026-11-28.
+
+- Fact: The Anonymous CORS state sends credentials, such as cookies, on same-origin requests.
+  > "If corsAttributeState is Anonymous, set credentialsMode to \"`same-origin`\"."
 
 ### [Expo Integration | Better Auth](https://www.better-auth.com/docs/integrations/expo)
 

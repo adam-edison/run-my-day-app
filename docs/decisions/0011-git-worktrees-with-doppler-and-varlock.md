@@ -7,7 +7,7 @@
 
 Work happens in one repository, with a git worktree for each branch. No copies of the repository are made. A new worktree contains only committed files, so gitignored `.env` files with secret values are missing from it. Several worktrees sometimes run at the same time, and each one needs its own ports and database. Work sometimes happens without a network connection.
 
-`doppler run` passes secrets to the app as environment variables. When Doppler can't be reached, `doppler run` reads its latest encrypted snapshot. The Doppler CLI stores its token in the macOS Keychain. `doppler setup` at the repository root covers every folder inside it. Varlock checks environment variables passed into the process against `.env.schema`.
+`doppler run` passes secrets to the app as environment variables. When Doppler can't be reached, `doppler run` reads its latest encrypted snapshot. The Doppler CLI stores its token in the macOS Keychain. `doppler setup` at the repository root covers every folder inside it. Varlock checks environment variables passed into the process against `.env.schema`. Varlock loads a gitignored `.env.local` file of local overrides.
 
 ## Decision
 
@@ -101,6 +101,9 @@ Retrieved 2026-11-27.
 - Fact: Varlock checks the environment variables passed in by `doppler run` against `.env.schema`.
   > "`varlock` will always treat environment variables passed into the process with the most precedence."
   > "you could rely entirely on process overrides to inject all config values, but still benefit from having a clear schema with validation applied to them."
+- Fact: Varlock loads a gitignored `.env.local` file of local overrides.
+  > "The files are applied with a specific precedence (increasing):"
+  > "`.env.local` - local overrides (gitignored)"
 
 ### [Doppler Plugin | varlock](https://varlock.dev/plugins/doppler/)
 

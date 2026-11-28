@@ -73,6 +73,9 @@ No Sentry, logs only, rejected:
 
 * With no DSN, the SDK sends no events. A self-hoster's data never leaves their server by default.
 * The free Developer plan covers one user and 5,000 errors. This fits one developer.
+* The free Developer plan includes alerts by email.
+* The Python logging guide defines `ERROR` as a failure to perform some function. A failure that needs action fits `error`.
+* The same guide defines `WARNING` as a problem while the software still works as expected. A failure that succeeds on retry fits `warn`.
 * Config in environment variables keeps credentials out of the public code.
 * OWASP lists session values, access tokens, passwords, and personal data as data to exclude from logs.
 * Sentry also scrubs data on its own servers. Advanced Data Scrubbing can redact more before data is saved.
@@ -86,10 +89,14 @@ No Sentry, logs only, rejected:
 
 * A self-hoster who sets no DSN has no error reports. They rely on the Pino log only.
 * Self-hosted Sentry needs at least 16 GB of RAM with 16 GB of swap. This is heavy for one user.
-* No official source states the log levels for this case.
-* No official source states the alert conditions for this case. Sentry Alerts act when issues match rules, and Sentry Crons watches scheduled jobs.
-* No official source states that a DSN in public code is a problem.
-* Sentry sends some notifications by email by default. The pages read do not state whether alert rules send email by default, or whether email alerts are on the free Developer plan.
+* Sentry Alerts act when issues match rules, and Sentry Crons watches scheduled jobs.
+* Sentry sends some notifications by email by default.
+
+## Assumptions
+
+* The listed alert conditions cover every failure that needs the operator's action. Not found in official sources as of 2026-11-28.
+* A DSN in the public code is a problem. A source contradicts this.
+* Sentry alert rules send email by default. Not found in official sources as of 2026-11-28.
 
 ## Sources
 
@@ -122,6 +129,24 @@ Retrieved 2026-11-27.
   > "1 User"
 - Fact: The free Developer plan includes 5,000 errors.
   > "5k errors"
+- Fact: The free Developer plan includes alerts by email. Retrieved 2026-11-28.
+  > "Alerts and notifications via email"
+
+### [DSN Explainer | Sentry](https://docs.sentry.io/concepts/key-terms/dsn-explainer/)
+
+Retrieved 2026-11-28.
+
+- Fact: A DSN is safe to keep public. A DSN only allows sending new events and gives no read access.
+  > "DSNs are safe to keep public because they only allow submission of new events and related event data"
+
+### [Logging HOWTO | Python documentation](https://docs.python.org/3/howto/logging.html)
+
+Retrieved 2026-11-28.
+
+- Fact: `ERROR` means the software could not perform some function.
+  > "Due to a more serious problem, the software has not been able to perform some function."
+- Fact: `WARNING` means something unexpected happened while the software still works as expected.
+  > "An indication that something unexpected happened, or indicative of some problem in the near future (e.g. ‘disk space low’). The software is still working as expected."
 
 ### [Fastify | Sentry for Node.js](https://docs.sentry.io/platforms/javascript/guides/fastify/)
 

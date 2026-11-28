@@ -61,8 +61,10 @@ A VPS with a public IP address and a normal certificate, rejected:
 * Funnel traffic has bandwidth limits that cannot be changed.
 * Funnel addresses must be under `ts.net`.
 * Every phone and laptop needs the Tailscale app installed and signed in.
-* No official source describes SSE through Tailscale Serve or Funnel. The test checks it.
-* No official source compares these options for this case. The choice is not verified.
+
+## Assumptions
+
+* SSE works through Tailscale Serve. Not found in official sources as of 2026-11-28. A trial checks this.
 
 ## Sources
 

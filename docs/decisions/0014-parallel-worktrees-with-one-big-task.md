@@ -39,11 +39,14 @@ Several big tasks at once, rejected:
 
 * Review sets the pace, and only one big pull request waits for review at a time.
 * Small tasks are reviewed quickly. They don't slow the big one.
-* The limit of 4 keeps the number of tasks one reviewer tracks low enough to avoid overwhelm.
 
 ## Consequences
 
 * A second feature can't start until the big task in progress is merged.
+
+## Assumptions
+
+* A limit of 4 worktrees keeps the number of tasks one reviewer tracks low enough to avoid overwhelm. Not found in official sources as of 2026-11-28.
 
 ## Sources
 

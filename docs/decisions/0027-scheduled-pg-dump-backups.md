@@ -57,10 +57,12 @@ Copying the Docker volume's files, rejected:
 * Changes since the last dump are lost. Devices keep 90 days of history and the outbox. Some recent changes could sync again from the devices.
 * `pg_dump` does not include roles. `pg_dumpall` covers roles.
 * Roles must exist before a restore.
-* No official source states the schedule, the retention, or the restore test for this case.
-* The conditions of a file-level backup are not checked in detail.
 * A dump folder on the same disk as the database is lost with that disk. The user must choose a folder elsewhere.
 * The dump check does not restore the data. A full restore is not tested automatically.
+
+## Assumptions
+
+* A dump that `pg_restore --list` can read is usable for a restore. Not found in official sources as of 2026-11-28.
 
 ## Sources
 

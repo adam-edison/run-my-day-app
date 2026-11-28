@@ -10,6 +10,7 @@ Sync runs through oRPC on the Fastify server, as recorded in DR-0017. Requests u
 oRPC facts:
 
 * The npm latest version of `@orpc/server` is 1.16.7.
+* `@orpc/server` was first published on npm on 16 November 2024. `@trpc/server` was first published on 25 January 2021. oRPC is about four years younger than tRPC.
 * oRPC combines typed RPC with first-class OpenAPI support.
 * The same procedures serve the RPC protocol and OpenAPI endpoints.
 * oRPC supports contract-first APIs and typed SSE.
@@ -38,6 +39,12 @@ tRPC, rejected:
 * oRPC's comparison page lists no contract-first support in tRPC.
 * oRPC's comparison page lists only partial OpenAPI support in tRPC.
 
+ts-rest, not chosen:
+
+* ts-rest is no longer maintained. It has no planned releases, bug fixes, or security updates.
+* ts-rest defines a contract first.
+* ts-rest supports Fastify and any validation library with Standard Schema support.
+
 ## Rationale
 
 * oRPC's docs list contract-first support, typed SSE, and first-party OpenAPI.
@@ -46,10 +53,39 @@ tRPC, rejected:
 ## Consequences
 
 * An oRPC stream ends when its handler returns. EventSource clients then try to reconnect. A push handler that returns early causes repeated reconnects.
-* No official source states that oRPC is younger than tRPC. This point is own reasoning.
-* ts-rest is not yet researched as an option. The oRPC comparison page does not cover ts-rest.
+
+## Open Questions
+
+1. Do you want to consider ts-rest in place of oRPC? Example: a fork of ts-rest takes over maintenance, and the sync contract moves to it.
 
 ## Sources
+
+### [@orpc/server on the npm registry](https://registry.npmjs.org/@orpc/server)
+
+Retrieved 2026-11-28.
+
+- Fact: `@orpc/server` was first published on 16 November 2024.
+  > "created": "2024-11-16T06:14:34.679Z"
+
+### [@trpc/server on the npm registry](https://registry.npmjs.org/@trpc/server)
+
+Retrieved 2026-11-28.
+
+- Fact: `@trpc/server` was first published on 25 January 2021.
+  > "created": "2021-01-25T22:34:03.428Z"
+
+### [ts-rest](https://ts-rest.com/)
+
+Retrieved 2026-11-28.
+
+- Fact: ts-rest is no longer maintained.
+  > "There are no planned releases, bug fixes, security updates, or support."
+- Fact: ts-rest defines a contract first.
+  > "Contract-First API"
+- Fact: ts-rest supports Fastify.
+  > "We support Nest, Next.js, Express, Fastify and more"
+- Fact: ts-rest supports any validation library with Standard Schema support.
+  > "We support any Typescript validation library that supports Standard Schema."
 
 ### [Comparison | oRPC](https://orpc.dev/docs/comparison)
 

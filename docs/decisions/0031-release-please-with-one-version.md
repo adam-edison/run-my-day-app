@@ -17,7 +17,7 @@ Facts from earlier decisions:
 
 SemVer raises MAJOR for breaking changes, MINOR for features, and PATCH for fixes. Conventional Commits map onto SemVer: `fix` to PATCH, `feat` to MINOR, and `BREAKING CHANGE` to MAJOR.
 
-App stores use two numbers. `version` is shown to users. `ios.buildNumber` and `android.versionCode` are build numbers. Google Play rejects a reused `versionCode`.
+App stores use two numbers. `version` is shown to users. `ios.buildNumber` and `android.versionCode` are build numbers. Google Play rejects a reused `versionCode`. On iOS, `CFBundleShortVersionString` holds three integers separated by periods, such as `1.2.3`. `CFBundleVersion` holds only digits and periods. Expo's `ios.buildNumber` sets `CFBundleVersion`.
 
 Example: the "Routines" milestone closes. Its `feat` commits must become a new version number. The next Android build needs a `versionCode` that Google Play has not seen.
 
@@ -61,10 +61,11 @@ Changesets, rejected:
 * A server-only change raises the app's version too.
 * SemVer requires a declared public API.
 * `autoIncrement` does not change the user-facing version.
-* No official source supports one version over separate versions for this case.
-* No official source states that semantic-release conflicts with hand checks before a release.
-* No official source states that Changesets duplicates Conventional Commits.
-* No Apple source on `CFBundleVersion` or `CFBundleShortVersionString` is quoted. No Apple format rules are recorded.
+
+## Assumptions
+
+* A release on every merge with a `feat` or `fix` commit leaves no time for hand checks before a phone app release. Not found in official sources as of 2026-11-28.
+* A Changesets file in each pull request repeats what the Conventional Commit already records. Not found in official sources as of 2026-11-28.
 
 ## Open Questions
 
@@ -73,6 +74,22 @@ Changesets, rejected:
 3. Does an over-the-air JavaScript update get its own PATCH version? Example: a text fix shipped through Expo Update raises `1.2.0` to `1.2.1` with no new store build.
 
 ## Sources
+
+### [Core Foundation Keys](https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html)
+
+Retrieved 2026-11-28.
+
+- Fact: `CFBundleShortVersionString` holds three integers separated by periods.
+  > "The release version number is a string composed of three period-separated integers."
+- Fact: `CFBundleVersion` holds only digits and periods.
+  > "The string should only contain numeric (`0`-`9`) and period (`.`) characters."
+
+### [App version management | Expo](https://docs.expo.dev/build-reference/app-versions/)
+
+Retrieved 2026-11-28.
+
+- Fact: `ios.buildNumber` sets `CFBundleVersion`.
+  > "The developer-facing build version for iOS. It represents `CFBundleVersion` in **Info.plist**."
 
 ### [Semantic Versioning 2.0.0](https://semver.org/)
 

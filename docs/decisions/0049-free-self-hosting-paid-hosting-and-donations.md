@@ -58,9 +58,12 @@ Freemium hosted version with a free tier, rejected:
 ## Consequences
 
 * The hosted version needs billing and a free trial.
-* Revenue large enough to pay a salary is not supported by any source.
-* Plausible's success is with businesses. No source shows the same result for a consumer app.
 * The monthly price is not decided.
+
+## Assumptions
+
+* Paid hosting and donations can bring revenue large enough to pay a salary. Not found in official sources as of 2026-11-28.
+* Plausible's paid-hosting success with businesses also applies to a consumer app. Not found in official sources as of 2026-11-28.
 
 ## Sources
 

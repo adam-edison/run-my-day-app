@@ -27,8 +27,8 @@ Playwright tests run on a schedule in GitHub Actions and before a release.
 
 ## Alternatives Considered
 
-- **Cypress:** Rejected because Cypress has no built-in offline switch. Its documented offline recipe overrides `navigator.onLine` and fails requests with `cy.intercept`. That recipe does not turn off the browser's real network.
-- **Jest with jsdom:** Rejected because jsdom has no service worker and no real audio.
+- **Cypress:** Rejected because its documented offline recipe overrides `navigator.onLine` and fails requests with `cy.intercept`. That recipe does not turn off the browser's real network. Cypress has no built-in offline switch. A built-in offline mode is still an open feature request.
+- **Jest with jsdom:** Rejected because jsdom has no real audio.
 
 ## Rationale
 
@@ -39,6 +39,10 @@ Playwright tests run on a schedule in GitHub Actions and before a release.
 
 - Playwright tests are slow, so they don't run on every commit.
 - Service worker tests run in Chromium only.
+
+## Assumptions
+
+* jsdom has no service worker. Not found in official sources as of 2026-11-28.
 
 ## Sources
 
@@ -89,9 +93,17 @@ Retrieved 2026-11-27.
 
 Retrieved 2026-11-27.
 
-- Fact: Cypress has no built-in offline switch. Its older method sent Chrome DevTools Protocol commands.
+- Fact: Cypress's older offline method sent Chrome DevTools Protocol commands.
   > "we need to actually go offline using the Network.emulateNetworkConditions command."
   > "The only browser that cannot run these tests is Firefox."
+
+### [Simulate offline mode · Issue #235 · cypress-io/cypress](https://github.com/cypress-io/cypress/issues/235)
+
+Retrieved 2026-11-28.
+
+- Fact: Cypress has no built-in offline switch. A built-in offline mode is still an open feature request.
+  > "Offline mode is specified in #34992, which has the proposed `cy.network({ offline })` API, implementation notes and acceptance criteria, and is tracked there."
+  > "Until it lands, the Chrome DevTools Protocol workaround linked from https://docs.cypress.io/app/guides/network-requests (`Network.emulateNetworkConditions` through `Cypress.automation('remote:debugger:protocol')`) works on Cypress 16.3.0 in Chrome for Testing 153."
 
 ### [Does jsdom support video and audio elements? · Issue #2155 · jsdom/jsdom](https://github.com/jsdom/jsdom/issues/2155)
 

@@ -20,7 +20,8 @@ Challenges:
 
 Problems with building in layers:
 
-* When the whole app is built one layer at a time, the layers first run together near the end, which catches problems too late.
+* When the whole app is built one layer at a time, the layers first run together near the end.
+* A finished lower layer has no use until the layers above it exist.
 * A requirement found while building a screen can change the layers below it.
 
 Example: the task view screen is built last, after every table, endpoint, and actor is done. While building it, each task's skip count turns out to be needed on screen. A history query, a new endpoint field, and new actor state must then be added to layers that were already reviewed.
@@ -50,7 +51,7 @@ Example: Routines is built before Progressions starts. The Routines pull request
 
 One layer at a time for the whole app, rejected:
 
-* The layers first run together near the end.
+* The layers first run together near the end. Integration near the end often finds many incompatibilities too late. The rework can then miss the delivery date.
 * A requirement found in a higher layer reopens lower layers that were already reviewed.
 
 Vertical slices of one user story each, rejected:
@@ -93,6 +94,15 @@ Retrieved 2026-11-27.
   > "We want to give the customer the essence of the whole cake, and the best way is to slice vertically through the layers."
 - Fact: When the whole app is built one layer at a time, a finished lower layer has no use until the layers above it exist.
   > "Developers often have an inclination to work on only one layer at a time (and get it “right”); but a full database layer (for example) has little value to the customer if there’s no presentation layer."
+
+### [Integration | Software Engineering for Self-Directed Learners (TEE3201)](https://nus-tee3201.github.io/2024/se-book-adapted/chapters/integration.html)
+
+Retrieved 2026-11-28.
+
+- Fact: Integration near the end of a project often finds many incompatibilities, and the rework can miss the delivery date.
+  > "Late and one-time: wait till all components are completed and integrate all finished components near the end of the project."
+  > "This approach is not recommended because integration often causes many component incompatibilities"
+  > "major rework required → cannot meet the delivery date."
 
 ### [Small CLs | eng-practices](https://google.github.io/eng-practices/review/developer/small-cls.html)
 

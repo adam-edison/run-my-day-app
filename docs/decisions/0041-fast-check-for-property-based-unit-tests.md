@@ -23,6 +23,7 @@ Example: a recurrence rule repeats a task every second Tuesday. A property test 
 No property-based testing, rejected:
 
 * Edge cases would depend on hand-picked examples.
+* Even experienced developers miss edge cases in hand-picked examples.
 
 ## Rationale
 
@@ -32,8 +33,10 @@ No property-based testing, rejected:
 ## Consequences
 
 * fast-check adds another library and test style to learn.
-* No official source states which Run My Day logic benefits from property tests. The choice of recurrence rules, conflict resolution, and streak counts is not verified.
-* No official source states that hand-picked examples miss edge cases in this codebase.
+
+## Assumptions
+
+* Recurrence rules, conflict resolution, and streak counts are the Run My Day logic that benefits from property tests. Not found in official sources as of 2026-11-28.
 
 ## Sources
 
@@ -47,3 +50,10 @@ Retrieved 2026-11-27.
   > "fast-check can be used within any test runner without any specific integration needed."
 - Fact: It works with Vitest.
   > "It works well with Jest, Mocha, Vitest, and others."
+
+### [Why Property-Based? | fast-check](https://fast-check.dev/docs/introduction/why-property-based/)
+
+Retrieved 2026-11-28.
+
+- Fact: Even experienced developers miss edge cases in example-based tests.
+  > "even seasoned developers can miss edge cases."

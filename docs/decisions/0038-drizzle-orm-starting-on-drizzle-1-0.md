@@ -43,6 +43,18 @@ Starting on Drizzle 0.45, rejected:
 
 * Version 1.0 changes the migration folder format and relational queries. Starting on 0.45 would mean a migration soon after.
 
+Prisma, not chosen:
+
+* Prisma 7 uses a client without Rust. It needs a driver adapter for every database.
+* Prisma's React Native and Expo support is a preview feature in Early Access.
+* The npm `latest` tag of `prisma` is the release candidate 8.0.0-rc.36.
+
+Kysely, not chosen:
+
+* Kysely is a typed SQL query builder, not an ORM.
+* Kysely's list of official dialects has no expo-sqlite dialect.
+* Kysely's migration CLI is not part of the core.
+
 ## Rationale
 
 * Drizzle documents an expo-sqlite driver with bundled migrations and live queries.
@@ -51,13 +63,51 @@ Starting on Drizzle 0.45, rejected:
 ## Consequences
 
 * Drizzle 1.0 is a release candidate now.
-* No official source recommends starting on 1.0. This choice is own reasoning.
 * Drizzle's expo-sqlite page does not mention the web.
 * The web build of SQLite has no full-text search.
-* Prisma is not yet researched as an option. Its expo-sqlite support is not checked. Its npm latest version is a release candidate, 8.0.0-rc.36.
-* Kysely is not yet researched as an option. Kysely is a query builder. Its expo-sqlite support is not checked.
+
+## Assumptions
+
+* Starting on the Drizzle 1.0 release candidate costs less than a migration from Drizzle 0.45 to 1.0 later. Not found in official sources as of 2026-11-28.
+
+## Open Questions
+
+1. Do you want to consider Prisma in place of Drizzle? Example: the server uses Prisma with PostgreSQL, and the phones use Prisma's React Native preview.
+2. Do you want to consider Kysely in place of Drizzle? Example: the server uses Kysely's PostgreSQL dialect, and the phones use a community expo-sqlite dialect.
 
 ## Sources
+
+### [Upgrade to Prisma ORM 7](https://www.prisma.io/docs/guides/upgrade-prisma-orm/v7)
+
+Retrieved 2026-11-28.
+
+- Fact: Prisma 7 uses a client without Rust.
+  > "Upgrade to the new `prisma-client` provider which uses the new Rust-free client."
+- Fact: Prisma 7 needs a driver adapter for every database.
+  > "The way to create a new Prisma Client has changed to require a driver adapter for all databases."
+
+### [prisma/react-native-prisma on GitHub](https://github.com/prisma/react-native-prisma)
+
+Retrieved 2026-11-28.
+
+- Fact: Prisma's React Native and Expo support is in Early Access.
+  > "Early Access: Prisma ORM for React Native and Expo"
+- Fact: Prisma's React Native support is a preview feature.
+  > "React Native support is currently a preview feature"
+
+### [Introduction | Kysely](https://kysely.dev/docs/intro)
+
+Retrieved 2026-11-28.
+
+- Fact: Kysely is a typed SQL query builder.
+  > "a type-safe and autocompletion-friendly TypeScript SQL query builder"
+
+### [Migrations | Kysely](https://kysely.dev/docs/migrations)
+
+Retrieved 2026-11-28.
+
+- Fact: Kysely's migration CLI is not part of the core.
+  > "It is not part of the core, and your mileage may vary."
 
 ### [Drizzle ORM - Expo SQLite](https://orm.drizzle.team/docs/connect-expo-sqlite)
 

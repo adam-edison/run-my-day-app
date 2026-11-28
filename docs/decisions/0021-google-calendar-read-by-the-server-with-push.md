@@ -85,7 +85,11 @@ Push for the hosted version and checking every minute for the self-hosted versio
 * Google's push notifications are not 100% reliable. A lost push notification delays a change until the next check, 5 minutes at most by default.
 * Reading Google Calendar events is a sensitive scope. Google must verify the hosted app before more than 100 users can connect.
 * The self-hosted version needs a public HTTPS address, which the hosting and remote access decisions must provide.
-* A Google Cloud project in Testing status gets refresh tokens that expire after 7 days. A self-hoster's project in Personal mode needs no verification. Whether its refresh tokens last longer than 7 days is not confirmed.
+* A Google Cloud project in Testing status gets refresh tokens that expire after 7 days. A self-hoster's project in Personal mode needs no verification.
+
+## Assumptions
+
+* Refresh tokens of a self-hoster's project in Personal mode last longer than 7 days. Not found in official sources as of 2026-11-28.
 
 ## Sources
 

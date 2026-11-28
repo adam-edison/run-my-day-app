@@ -67,6 +67,8 @@ Everything on each pull request, rejected:
 * The slow tests stay off the pull request path, as recorded in DR-0009 and DR-0010.
 * Public repositories use standard runners for free. The nightly runs cost nothing.
 * A skipped required check counts as passing.
+* A workflow skipped by path or branch filters leaves its required checks pending and blocks the merge.
+* Maestro iOS tests need a macOS runner because the iOS Simulator runs only on macOS with Xcode.
 * commitlint documents a GitHub Actions job that checks all commits in a pull request.
 * GitHub advises unique job names for required checks.
 
@@ -79,9 +81,6 @@ Everything on each pull request, rejected:
 * `actions/setup-node` does not cache `node_modules`.
 * The cache limit is 10 GB for each repository. Entries unused for 7 days are deleted.
 * Betterleaks v2 is still in development. Until the first stable v2 release, package managers and the Docker `latest` tag may still provide v1.
-* No official source states that a workflow that never starts leaves a required check waiting.
-* No official source recommends this split of workflows for an Expo app.
-* No Maestro source states that iOS simulators need macOS.
 
 ## Open Questions
 
@@ -90,6 +89,22 @@ Everything on each pull request, rejected:
 3. Does the Vitest boundary test against Postgres run on each pull request in a Postgres service container? Example: the routine endpoint tests start a `postgres` service in the job.
 
 ## Sources
+
+### [Troubleshooting required status checks](https://docs.github.com/en/pull-requests/how-tos/merge-and-close-pull-requests/troubleshooting-required-status-checks)
+
+Retrieved 2026-11-28.
+
+- Fact: A workflow skipped by path or branch filters leaves its required checks pending and blocks the merge.
+  > "Associated checks stay in a "Pending" state and block merging"
+
+### [iOS | Maestro](https://docs.maestro.dev/get-started/supported-platform/ios)
+
+Retrieved 2026-11-28.
+
+- Fact: Maestro runs iOS tests on a simulator managed by Xcode.
+  > "Run tests on any iOS Simulator managed by Xcode."
+- Fact: iOS tests depend on macOS hardware.
+  > "Scaling iOS tests locally can be difficult due to macOS hardware requirements."
 
 ### [GitHub Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions)
 

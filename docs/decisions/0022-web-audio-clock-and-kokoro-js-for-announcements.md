@@ -57,8 +57,11 @@ Starting sounds directly with `setTimeout`, rejected:
 ## Consequences
 
 * The q8f16 model is an 86 MB download. A larger model would be a larger download.
-* No official source states whether the Web Audio clock stays on time in a hidden tab. The trial checks it.
-* kokoro-js generation speed is not documented. The trial checks it.
+
+## Assumptions
+
+* The Web Audio clock stays on time in a hidden tab. Not found in official sources as of 2026-11-28. A trial checks this.
+* kokoro-js generates an announcement fast enough to finish before it is due. Not found in official sources as of 2026-11-28. A trial checks this.
 
 ## Sources
 

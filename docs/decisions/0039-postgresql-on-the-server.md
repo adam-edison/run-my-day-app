@@ -29,6 +29,8 @@ Example: the phone and the laptop both edit the Workout block's end time while o
 SQLite on the server, rejected:
 
 * SQLite does not fit more than one server instance. The shared store of @fastify/rate-limit plans for more than one instance.
+* SQLite's docs advise a client/server database when many programs send SQL to one database over a network.
+* SQLite allows only one writer at a time.
 
 ## Rationale
 
@@ -41,11 +43,19 @@ SQLite on the server, rejected:
 ## Consequences
 
 * PostgreSQL is a separate service to run.
-* No official source states that SQLite on the server does not fit more than one instance. This point is own reasoning.
 * Drizzle and Better Auth state no PostgreSQL version limits.
 * The server and the devices use different SQL dialects.
 
 ## Sources
+
+### [Appropriate Uses For SQLite](https://sqlite.org/whentouse.html)
+
+Retrieved 2026-11-28.
+
+- Fact: SQLite's docs advise a client/server database when many programs send SQL to one database over a network.
+  > "If there are many client programs sending SQL to the same database over a network, then use a client/server database engine instead of SQLite."
+- Fact: SQLite allows only one writer at a time.
+  > "SQLite supports an unlimited number of simultaneous readers, but it will only allow one writer at any instant in time."
 
 ### [PostgreSQL Versioning Policy](https://www.postgresql.org/support/versioning/)
 

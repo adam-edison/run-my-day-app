@@ -5,7 +5,7 @@
 
 ## Context
 
-Most logic is plain TypeScript: the client state actors in the core package, the schemas, and the server. Most tests cover this logic, and they run on every commit. Vitest has no official support for React Native components.
+Most logic is plain TypeScript: the client state actors in the core package, the schemas, and the server. Most tests cover this logic, and they run on every commit. React Native and Expo document only Jest for testing.
 
 ## Decision
 
@@ -13,8 +13,8 @@ Vitest runs the unit tests for the core package and the server. It also runs the
 
 ## Alternatives Considered
 
-- **Jest everywhere:** Rejected because Jest's ESM support is experimental, and Jest runs slower.
-- **Vitest everywhere, with vitest-native:** Rejected because Expo documents only Jest with jest-expo, and Vitest support for Expo comes only from a community plugin that has not reached version 1.0.
+- **Jest everywhere:** Rejected because Jest's ESM support is experimental. Vitest's own comparison page states that Vitest gives a faster run than Jest.
+- **Vitest everywhere, with vitest-native:** Rejected because Expo documents only Jest with jest-expo, and Vitest support for Expo comes only from a community plugin that has not reached version 1.0. Vitest has no official support for React Native components. A Vitest maintainer points to a community package for React Native support.
 
 ## Rationale
 
@@ -26,6 +26,10 @@ Vitest runs the unit tests for the core package and the server. It also runs the
 
 - Two test runners are maintained: Vitest and Jest.
 - Shared test helpers can't be imported by both runners without care, because their mock APIs differ (`vi` against `jest`).
+
+## Assumptions
+
+* Jest runs the tests for this project slower than Vitest. Not found in official sources as of 2026-11-28.
 
 ## Sources
 
@@ -41,7 +45,7 @@ Retrieved 2026-11-27.
 
 Retrieved 2026-11-27.
 
-- Fact: Jest runs slower than Vitest.
+- Fact: Vitest's own comparison page states that Vitest gives a faster run than Jest.
   > "it gives you a faster run for your unit tests and a jump in DX thanks to the default watch mode"
 
 ### [Features | Guide | Vitest](https://vitest.dev/guide/features)
@@ -72,7 +76,7 @@ Retrieved 2026-11-27.
 
 Retrieved 2026-11-27.
 
-- Fact: Vitest has no official support for React Native components. React Native ships Jest and does not mention Vitest.
+- Fact: React Native ships Jest and does not mention Vitest.
   > "The default template of React Native ships with Jest testing framework."
 
 ### [vitest-native — Test React Native as it ships](https://vitest-native.danfry.dev/)
@@ -82,3 +86,12 @@ Retrieved 2026-11-27.
 - Fact: Vitest support for Expo comes only from a community plugin that has not reached version 1.0.
   > "It's pre-1.0. Some options may still change before 1.0."
   > "Maintained successor to"
+
+### [React native · vitest-dev/vitest · Discussion #1848](https://github.com/vitest-dev/vitest/discussions/1848)
+
+Retrieved 2026-11-28.
+
+- Fact: A Vitest maintainer states that React Native is not supported by Vitest itself.
+  > "It's not supported"
+- Fact: A Vitest maintainer points to a community package for React Native support.
+  > "React Native is supported via vitest-react-native package."

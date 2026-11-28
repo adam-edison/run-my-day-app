@@ -57,13 +57,26 @@ Hand-written patterns on Temporal plain dates only, rejected:
 
 * The core package still contains the code for repeating by completion date, the "if missed" setting, and specific dates.
 * rrule-temporal is maintained by one person.
-* rrule-temporal uses native Temporal when present and otherwise bundles `temporal-polyfill`. Running the polyfill inside React Native (Hermes engine) is not checked.
+* rrule-temporal uses native Temporal when present and otherwise bundles `temporal-polyfill`.
+
+## Assumptions
+
+* `temporal-polyfill` runs inside React Native on the Hermes engine. A source contradicts this.
 
 ## Open Questions
 
 1. Should a repeat be importable from or exportable to a calendar as an RRULE string? Example: copying a Google Calendar repeating event into a task.
 
 ## Sources
+
+### [Zone identifiers fail on React Native's Hermes | fullcalendar/temporal-polyfill issue 133](https://github.com/fullcalendar/temporal-polyfill/issues/133)
+
+Retrieved 2026-11-28.
+
+- Fact: On Hermes, `temporal-polyfill` 1.0.8 throws for some time zone identifiers, and a zone never equals its alias.
+  > "On React Native's Hermes engine, some zone identifiers throw and a zone never equals its alias. On Node 22 with the same version neither happens."
+- Fact: On iOS, 21 of 439 tried identifiers throw. All 21 are IANA links.
+  > "The same happens for 21 of 439 identifiers tried, all IANA links"
 
 ### [jkbrzt/rrule on GitHub](https://github.com/jkbrzt/rrule)
 

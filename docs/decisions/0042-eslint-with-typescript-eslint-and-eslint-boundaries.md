@@ -13,6 +13,8 @@ typescript-eslint runs type-aware rules. These rules use the TypeScript type che
 
 ESLint Boundaries sorts files into element types, such as "core" and "app". It rejects imports that break a policy. A policy can also match an external package, such as `xstate`.
 
+ESLint's built-in `no-restricted-imports` rule rejects imports of named packages, such as `xstate`. An ESLint config object with a `files` pattern applies its rules only to the matching files. One config object can turn on the rule for every folder except the core package.
+
 Latest npm versions:
 
 * ESLint 10.16.0
@@ -58,8 +60,10 @@ dependency-cruiser for the boundary check, rejected:
 ## Consequences
 
 * Type-aware linting is slower, because TypeScript builds the whole project first.
-* No official source states whether type-aware linting is fast enough in a pre-commit hook for this repository.
-* No official source states that `no-restricted-imports` with a per-folder override can reject `xstate` outside the core package. This idea is not verified.
+
+## Assumptions
+
+* Type-aware linting is fast enough in a pre-commit hook for this repository. Not found in official sources as of 2026-11-28.
 
 ## Open Questions
 
@@ -121,6 +125,15 @@ Retrieved 2026-11-27.
 
 - Fact: ESLint has a built-in rule that rejects named modules.
   > "Disallow specified modules when loaded by `import`"
+- Fact: The `paths` option lists the package names to reject.
+  > "This is an object option whose value is an array containing the names of the modules you want to restrict."
+
+### [Configuration Files | ESLint](https://eslint.org/docs/latest/use/configure/configuration-files)
+
+Retrieved 2026-11-28.
+
+- Fact: A config object with a `files` pattern applies its rules only to the matching files.
+  > "Here, only the JavaScript files in the `src` directory have the `semi` rule applied."
 
 ### [dependency-cruiser | GitHub](https://github.com/sverweij/dependency-cruiser)
 

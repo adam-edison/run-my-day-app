@@ -74,7 +74,7 @@ Whole-row last write wins, rejected:
 * When two devices edit the same field, only the edit the server receives last is kept.
 * While a device is blocked by a bug, its changes do not reach the server or the user's other devices.
 * Clearing the app's data on a blocked device loses its unsynced changes.
-* No source states the stop-and-wait handling for bugs. Replicache warns that errors that hold the queue "block synchronization and thus should be used carefully."
+* Replicache warns that errors that hold the queue "block synchronization and thus should be used carefully."
 
 ## Sources
 

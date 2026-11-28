@@ -7,7 +7,7 @@
 
 Run My Day plays sounds and music during routines, such as a start sound on a step or background music for a workout. Earlier plans connected cloud storage, such as Google Drive, OneDrive, and Dropbox, as music sources.
 
-Reading all of a user's Google Drive files requires restricted OAuth scopes, such as `drive.readonly`. The non-sensitive `drive.file` scope reaches only the files that the user opens with the app or picks in the Google Picker. Google requires each app that accesses restricted scope data from or through a server to pass a third-party CASA security assessment every 12 months. The developer pays the assessor's fees. Streaming from cloud storage APIs adds latency. The first sound of each step must play within 100 milliseconds of its start mark.
+Reading all of a user's Google Drive files requires restricted OAuth scopes, such as `drive.readonly`. The non-sensitive `drive.file` scope reaches only the files that the user opens with the app or picks in the Google Picker. Google requires each app that accesses restricted scope data from or through a server to pass a third-party CASA security assessment every 12 months. The developer pays the assessor's fees. The first sound of each step must play within 100 milliseconds of its start mark.
 
 ## Decision
 
@@ -19,13 +19,13 @@ Run My Day suggests sync and download apps for getting files to and from Google 
 
 ## Alternatives Considered
 
-- **Cloud storage connections:** Play files directly from Google Drive, OneDrive, Dropbox, and similar services. Rejected because of the security and content-rights exposure, streaming latency, and Google's scope rules. Reading a user's music folders in Google Drive needs restricted scopes and the yearly CASA assessment. The non-sensitive `drive.file` scope avoids the assessment, but the user must pick each file one at a time in the Google Picker.
+- **Cloud storage connections:** Play files directly from Google Drive, OneDrive, Dropbox, and similar services. Rejected because of the security and content-rights exposure and Google's scope rules. Reading a user's music folders in Google Drive needs restricted scopes and the yearly CASA assessment. The non-sensitive `drive.file` scope avoids the assessment, but the user must pick each file one at a time in the Google Picker.
 
 ## Rationale
 
 - **Security and liability:** Run My Day never holds access to a user's cloud storage, and never hosts or streams content it does not own.
 - **No CASA assessment:** No restricted Google scopes are needed.
-- **Timing accuracy:** Local playback avoids streaming delays, so sounds can play on their start mark.
+- **Timing accuracy:** Local playback does not wait on a network.
 
 ## Consequences
 
@@ -34,6 +34,10 @@ Run My Day suggests sync and download apps for getting files to and from Google 
 - Matching by file name and metadata can pick a different file than intended when two files are similar.
 - Users rely on separate sync apps to move files between devices and cloud storage.
 - Earlier plans for cloud music sources are dropped.
+
+## Assumptions
+
+* Streaming from cloud storage APIs adds enough latency to miss the 100 millisecond start mark. Not found in official sources as of 2026-11-28.
 
 ## Sources
 

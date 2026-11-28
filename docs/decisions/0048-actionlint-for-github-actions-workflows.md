@@ -23,6 +23,23 @@ No workflow linter, rejected:
 
 * A broken workflow is found only when it runs on GitHub.
 
+zizmor, not chosen:
+
+* zizmor is an MIT-licensed static analysis tool for GitHub Actions.
+* Its checks target security problems, such as template injection, credential exposure, and broad permissions.
+* Its README does not list expression type checks or shellcheck integration.
+
+jactionlint, not chosen:
+
+* jactionlint started as a fork of actionlint and covers actionlint's checks.
+* It adds security rules that follow the audits of zizmor.
+* Packages called actionlint, such as the one in Homebrew core, install the original project, not this fork.
+
+GitHub Actions extension for VS Code, not chosen:
+
+* It validates workflow files and GitHub Actions expressions in the editor.
+* It runs in the editor only, not in a git hook or CI.
+
 ## Rationale
 
 * The actionlint README documents expression type checks.
@@ -31,9 +48,18 @@ No workflow linter, rejected:
 ## Consequences
 
 * The latest actionlint release is v1.7.12, from 2026-03-30. No release came in the 8 months since.
-* The actionlint repository was not checked for recent commits.
-* No other workflow linter was researched.
-* No official source states that a broken workflow is found only when it runs on GitHub. This point is not verified.
+* The latest commit on the actionlint `main` branch is from 2026-04-19.
+
+## Assumptions
+
+* actionlint is still maintained despite 8 months without a release. Not found in official sources as of 2026-11-28.
+* Without a workflow linter, a broken workflow is found only when it runs on GitHub. A source contradicts this.
+
+## Open Questions
+
+* Should zizmor run beside actionlint? Example: a workflow step puts `${{ github.event.pull_request.title }}` straight into a `run:` script. zizmor reports the template injection.
+* Should jactionlint replace actionlint? Example: one jactionlint run reports both the `${{ matrix.devise }}` typo and a template injection.
+* Should the GitHub Actions extension for VS Code be recommended in the editor? Example: it marks an invalid workflow key while the file is being edited.
 
 ## Sources
 
@@ -54,3 +80,36 @@ Retrieved 2026-11-27.
 
 - Fact: The latest release is v1.7.12.
   > "{\"published_at\":\"2026-03-30T17:49:21Z\",\"tag_name\":\"v1.7.12\"}"
+
+### [actionlint commits | GitHub](https://github.com/rhysd/actionlint/commits/main)
+
+Retrieved 2026-11-28.
+
+- Fact: The latest commit on `main` is from 2026-04-19.
+  > "Merge pull request #651 from attehuhtakangas/fix-shellcheck-deadlock-macos"
+
+### [zizmor | GitHub](https://github.com/zizmorcore/zizmor)
+
+Retrieved 2026-11-28.
+
+- Fact: zizmor is a static analysis tool for GitHub Actions.
+  > "Static analysis for GitHub Actions (and more)"
+- Fact: zizmor is MIT licensed.
+  > "licensed under the MIT License."
+- Fact: Its checks target security problems. The page was read as a summary, so no verbatim quote is available for the list of checks.
+
+### [jactionlint | GitHub](https://github.com/jdx/jactionlint)
+
+Retrieved 2026-11-28.
+
+- Fact: jactionlint covers actionlint's checks and adds security rules from zizmor.
+  > "It started as a fork of actionlint and covers its checks, and its security rules follow the audits of zizmor."
+- Fact: Packages called actionlint install the original project.
+  > "Packages named actionlint, as in Homebrew core, install the original project, not this fork."
+
+### [GitHub Actions for VS Code | GitHub](https://github.com/github/vscode-github-actions)
+
+Retrieved 2026-11-28.
+
+- Fact: The extension validates workflow files and expressions in the editor.
+  > "Validation and code completion for the YAML schema and GitHub Actions Expressions."

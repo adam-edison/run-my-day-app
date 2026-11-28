@@ -5,7 +5,7 @@
 
 ## Context
 
-Run My Day runs on Android, iOS, and web from one Expo codebase. Development and testing on the web are faster than on phones: no native builds, no emulators, and no app store releases. Some phone capabilities that the design depends on are not yet proven.
+Run My Day runs on Android, iOS, and web from one Expo codebase. Development and testing on the web need no native builds, no emulators, and no app store releases. Some phone capabilities that the design depends on are not yet proven.
 
 ## Decision
 
@@ -28,12 +28,13 @@ The Expo web trial from DR-0004 is the first task.
 
 ## Alternatives Considered
 
-- **Every feature on all platforms at once:** Rejected because native builds, emulators, and device tests slow every feature down.
-- **Mobile first:** Rejected because the slowest platform would set the pace of all development.
+- **Every feature on all platforms at once:** Rejected because every feature would need native builds, emulators, and device tests.
+- **Mobile first:** Rejected because the phone platforms would set the pace of all development.
 
 ## Rationale
 
-- **Fast development:** Features are built and tested in a browser, with no native builds.
+- **No native builds:** Features are built and tested in a browser, with no native builds.
+- **Faster iteration:** Expo presents the iteration speed of web development as a goal for React Native development.
 - **Early proof:** The trials show whether the phones can do what the design assumes before features depend on it.
 - **One codebase:** Shared components and core code carry over to the phones unchanged.
 - **Phone-ready layouts:** Responsive layouts fit phone screens.
@@ -55,6 +56,13 @@ Retrieved 2026-11-27.
   > "React Native for web (RNW) is a set of component libraries such as `<View>`, and `<Text>`, that wrap `react-dom` primitives such as `<div>`, `<p>`, and `<img>`."
 - Fact: Development on the web runs in a browser, with no native builds.
   > "You can now start the dev server and develop in the browser with:"
+
+### [Increase iteration speed with PR previews | Expo](https://expo.dev/blog/increase-iteration-speed-with-pr-previews)
+
+Retrieved 2026-11-28.
+
+- Fact: Expo presents the iteration speed of web development as a goal for React Native development.
+  > "bringing the iteration speed of web development to React Native"
 
 ### [Platform-specific extensions and module](https://docs.expo.dev/router/advanced/platform-specific-modules/)
 

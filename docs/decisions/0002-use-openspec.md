@@ -15,8 +15,8 @@ Adopt OpenSpec as the framework for specification-driven development, using incr
 
 ## Alternatives Considered
 
-- **GitHub Spec Kit:** Provides a comprehensive specification-driven workflow but was considered too token-intensive and process-heavy for solo development.
-- **BMAD Method:** Provides structured, role-based AI development workflows but appeared better suited to organizational and team-based development than rapid solo development.
+- **GitHub Spec Kit:** Provides a comprehensive specification-driven workflow. Rejected for solo development. Spec Kit runs the same full workflow for every task, with rigid phase gates. For small tasks, that workflow generates a large amount of scaffolding and uses more tokens than necessary.
+- **BMAD Method:** Provides structured, role-based AI development workflows. Rejected for rapid solo development.
 
 ## Rationale
 
@@ -37,6 +37,10 @@ Adopt OpenSpec as the framework for specification-driven development, using incr
 - Some additional planning and documentation overhead is introduced.
 - Product vision, roadmap, and architectural decisions will be maintained separately and inform individual change proposals.
 - The development workflow can evolve as project complexity and collaboration requirements increase.
+
+## Assumptions
+
+* BMAD Method suits team-based development better than rapid solo development. A source contradicts this.
 
 ## Sources
 
@@ -64,6 +68,16 @@ Retrieved 2026-11-27.
 - Fact: Spec Kit provides a comprehensive specification-driven workflow.
   > "Build a feature or application | Spec-Driven Development | A specification carried through planning, implementation, and convergence"
 
+### [Proposal: speckit.tinySpec: a lightweight workflow for small tasks (github/spec-kit#1174)](https://github.com/github/spec-kit/issues/1174)
+
+Retrieved 2026-11-28.
+
+- Fact: Spec Kit runs the same workflow for every task.
+  > "However, this workflow behaves the same regardless of **task complexity**, and this becomes inefficient for very small tasks."
+- Fact: For small tasks, Spec Kit generates a large amount of scaffolding and uses more tokens than necessary.
+  > "For trivial changes like adding a simple button (I'm exaggerating, but you got the point) the current workflow generates a large amount of scaffolding."
+  > "This also results in significantly more token usage and compute cost than necessary, which makes spec-kit impractical for small tasks that developers perform multiple times per day."
+
 ### [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD)
 
 Retrieved 2026-11-27.
@@ -77,3 +91,10 @@ Retrieved 2026-11-27.
 
 - Fact: BMAD Method agents are role-based personas.
   > "Load an agent when you want role-specific coaching or want to move across related tasks in one persona."
+
+### [Build Your First Change | BMad Method](https://docs.bmad-method.org/start/build-your-first-change/)
+
+Retrieved 2026-11-28.
+
+- Fact: BMAD Method describes itself as fit for work from a small bug fix to a multi-team product.
+  > "BMad helps you plan and build anything from a small bug fix to a multi-team software product."

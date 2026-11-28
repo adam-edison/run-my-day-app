@@ -11,6 +11,8 @@ A dependency update is a small task. Up to 3 small tasks run beside the big task
 
 Renovate finds package files automatically, including in monorepos. Its latest version, 45.3.2, was published on 2026-11-27. A Renovate schedule can be set per dependency or per package manager.
 
+The Mend Renovate app has a free tier for an unlimited number of public and private repositories.
+
 Dependabot is built into GitHub.
 
 Example: Expo releases a new SDK. Renovate opens one pull request that updates `expo` and every related `expo-*` package together.
@@ -38,7 +40,6 @@ Dependabot, rejected:
 ## Consequences
 
 * The Mend Renovate app is hosted by Mend, an outside company.
-* The price of the Mend Renovate app is not verified.
 
 ## Sources
 
@@ -66,6 +67,13 @@ Retrieved 2026-11-27.
   > "Renovate finds relevant package files automatically, including in monorepos."
 - Fact: The Mend Renovate app is hosted by Mend.
   > "Or you can use the Mend Renovate app which is hosted by Mend."
+
+### [Mend-hosted Apps Overview | Renovate Docs](https://docs.renovatebot.com/mend-hosted/overview/)
+
+Retrieved 2026-11-28.
+
+- Fact: The Mend Renovate app has a free tier for public and private repositories.
+  > "A generous free tier, available for all across an unlimited number of public and private repositories."
 
 ### [npm registry: renovate](https://www.npmjs.com/package/renovate)
 

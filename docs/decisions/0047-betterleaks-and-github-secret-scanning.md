@@ -47,11 +47,15 @@ GitHub secret scanning and push protection alone, rejected:
 
 ## Consequences
 
-* Version 2 of Betterleaks may change commands or config. The pin to v1.10.1 is not verified by an official source.
+* Version 2 of Betterleaks may change commands or config.
 * The Betterleaks repository has a `.pre-commit-hooks.yaml` file, but its README does not document hook setup.
 * The Betterleaks README does not document a GitHub Action.
-* No official source states that GitHub scanning misses a commit before it leaves the machine. This point is not verified.
-* No official source states that using both Betterleaks and GitHub scanning is better than one. This point is not verified.
+
+## Assumptions
+
+* Pinning Betterleaks to v1.10.1 protects the project from breaking changes in v2. Not found in official sources as of 2026-11-28.
+* GitHub secret scanning does not check a commit before it leaves the machine. A source contradicts this.
+* Running both Betterleaks and GitHub secret scanning catches more secrets than either alone. Not found in official sources as of 2026-11-28.
 
 ## Open Questions
 
@@ -107,3 +111,14 @@ Retrieved 2026-11-27.
 - Fact: Push protection for the user account is on by default.
   > "Is enabled by default"
   > "Stops you from pushing secrets to public repositories on GitHub."
+
+### [Scanning for secrets with the GitHub MCP Server | GitHub Docs](https://docs.github.com/en/code-security/how-tos/use-ghas-with-ai-coding-agents/scan-for-secrets-with-github-mcp-server)
+
+Retrieved 2026-11-28.
+
+- Fact: GitHub secret scanning can check code from an AI coding agent before the code reaches the repository.
+  > "Detect exposed secrets in real time from your AI coding agent, before they ever reach your repository."
+- Fact: This check is available for public repositories.
+  > "Secret scanning via MCP is available to public repositories"
+- Fact: The check runs only through GitHub's remote MCP server.
+  > "The secret scanning tools are only available via the GitHub remote MCP server."

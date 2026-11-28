@@ -27,6 +27,7 @@ Facts about over-the-air updates:
 * The `fingerprint` policy changes the runtime version whenever native code changes.
 * A channel is fixed in the build at build time. Any channel can point to any branch of updates.
 * Apple guideline 2.5.2 forbids downloaded code that introduces or changes features.
+* The Apple Developer Program License Agreement allows an app to download interpreted code when the code does not change the app's primary purpose.
 * Google Play allows code that runs in an interpreter.
 
 Costs:
@@ -76,16 +77,17 @@ No over-the-air updates, rejected:
 * Internal testing on both stores covers one tester without public store listings.
 * Expo Update ships a JavaScript fix in minutes at no cost below 1,000 monthly active users.
 * The `fingerprint` policy prevents an update from reaching a build with different native code.
-* Local builds keep releases possible after the free cloud quota runs out.
+* Local builds keep releases possible after the free cloud quota runs out. Expo's billing FAQ gives local builds as the way to keep building after the monthly quota is used.
 
 ## Consequences
 
 * The free plan limits cloud builds to 15 Android and 15 iOS builds. The pricing page does not state the period.
 * Free cloud builds wait in a low-priority queue and stop after 45 minutes.
-* No official source states whether local builds avoid the cloud build quota.
-* The rule that updates carry fixes only is own reasoning from Apple guideline 2.5.2. No official source states this rule.
-* Apple guideline 3.3.1(b), which Expo often cites for over-the-air updates, was not found on the page read.
 * Submitting to the App Store needs a paid Apple Developer account.
+
+## Assumptions
+
+* Apple guideline 2.5.2 allows over-the-air updates that fix bugs. Not found in official sources as of 2026-11-28.
 
 ## Open Questions
 
@@ -93,6 +95,20 @@ No over-the-air updates, rejected:
 2. Are the $99 Apple fee each year and the $25 Google fee accepted now, or after the MVP?
 
 ## Sources
+
+### [Billing FAQ | Expo](https://docs.expo.dev/billing/faq/)
+
+Retrieved 2026-11-28.
+
+- Fact: Local builds keep building possible after the monthly free quota is used.
+  > "To keep building without waiting for the reset, upgrade to the Starter plan or run builds locally."
+
+### [Apple Developer Program License Agreement](https://developer.apple.com/support/terms/apple-developer-program-license-agreement/)
+
+Retrieved 2026-11-28.
+
+- Fact: An app may download interpreted code that does not change the app's primary purpose.
+  > "Interpreted code may be downloaded to an Application but only so long as such code: (a) does not change the primary purpose of the Application by providing features or functionality that are inconsistent with the intended and advertised purpose of the Application"
 
 ### [Expo Build](https://docs.expo.dev/build/introduction/)
 

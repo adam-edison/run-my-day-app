@@ -13,6 +13,8 @@ The linter is ESLint, as proposed in DR-0042. With ESLint as the linter, Biome w
 
 Biome's formatter follows the same approach as Prettier.
 
+Prettier formats Markdown and YAML. Biome's home page reports Biome as about 35 times faster than Prettier on one benchmark of 171,127 lines.
+
 Example: a decision record in `docs/decisions/` and a TypeScript file in the core package are both formatted by one `prettier --write` run.
 
 ## Decision
@@ -25,17 +27,14 @@ Biome formatter, rejected:
 
 * With ESLint as the linter, Biome would add only formatting. Prettier does that.
 * Biome follows the same approach as Prettier. A switch would bring no new formatting style.
-* Biome's Markdown and YAML formatter support could not be confirmed from its language support page.
 
 ## Rationale
 
 * Prettier is maintained.
 
-## Consequences
+## Assumptions
 
-* No official source was read that states Prettier formats Markdown and YAML. The Prettier language list was not read.
-* No benchmark was read that compares Prettier with formatters written in Rust. Prettier being slower is not verified.
-* The choice of Prettier is not verified by an official source.
+* Biome's formatter does not format Markdown and YAML. A source contradicts this.
 
 ## Sources
 
@@ -62,3 +61,31 @@ Retrieved 2026-11-27.
 
 - Fact: Biome's formatter follows Prettier's approach.
   > "It follows a similar philosophy to Prettier"
+
+### [What is Prettier? | Prettier](https://prettier.io/docs/)
+
+Retrieved 2026-11-28.
+
+- Fact: Prettier formats Markdown and YAML.
+  > "Prettier is an opinionated code formatter with support for:"
+  > "Markdown, including GFM and MDX v1"
+  > "YAML"
+
+### [Biome](https://biomejs.dev/)
+
+Retrieved 2026-11-28.
+
+- Fact: Biome reports about 35 times the speed of Prettier on one benchmark.
+  > "~35x"
+  > "Faster than Prettier when formatting 171,127 lines of code in 2,104 files with an Intel Core i7 1270P."
+
+### [Biome v2.6 | Biome](https://biomejs.dev/blog/biome-v2-6/)
+
+Retrieved 2026-11-28.
+
+- Fact: Biome 2.6 supports Markdown and YAML.
+  > "Biome 2.6 ships support for three new languages: Markdown, YAML and SCSS."
+- Fact: Biome's Markdown formatter is about 92% compatible with Prettier.
+  > "The Markdown formatter is ~92% compatible with Prettier"
+- Fact: Biome's YAML formatter is fully compatible with Prettier.
+  > "the formatter has 100% compatibility with Prettier"

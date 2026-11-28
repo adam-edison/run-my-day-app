@@ -29,6 +29,13 @@ Valibot, rejected:
 
 * No stated need calls for Valibot in place of Zod 4.
 
+ArkType, not chosen:
+
+* ArkType supports Standard Schema. oRPC accepts any Standard Schema library.
+* ArkType converts schemas to and from JSON Schema.
+* ArkType's site states that ArkType validates 20 times faster than Zod 4.
+* ArkType needs TypeScript 5.1 or later.
+
 ## Rationale
 
 * Zod 4 is stable.
@@ -38,10 +45,48 @@ Valibot, rejected:
 ## Consequences
 
 * The full Zod API does not tree-shake well.
-* No official source states that Valibot brings no benefit over Zod for this case. This point is own reasoning.
-* ArkType is not yet researched as an option.
+
+## Assumptions
+
+* Valibot brings no benefit over Zod for this app. A source contradicts this.
+
+## Open Questions
+
+1. Do you want to consider ArkType in place of Zod 4? Example: the sync upload schema is written in ArkType, and oRPC validates it through Standard Schema.
 
 ## Sources
+
+### [Comparison with Zod and others | Valibot](https://valibot.dev/guides/comparison/)
+
+Retrieved 2026-11-28.
+
+- Fact: Valibot's bundle for a login form is 3 to 5 times smaller than Zod Mini's.
+  > "Zod Mini requires approximately 6.88 kB with esbuild and 3.94 kB with Rolldown, still about 3 to 5x larger than Valibot's 1.37 kB"
+
+### [Integrations | ArkType](https://arktype.io/docs/integrations)
+
+Retrieved 2026-11-28.
+
+- Fact: ArkType supports Standard Schema.
+  > "ArkType is proud to support and co-author the new Standard Schema API with Valibot and Zod."
+- Fact: oRPC accepts ArkType through Standard Schema.
+  > "oRPC has built-in support for Standard Schema, so ArkType works seamlessly right out of the box"
+- Fact: ArkType converts schemas to and from JSON Schema.
+  > "ArkType supports bidirectional conversion with JSON Schema."
+
+### [ArkType](https://arktype.io/)
+
+Retrieved 2026-11-28.
+
+- Fact: ArkType's site states that ArkType validates 20 times faster than Zod 4.
+  > "20x faster than Zod 4 and 2,000x faster than Yup at runtime"
+
+### [Setup | ArkType](https://arktype.io/docs/intro/setup)
+
+Retrieved 2026-11-28.
+
+- Fact: ArkType needs TypeScript 5.1 or later.
+  > "TypeScript version `>=5.1`"
 
 ### [Release notes | Zod](https://zod.dev/v4)
 
