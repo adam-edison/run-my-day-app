@@ -21,6 +21,8 @@ An independent benchmark ran 50 production Python tickets through each tool. Per
 
 Adopt OpenSpec as the framework for specification-driven development, using incremental change proposals rather than comprehensive upfront specifications.
 
+Small changes skip OpenSpec. A small change touches one or two files, has few acceptance criteria, and has one owner.
+
 ## Alternatives Considered
 
 - **GitHub Spec Kit:** Provides a comprehensive specification-driven workflow. Rejected for solo development. Spec Kit runs the same full workflow for every task, with rigid phase gates. For small tasks, that workflow generates a large amount of scaffolding and uses more tokens than necessary. In an independent benchmark, Spec Kit used about 40% more median spec-phase tokens than OpenSpec and cost more per merged ticket. Practitioner reviews describe Spec Kit as rigid and as overkill for tiny changes.
