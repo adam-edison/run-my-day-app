@@ -19,7 +19,7 @@ Work runs in parallel git worktrees, with these limits:
 * Up to 3 small tasks at the same time as the big one.
 * At most 4 worktrees have work in progress at once.
 
-A big task is one pull request in a vertical slice by feature, or in the walking skeleton.
+A big task is one pull request in the walking skeleton, or one pull request that covers one layer of one feature.
 
 A small task is any other change that adds no feature behavior, such as a docs fix, a bug fix, or a dependency update.
 
@@ -44,3 +44,28 @@ Several big tasks at once, rejected:
 ## Consequences
 
 * A second feature can't start until the big task in progress is merged.
+
+## Sources
+
+### [The AI Productivity Paradox Report 2025](https://www.faros.ai/blog/ai-software-engineering)
+
+Retrieved 2026-11-27.
+
+- Fact: AI coding agents write pull requests faster than one person can review them.
+  > "Developers on teams with high AI adoption complete 21% more tasks and merge 98% more pull requests, but PR review time increases 91%, revealing a critical bottleneck: human approval."
+
+### [Small CLs | eng-practices](https://google.github.io/eng-practices/review/developer/small-cls.html)
+
+Retrieved 2026-11-27.
+
+- Fact: Pull requests that wait for review go stale against `main`.
+  > "Working on a large CL takes a long time, so you will have lots of conflicts when you merge, and you will have to merge frequently."
+- Fact: Small tasks are reviewed quickly.
+  > "It’s easier for a reviewer to find five minutes several times to review small CLs than to set aside a 30 minute block to review one large CL."
+
+### [Speed of Code Reviews | eng-practices](https://google.github.io/eng-practices/review/reviewer/speed.html)
+
+Retrieved 2026-11-27.
+
+- Fact: Review sets the pace of the work.
+  > "However, new features and bug fixes for the rest of the team are delayed by days, weeks, or months as each CL waits for review and re-review."

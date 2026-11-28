@@ -42,3 +42,28 @@ The Expo web trial from DR-0004 is the first task, because all early development
 - The phone apps are not usable until mobile work starts.
 - A failed trial can change the design, so the trials run first.
 - Layouts made for a desktop screen may still need changes on phones.
+
+## Sources
+
+### [Develop websites with Expo](https://docs.expo.dev/workflow/web/)
+
+Retrieved 2026-11-27.
+
+- Fact: React Native components run in the Expo web build.
+  > "React Native for web (RNW) is a set of component libraries such as `<View>`, and `<Text>`, that wrap `react-dom` primitives such as `<div>`, `<p>`, and `<img>`."
+- Fact: Development on the web runs in a browser, with no native builds.
+  > "You can now start the dev server and develop in the browser with:"
+
+### [Platform-specific extensions and module](https://docs.expo.dev/router/advanced/platform-specific-modules/)
+
+Retrieved 2026-11-27.
+
+- Fact: The Android and iOS parts of the platform shell are built in platform-specific files.
+  > "You can create platform-specific files with extensions (for example, **.android.tsx**, **.ios.tsx**, **.native.tsx**, or **.web.tsx**) outside the **src/app** directory and use them from within the **src/app** directory."
+
+### [Deploy on mobile (ONNX Runtime)](https://onnxruntime.ai/docs/tutorials/mobile/)
+
+Retrieved 2026-11-27.
+
+- Fact: ONNX Runtime runs models on the phone.
+  > "Because the model is loaded and run on device, the model must fit on the device disk and be able to be loaded into the device’s memory."

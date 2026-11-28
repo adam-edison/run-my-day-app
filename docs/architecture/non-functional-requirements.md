@@ -8,6 +8,8 @@ These constraints shape the architecture. Each one gets worked through when the 
 
 - **Calendar change latency.** Run My Day reacts to a calendar change within 1 minute of the edit. Example: at 10:05 you move the Workout event's end from 10:00 to 10:30, and the Workout block runs again by 10:06.
 
+- **Push latency.** A notice from the server must reach an open client within 2 seconds. Example: at 10:20 the laptop takes over "Morning," and the phone must stop running it by 10:20:02.
+
 - **History volume.** History records every action, including every edit to a definition, for every user every day. Its growth must not slow down Run My Day. Reads such as streaks, conditions, skip counts, and learned estimates scan history, so storage and queries need a design that keeps them fast as history grows.
 
 ## Offline

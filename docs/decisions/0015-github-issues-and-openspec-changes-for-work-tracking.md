@@ -73,3 +73,46 @@ OpenSpec specs without changes, rejected:
 
 * The feature specs show a feature's new behavior only after its whole change is archived.
 * "One group per apply run" is a project convention. OpenSpec's apply skill works through every task unless told otherwise.
+
+## Sources
+
+### [About milestones](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-milestones)
+
+Retrieved 2026-11-27.
+
+- Fact: A milestone groups issues.
+  > "You can use milestones to track progress on groups of issues or pull requests in a repository."
+
+### [Adding sub-issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/using-issues/adding-sub-issues)
+
+Retrieved 2026-11-27.
+
+- Fact: GitHub issues can have sub-issues under a parent issue.
+  > "You can add sub-issues to an issue to break down larger pieces of work into tasks. Your sub-issues show their relationship to the parent issue allowing you to track your work across GitHub."
+
+### [Customizing the board layout](https://docs.github.com/en/issues/planning-and-tracking-with-projects/customizing-views-in-your-project/customizing-the-board-layout)
+
+Retrieved 2026-11-27.
+
+- Fact: Items on a GitHub Project board can be ordered by hand when the board is not sorted.
+  > "When a board is sorted, you cannot manually reorder items within a column. You can continue to move items from column to column."
+
+### [OpenSpec](https://github.com/Fission-AI/OpenSpec)
+
+Retrieved 2026-11-27.
+
+- Fact: An OpenSpec change has a proposal, spec changes, a design, and `tasks.md`.
+  > "each change gets its own folder with proposal, specs, design, and tasks"
+- Fact: The change is reviewed before any code is written.
+  > "Your AI writes these; you review the plan before any code is written."
+
+### [Commands](https://github.com/Fission-AI/OpenSpec/blob/main/docs/commands.md)
+
+Retrieved 2026-11-27.
+
+- Fact: OpenSpec's apply skill works through every task unless told otherwise.
+  > "Reads `tasks.md` and identifies incomplete tasks"
+  > "Works through tasks one by one"
+- Fact: Archiving adds the change's spec changes to the feature specs.
+  > "Offers to sync delta specs if not already synced"
+  > "Merges changes into main `openspec/specs/` directory"

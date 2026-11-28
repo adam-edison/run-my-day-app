@@ -7,7 +7,7 @@
 
 Run My Day plays sounds and music during routines, such as a start sound on a step or background music for a workout. Earlier plans connected cloud storage, such as Google Drive, OneDrive, and Dropbox, as music sources.
 
-Reading a user's Google Drive files requires restricted OAuth scopes. Google requires every app with restricted scopes to pass a third-party CASA security assessment every 12 months, at the developer's cost. Streaming from cloud storage APIs also adds latency, which conflicts with the requirement that the first sound of each step plays within 100 milliseconds of its start mark.
+Reading all of a user's Google Drive files requires restricted OAuth scopes, such as `drive.readonly`. The non-sensitive `drive.file` scope reaches only the files that the user opens with the app or picks in the Google Picker. Google requires each app that accesses restricted scope data from or through a server to pass a third-party CASA security assessment every 12 months. The developer pays the assessor's fees. Streaming from cloud storage APIs also adds latency, which conflicts with the requirement that the first sound of each step plays within 100 milliseconds of its start mark.
 
 ## Decision
 
@@ -19,7 +19,7 @@ Run My Day suggests sync and download apps for getting files to and from Google 
 
 ## Alternatives Considered
 
-- **Cloud storage connections:** Play files directly from Google Drive, OneDrive, Dropbox, and similar services. Rejected because of the yearly CASA assessment, the security and content-rights exposure, and streaming latency.
+- **Cloud storage connections:** Play files directly from Google Drive, OneDrive, Dropbox, and similar services. Rejected because of the security and content-rights exposure, streaming latency, and Google's scope rules. Reading a user's music folders in Google Drive needs restricted scopes and the yearly CASA assessment. The non-sensitive `drive.file` scope avoids the assessment, but the user must pick each file one at a time in the Google Picker.
 
 ## Rationale
 
@@ -35,7 +35,41 @@ Run My Day suggests sync and download apps for getting files to and from Google 
 - Users rely on separate sync apps to move files between devices and cloud storage.
 - Earlier plans for cloud music sources, such as kivaro tickets KIV-48.1 to KIV-48.5, are dropped.
 
-## References
+## Sources
 
-- [Google Cloud: Security Assessment](https://support.google.com/cloud/answer/13465431)
-- [Google Identity: Restricted scope verification](https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification)
+### [Choose Google Drive API scopes](https://developers.google.com/workspace/drive/api/guides/api-specific-auth)
+
+Retrieved 2026-11-27.
+
+- Fact: Reading all of a user's Google Drive files requires restricted OAuth scopes, such as `drive.readonly`.
+  > "Restricted scopes"
+  > "https://www.googleapis.com/auth/drive.readonly"
+  > "View and download all your Drive files."
+- Fact: The non-sensitive `drive.file` scope reaches only the files that the user opens with the app or picks in the Google Picker.
+  > "Create new Drive files, or modify existing files, that you open with an app or that the user shares with an app while using the Google Picker API or the app's file picker."
+  > "Since drive.file is non-sensitive, it allows for a more streamlined verification process."
+
+### [Restricted scope verification](https://developers.google.com/identity/protocols/oauth2/production-readiness/restricted-scope-verification)
+
+Retrieved 2026-11-27.
+
+- Fact: Google requires each app that accesses restricted scope data from or through a server to pass a third-party security assessment.
+  > "Every app that requests access to Google users' restricted data and has the ability to access data from or through a third-party server must go through a security assessment from Google-empanelled security assessors."
+- Fact: The assessment repeats every 12 months.
+  > "apps must be reverified for compliance and complete a security assessment at least every 12 months after your assessor's Letter of Assessment (LOA) approval date."
+
+### [Security Assessment - Google Cloud Platform Console Help](https://support.google.com/cloud/answer/13465431)
+
+Retrieved 2026-11-27.
+
+- Fact: The security assessment uses the CASA framework.
+  > "To improve and standardize our security assessment process, we are leveraging the industry standard App Defense Alliance and its Cloud App Security Assessment framework (CASA)."
+- Fact: The assessment repeats every year.
+  > "All applications must be revalidated every year."
+
+### [App verification | Google Health API](https://developers.google.com/health/app-verification)
+
+Retrieved 2026-11-27.
+
+- Fact: The developer pays the assessor's fees.
+  > "The security assessment can take 2-3 weeks for tier-2 applications and 4-6 weeks for tier-3 applications to complete and involves fees payable to the third-party assessor, ranging from $500 to $4,500 USD, depending on your app's complexity."

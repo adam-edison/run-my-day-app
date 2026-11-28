@@ -33,6 +33,75 @@ Each worktree that runs the app locally at the same time as another has a worktr
 
 ## Consequences
 
-- The snapshot can be decrypted only with the Doppler token that created it.
+- By default, the snapshot can be decrypted only with the Doppler token that created it.
 - Worktrees must be created inside the repository folder to use the one Doppler setup.
 - The first start on a new machine needs a network connection to Doppler.
+
+## Sources
+
+### [Git - git-worktree Documentation](https://git-scm.com/docs/git-worktree)
+
+Retrieved 2026-11-27.
+
+- Fact: One repository can have several worktrees, one for each branch.
+  > "A git repository can support multiple working trees, allowing you to check out more than one branch at a time."
+- Fact: A new worktree contains only the files of the commit checked out into it.
+  > "Create a worktree at <path> and checkout <commit-ish> into it."
+
+### [CLI Guide](https://docs.doppler.com/docs/cli)
+
+Retrieved 2026-11-27.
+
+- Fact: `doppler run` passes secrets to the app as environment variables.
+  > "You can fetch the latest versions of your secrets for your project and selected config using the run command, which injects them as environment variables into the running process from your command or script."
+- Fact: `doppler setup` at the repository root covers every folder inside it.
+  > "You can perform an operation that assigns a specific directory (and its subdirectories) to a particular config."
+
+### [Secret Fallback Files](https://docs.doppler.com/docs/automatic-fallbacks)
+
+Retrieved 2026-11-27.
+
+- Fact: `doppler run` saves an encrypted snapshot of the secrets.
+  > "When using the `doppler run` command, the CLI automatically creates a fallback file containing an encrypted snapshot of the current secrets in JSON format to Doppler's system configuration directory."
+- Fact: By default, the snapshot can be decrypted only with the Doppler token that created it.
+  > "By default, a secret fallback file can only be decrypted when using the same Doppler token that was used when it was generated."
+- Fact: The snapshot works offline with no time limit.
+  > "No, the fallback file can be used indefinitely."
+
+### [cli/pkg/cmd/run.go at master · DopplerHQ/cli](https://github.com/DopplerHQ/cli/blob/master/pkg/cmd/run.go)
+
+Retrieved 2026-11-27.
+
+- Fact: When Doppler can't be reached, `doppler run` reads its latest encrypted snapshot.
+  > "encrypted secrets are written to this file after each successful fetch. secrets will be read from this file if subsequent connections are unsuccessful."
+- Fact: The first start on a new machine needs a network connection to Doppler.
+  > "encrypted secrets are written to this file after each successful fetch."
+
+### [December 2020 Product Updates | Doppler Changelog](https://www.doppler.com/changes/december-2020-updates)
+
+Retrieved 2026-11-27.
+
+- Fact: The Doppler CLI stores its token in the macOS Keychain.
+  > "Starting in v3.16.0, CLI Tokens are now securely stored in the OS Keyring instead of the file system for macOS, Linux, and Windows."
+
+### [cli/pkg/configuration/config.go at master · DopplerHQ/cli](https://github.com/DopplerHQ/cli/blob/master/pkg/configuration/config.go)
+
+Retrieved 2026-11-27.
+
+- Fact: The Doppler CLI stores its token in the macOS Keychain.
+  > "Saving %s to system keyring"
+
+### [Environments | varlock](https://varlock.dev/guides/environments/)
+
+Retrieved 2026-11-27.
+
+- Fact: Varlock checks the environment variables passed in by `doppler run` against `.env.schema`.
+  > "`varlock` will always treat environment variables passed into the process with the most precedence."
+  > "you could rely entirely on process overrides to inject all config values, but still benefit from having a clear schema with validation applied to them."
+
+### [Doppler Plugin | varlock](https://varlock.dev/plugins/doppler/)
+
+Retrieved 2026-11-27.
+
+- Fact: The Varlock Doppler plugin has no documented fallback when Doppler can't be reached. Its docs describe only a cache that keeps values for a set duration.
+  > "cache resolved values for the specified duration"

@@ -39,8 +39,42 @@ OpenSpec was selected for its comparatively lightweight, flexible, and increment
 - Product vision, roadmap, and architectural decisions will be maintained separately and inform individual change proposals.
 - The development workflow can evolve as project complexity and collaboration requirements increase.
 
-## References
+## Sources
 
-- [OpenSpec](https://github.com/Fission-AI/OpenSpec)
-- [GitHub Spec Kit](https://github.com/github/spec-kit)
-- [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD)
+### [OpenSpec](https://github.com/Fission-AI/OpenSpec)
+
+Retrieved 2026-11-27.
+
+- Fact: OpenSpec is lightweight and iterative.
+  > "OpenSpec adds a lightweight spec layer so you agree on what to build before any code is written."
+- Fact: OpenSpec works through incremental change proposals, one folder per change.
+  > "each change gets its own folder with proposal, specs, design, and tasks"
+- Fact: OpenSpec clarifies requirements and design before implementation.
+  > "Your AI writes these; you review the plan before any code is written."
+- Fact: OpenSpec does not depend on a specific AI coding agent.
+  > "works with 30+ AI assistants via skills"
+- Fact: Archiving a change updates the specs and keeps the change for history.
+  > "Specs updated. Ready for the next feature."
+- Fact: OpenSpec describes Spec Kit as heavier than OpenSpec.
+  > "Thorough but heavyweight. Rigid phase gates, lots of Markdown, Python setup. OpenSpec is lighter and lets you iterate freely."
+
+### [GitHub Spec Kit](https://github.com/github/spec-kit)
+
+Retrieved 2026-11-27.
+
+- Fact: Spec Kit provides a comprehensive specification-driven workflow.
+  > "Build a feature or application | Spec-Driven Development | A specification carried through planning, implementation, and convergence"
+
+### [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD)
+
+Retrieved 2026-11-27.
+
+- Fact: BMAD Method provides structured AI development workflows with agents.
+  > "BMad keeps you in control while its agents and workflows make the important decisions explicit and preserve them as context for the work that follows."
+
+### [Skills and Agents | BMad Method](https://docs.bmad-method.org/reference/skills-and-agents/)
+
+Retrieved 2026-11-27.
+
+- Fact: BMAD Method agents are role-based personas.
+  > "Load an agent when you want role-specific coaching or want to move across related tasks in one persona."

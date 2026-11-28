@@ -4,15 +4,13 @@ Repository: `/Users/aedison/repositories/run-my-day-app`, branch `main`. This is
 
 ## 1. Documents to write
 
-- [ ] Update `docs/architecture/technology-stack.md` to match decision records 0004 to 0016, such as adding Jest, jest-expo, React Native Testing Library, and expo-sqlite
+- [ ] Update `docs/architecture/technology-stack.md` to match decision records 0004 to 0018, such as adding Jest, jest-expo, React Native Testing Library, and expo-sqlite
 
 ## 2. Open decisions, in order
 
 Core architecture:
 
-- [ ] Sync: how offline changes queue, how conflicts between devices are resolved, and the length of the recent history window kept on each device
 - [ ] TanStack Query: kept, dropped, or limited, given that the Sync actor holds server data
-- [ ] Real-time updates from the server to clients, and how they work with offline sync
 - [ ] Calendar integration: which calendars, sign-in, and push or polling within the 1-minute requirement
 - [ ] Audio timing and text-to-speech in the web build
 - [ ] Recurrence with rrule

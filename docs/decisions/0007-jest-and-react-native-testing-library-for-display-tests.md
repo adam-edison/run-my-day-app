@@ -15,7 +15,7 @@ Display tests run on every commit, with the unit tests.
 
 ## Alternatives Considered
 
-- **Vitest with vitest-native:** Rejected because Expo documents only Jest with jest-expo, and Vitest support for Expo comes only from new community plugins.
+- **Vitest with vitest-native:** Rejected because Expo documents only Jest with jest-expo, and Vitest support for Expo comes only from a community plugin that has not reached version 1.0.
 - **React Testing Library:** Rejected because it renders to the browser DOM, and the components are React Native components.
 
 ## Rationale
@@ -28,3 +28,41 @@ Display tests run on every commit, with the unit tests.
 
 - Two test runners are maintained: Vitest and Jest.
 - Code for one platform, such as `Player.android.tsx`, is not covered by display tests. Maestro covers it on Android and iOS, and Playwright covers it on the web.
+
+## Sources
+
+### [Unit testing with Jest - Expo Documentation](https://docs.expo.dev/develop/unit-testing/)
+
+Retrieved 2026-11-27.
+
+- Fact: Expo documents only Jest with jest-expo for testing components. The page does not mention Vitest.
+  > "Jest is the most widely used unit and snapshot JavaScript testing framework."
+- Fact: jest-expo mocks the native part of the Expo SDK and handles most of the setup.
+  > "which is a Jest preset that mocks the native part of the Expo SDK"
+  > "handles most of the configuration required for your Expo project."
+- Fact: Expo documents React Native Testing Library for rendering and querying components.
+  > "a lightweight solution for testing React Native components."
+
+### [vitest-native — Test React Native as it ships](https://vitest-native.danfry.dev/)
+
+Retrieved 2026-11-27.
+
+- Fact: Vitest support for Expo comes only from a community plugin that has not reached version 1.0.
+  > "It's pre-1.0. Some options may still change before 1.0."
+  > "Maintained successor to"
+
+### [React Testing Library | Testing Library](https://testing-library.com/docs/react-testing-library/intro/)
+
+Retrieved 2026-11-27.
+
+- Fact: React Testing Library renders to the browser DOM.
+  > "React Testing Library builds on top of DOM Testing Library by adding APIs for working with React components."
+  > "So rather than dealing with instances of rendered React components, your tests will work with actual DOM nodes."
+
+### [Queries - React Native Testing Library](https://oss.callstack.com/react-native-testing-library/docs/api/queries)
+
+Retrieved 2026-11-27.
+
+- Fact: React Native Testing Library queries components by role and by text.
+  > "Returns a `TestInstance` with matching `role` or `accessibilityRole` prop."
+  > "Returns a `TestInstance` with matching text – may be a string or regular expression."
