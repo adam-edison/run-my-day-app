@@ -7,11 +7,13 @@
 
 Work happens in one repository, with a git worktree for each branch. No copies of the repository are made. A new worktree contains only committed files, so gitignored `.env` files with secret values are missing from it. Several worktrees sometimes run at the same time, and each one needs its own ports and database. Work sometimes happens without a network connection.
 
+`doppler run` passes secrets to the app as environment variables. When Doppler can't be reached, `doppler run` reads its latest encrypted snapshot. The Doppler CLI stores its token in the macOS Keychain. `doppler setup` at the repository root covers every folder inside it. Varlock checks environment variables passed into the process against `.env.schema`.
+
 ## Decision
 
 Each branch is worked on in its own git worktree of the one repository.
 
-Every secret value comes from Doppler. The app is started through `doppler run`, which passes secrets as environment variables. Varlock checks them against the committed `.env.schema`. When Doppler can't be reached, `doppler run` reads its latest encrypted snapshot. No `.env` file with secret values exists in any worktree. The developer signs in once with `doppler login`, and the Doppler CLI stores its token in the macOS Keychain. `doppler setup` is run once at the repository root. Every worktree is created inside the repository folder, so that one setup covers every worktree.
+Every secret value comes from Doppler. The app is started through `doppler run`. Varlock checks the secrets against the committed `.env.schema`. No `.env` file with secret values exists in any worktree. The developer signs in once with `doppler login`. `doppler setup` is run once at the repository root. Every worktree is created inside the repository folder.
 
 A worktree with code changes runs the app and its tests locally. A worktree with only non-code changes, such as docs, doesn't run the app locally. Its checks run in GitHub Actions on the pull request.
 
@@ -30,6 +32,7 @@ Each worktree that runs the app locally at the same time as another has a worktr
 - **No secrets in files:** Secret values are stored on the developer machine only in Doppler's encrypted snapshot, and the Doppler token only in the macOS Keychain.
 - **Works offline:** The latest snapshot is used when Doppler can't be reached.
 - **One schema:** `.env.schema` defines every variable once, with its type and whether it's secret.
+- **One Doppler setup:** Worktrees inside the repository folder are covered by the one `doppler setup` at the repository root.
 
 ## Consequences
 

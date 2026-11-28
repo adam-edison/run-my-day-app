@@ -9,7 +9,9 @@ Prettier's main purpose is to end debates over code style. Its latest version is
 
 The repository has Markdown in `docs/` and YAML in GitHub Actions workflows.
 
-The linter stays ESLint, as proposed in DR-0042. With ESLint kept, Biome would be used only as a formatter.
+The linter is ESLint, as proposed in DR-0042. With ESLint as the linter, Biome would be used only as a formatter. Biome's latest version is 2.6.9.
+
+Biome's formatter follows the same approach as Prettier.
 
 Example: a decision record in `docs/decisions/` and a TypeScript file in the core package are both formatted by one `prettier --write` run.
 
@@ -21,21 +23,19 @@ Example: a decision record in `docs/decisions/` and a TypeScript file in the cor
 
 Biome formatter, rejected:
 
-* With ESLint kept, Biome would add only formatting, and Prettier already does that.
+* With ESLint as the linter, Biome would add only formatting. Prettier does that.
+* Biome follows the same approach as Prettier. A switch would bring no new formatting style.
 * Biome's Markdown and YAML formatter support could not be confirmed from its language support page.
 
 ## Rationale
 
 * Prettier is maintained.
-* Prettier already formats the repository.
-* Biome follows the same approach as Prettier, so a switch brings no new formatting style.
 
 ## Consequences
 
 * No official source was read that states Prettier formats Markdown and YAML. The Prettier language list was not read.
 * No benchmark was read that compares Prettier with formatters written in Rust. Prettier being slower is not verified.
-* The choice to keep Prettier is not verified by an official source.
-* Biome's latest version is 2.6.9.
+* The choice of Prettier is not verified by an official source.
 
 ## Sources
 

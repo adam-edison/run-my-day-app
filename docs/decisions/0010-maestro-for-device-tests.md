@@ -7,10 +7,6 @@
 
 The Android and iOS apps include native code that Jest and Vitest can't run, such as background audio and platform-specific files. Device tests run the built app on an Android emulator and an iOS simulator.
 
-## Decision
-
-Maestro runs device tests on an Android emulator and an iOS simulator in GitHub Actions. The tests run on a schedule and before a release.
-
 Simulators and emulators don't show some behavior:
 
 - background audio with the screen locked
@@ -19,7 +15,11 @@ Simulators and emulators don't show some behavior:
 - Android battery saving in the background
 - touch and layout on a real screen
 
-That behavior is checked by hand before a release, on an Android phone and an iPad.
+## Decision
+
+Maestro runs device tests on an Android emulator and an iOS simulator in GitHub Actions. The tests run on a schedule and before a release.
+
+The behavior that simulators and emulators don't show is checked by hand before a release, on an Android phone and an iPad.
 
 ## Alternatives Considered
 

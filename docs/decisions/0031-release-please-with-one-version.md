@@ -19,7 +19,7 @@ SemVer raises MAJOR for breaking changes, MINOR for features, and PATCH for fixe
 
 App stores use two numbers. `version` is shown to users. `ios.buildNumber` and `android.versionCode` are build numbers. Google Play rejects a reused `versionCode`.
 
-Example: the "Routines" milestone closes. The release pull request lists its `feat` commits. Merging it raises the version from `0.2.0` to `0.3.0` and tags `v0.3.0`.
+Example: the "Routines" milestone closes. Its `feat` commits must become a new version number. The next Android build needs a `versionCode` that Google Play has not seen.
 
 ## Decision
 
@@ -68,10 +68,9 @@ Changesets, rejected:
 
 ## Open Questions
 
-1. One version for the app and server, or one for each? Example: a server-only fix to Google Calendar push would raise the app's version from `0.4.0` to `0.4.1` under one version, though the app did not change.
-2. Does a release happen when the release pull request is merged, or on a fixed rhythm? Example: release `0.3.0` when the "Routines" milestone closes.
-3. Does `0.x` end with the MVP? Example: the MVP is tagged `v1.0.0`.
-4. Does an over-the-air JavaScript update get its own PATCH version? Example: a text fix shipped through Expo Update raises `1.2.0` to `1.2.1` with no new store build.
+1. Is the release pull request merged when a milestone closes, or on a fixed rhythm? Example: release `0.3.0` when the "Routines" milestone closes.
+2. Does `0.x` end with the MVP? Example: the MVP is tagged `v1.0.0`.
+3. Does an over-the-air JavaScript update get its own PATCH version? Example: a text fix shipped through Expo Update raises `1.2.0` to `1.2.1` with no new store build.
 
 ## Sources
 

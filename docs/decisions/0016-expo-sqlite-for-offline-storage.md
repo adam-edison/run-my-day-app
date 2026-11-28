@@ -26,13 +26,17 @@ Challenges:
 * A task view filter nests groups of all-or-any conditions, which needs relational queries.
 * One codebase serves Android, iOS, and web.
 
+Browser storage facts:
+
+* When Chrome grants the request from `navigator.storage.persist()`, Chrome deletes the stored data only when the user chooses to.
+* Chrome grants the request without a prompt, and only to a site it considers important. Otherwise, Chrome denies the request silently.
+* Chrome counts an installed site as one sign of importance.
+
 ## Decision
 
 * Client storage is expo-sqlite on Android, iOS, and web.
 * One SQLite schema and one set of queries serve every platform.
-* The web build calls `navigator.storage.persist()`. When Chrome grants the request, Chrome deletes the stored data only when the user chooses to.
-* Chrome grants the request without a prompt, and only to a site it considers important. Otherwise, Chrome denies the request silently.
-* Chrome counts an installed site as one sign of importance.
+* The web build calls `navigator.storage.persist()`.
 * The web build asks the user to install the app.
 * The web build calls `navigator.storage.persist()` again after installation.
 * The web build checks the result with `navigator.storage.persisted()`.
@@ -62,6 +66,7 @@ A sync tool that includes its own storage, such as PowerSync, TinyBase, or LiveS
 * One schema serves every platform.
 * SQL handles the nested filter groups of task views.
 * Device storage stays at about 7 MB of history, from 90 days at about 30 MB a year.
+* Chrome counts an installed site as a sign of importance when it decides on `navigator.storage.persist()`. Asking the user to install the app raises the chance that Chrome keeps the stored data.
 
 ## Consequences
 

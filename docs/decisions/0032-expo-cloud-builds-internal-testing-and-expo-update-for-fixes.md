@@ -35,7 +35,7 @@ Costs:
 * Google Play charges a one-time $25 registration fee.
 * Expo paid plans start at $19 a month.
 
-Example: an announcement says "Workuot" in place of "Workout". An Expo Update fixes the text on the Android phone and the iPad within minutes, without a store build.
+Example: an announcement says "Workuot" in place of "Workout". The fix must reach the Android phone and the iPad.
 
 ## Decision
 
@@ -57,7 +57,7 @@ Over-the-air updates:
 * The `production` channel serves the store builds.
 * Updates carry bug fixes only, never new features.
 
-Example: a native audio library is added. The fingerprint changes, so a new build goes to TestFlight and Play internal testing. A later typo fix in an announcement ships through Expo Update on the `preview` channel.
+Example: a native audio library is added. The fingerprint changes. A new build goes to TestFlight and Play internal testing. A later typo fix in an announcement ships through Expo Update on the `preview` channel.
 
 ## Alternatives Considered
 
@@ -89,12 +89,8 @@ No over-the-air updates, rejected:
 
 ## Open Questions
 
-1. Are over-the-air updates used at all? Example: a typo in an announcement is fixed through Expo Update within minutes, without a store build.
-2. Which runtime version policy is used? Example: with `fingerprint`, adding a native audio library forces a new build. With `appVersion`, the version must be raised by hand.
-3. Which channels are used? Example: the iPad runs a `preview` build from TestFlight, and only `production` reaches the App Store.
-4. Does the app go to public store listings, or stay in TestFlight and Play internal testing for now? Example: only the owner uses the MVP, so internal testing is enough and no store review is needed for listings.
-5. Are builds made in the cloud or locally? Example: building iOS on the developer's Mac avoids the free plan's 15 iOS build limit.
-6. Are the $99 Apple fee each year and the $25 Google fee accepted now, or after the MVP?
+1. Does the app go to public store listings, or stay in TestFlight and Play internal testing for now? Example: only the owner uses the MVP. Internal testing would be enough, and no store review would be needed for listings.
+2. Are the $99 Apple fee each year and the $25 Google fee accepted now, or after the MVP?
 
 ## Sources
 

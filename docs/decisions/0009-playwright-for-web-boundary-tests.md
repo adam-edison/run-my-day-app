@@ -5,7 +5,9 @@
 
 ## Context
 
-The web build runs in a browser, with a service worker for offline use. Code written only for the web, such as `Player.web.tsx`, runs only in a browser. Jest and Vitest run in Node, so they can't test the service worker, browser storage, or browser audio.
+The web build runs in a browser, with a service worker for offline use. Code written only for the web, such as `Player.web.tsx`, runs only in a browser. Jest and Vitest run in Node. They can't test the service worker, browser storage, or browser audio.
+
+Playwright's request routing does not see requests that the service worker handles. Requests for an updated service worker script can't be routed.
 
 ## Decision
 
@@ -17,9 +19,9 @@ Playwright tests the exported Expo web build in a real browser, against the real
 
 Playwright tests run in Chromium, the only browser engine Run My Day supports on desktop, as recorded in DR-0008.
 
-- **Offline tests** turn off the network with `setOffline` and keep the service worker on, so cached files and queued changes are tested as users meet them.
-- **Tests that intercept requests** block the service worker. Playwright's request routing does not see requests that the service worker handles.
-- **Service worker update tests** run against the real server, because requests for an updated service worker script can't be routed.
+- **Offline tests** turn off the network with `setOffline` and keep the service worker on.
+- **Tests that intercept requests** block the service worker.
+- **Service worker update tests** run against the real server.
 
 Playwright tests run on a schedule in GitHub Actions and before a release.
 
@@ -31,7 +33,7 @@ Playwright tests run on a schedule in GitHub Actions and before a release.
 ## Rationale
 
 - **Real browser:** The service worker and browser APIs run as they do for users.
-- **Offline control:** Playwright turns the network off and on for a whole browser context.
+- **Offline control:** Playwright turns the network off and on for a whole browser context. Offline tests keep the service worker on, and cached files and queued changes are tested as users meet them.
 
 ## Consequences
 

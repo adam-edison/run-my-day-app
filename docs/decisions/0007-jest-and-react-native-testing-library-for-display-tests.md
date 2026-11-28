@@ -9,7 +9,7 @@ Components only display state. Display tests check that each component shows the
 
 ## Decision
 
-Display tests run in Jest with the default jest-expo preset. Components are rendered and queried with React Native Testing Library. Each shared component is tested once, because its code is the same on every platform. Each test renders a component from a fixed state and checks what a user sees or does: text, roles, and the events sent on a press.
+Display tests run in Jest with the default jest-expo preset. Components are rendered and queried with React Native Testing Library. Each shared component is tested once. Each test renders a component from a fixed state and checks what a user sees or does: text, roles, and the events sent on a press.
 
 Display tests run on every commit, with the unit tests.
 
@@ -23,6 +23,7 @@ Display tests run on every commit, with the unit tests.
 - **Official support:** jest-expo mocks the native part of the Expo SDK and handles most of the setup.
 - **Tests match use:** Components are queried the way a user finds them, by text and role.
 - **Thin components:** Components only display state, so display tests need no client state actors.
+- **One test per shared component:** A shared component's code is the same on every platform.
 
 ## Consequences
 

@@ -17,6 +17,13 @@ Google Calendar API limits:
 * 600 requests per minute for each user.
 * Google advises against checking every calendar every minute, because that uses up the per-minute limit.
 
+Google Calendar push notifications:
+
+* Google sends a push notification to the server when a watched calendar changes.
+* Push notifications are not 100% reliable.
+* The address for push notifications must use HTTPS.
+* Incremental sync returns only the changes since the last check.
+
 Example: at 10:05 the Workout event's end moves from 10:00 to 10:30. The phone is locked, and the laptop's tab is closed. The Workout block runs again by 10:06.
 
 ## Decision
@@ -34,17 +41,17 @@ Reading:
 
 Changes:
 
-* Google sends a push notification to the server when a watched calendar changes.
+* The server watches each connected calendar for Google push notifications.
 * The server renews each watch before it expires.
-* The server also checks each calendar every 5 minutes, in case a push notification is lost. A server environment variable sets the interval.
+* The server also checks each calendar every 5 minutes. A server environment variable sets the interval.
 * The server checks the user's calendars when the app is opened.
-* Each check uses incremental sync, which returns only the changes since the last check.
+* Each check uses incremental sync.
 
 Self-hosted version:
 
 * Push is used in the self-hosted version too.
-* The self-hoster creates their own Google Cloud project, so their requests count only against their own limits.
-* The server needs a public HTTPS address for Google's push notifications, such as one from Tailscale Funnel.
+* The self-hoster creates their own Google Cloud project.
+* The self-hosted server gets a public HTTPS address for Google's push notifications, such as one from Tailscale Funnel.
 
 Example: at 10:05 the Workout event is moved. Google sends a push notification to the server. The server reads the change, and the Sync actor brings it to the laptop and the phone by 10:06. If the push notification is lost, the 5-minute check finds the change by 10:10.
 
@@ -69,6 +76,9 @@ Push for the hosted version and checking every minute for the self-hosted versio
 * Push uses requests only when a calendar changes.
 * The server reacts to changes while every app is closed.
 * One way of reading changes serves the hosted and self-hosted versions.
+* Push notifications are not 100% reliable. The 5-minute check finds a change when a push notification is lost.
+* With incremental sync, each check reads only the changes since the last check.
+* A self-hoster's own Google Cloud project counts requests only against that self-hoster's limits.
 
 ## Consequences
 

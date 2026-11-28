@@ -22,7 +22,7 @@ Better Auth facts:
 
 A Google Cloud project in Testing status issues refresh tokens that expire after 7 days.
 
-Example: the phone is offline for 8 days while the user ticks off routine steps. Back online, the server rejects the session. The app shows the sign-in screen, and the ticks are sent after sign-in.
+Example: the phone is offline for 8 days while the user ticks off routine steps. Back online, the server rejects the session. The queued ticks must still reach the server.
 
 ## Decision
 
@@ -41,7 +41,7 @@ Sessions:
 * Phones use Better Auth's Expo plugin with expo-secure-store.
 * oRPC calls and the SSE stream on phones add the session cookie from SecureStore to the request headers.
 * The web build uses same-site cookies.
-* Sessions keep the default 7-day expiry with a 1-day `updateAge`.
+* Sessions use the default 7-day expiry with a 1-day `updateAge`.
 
 Offline expiry:
 
@@ -62,7 +62,7 @@ Google sign-in only, with the Calendar scope added at sign-in or later, rejected
 
 Email and password plus passkeys in the first version, rejected:
 
-* Passkeys on Expo native apps need extra setup. The docs for this setup were not read.
+* Passkeys on Expo native apps need extra setup.
 
 Magic links, rejected:
 
@@ -77,9 +77,10 @@ Magic links, rejected:
 
 ## Consequences
 
-* The recommendation is own reasoning. No official source states it.
+* No official source supports email and password sign-in with a separate calendar step for this case.
 * Passwords can be reused or phished.
-* No official source states that passkeys resist phishing. The passkey docs were not read.
+* No official source states that passkeys resist phishing.
+* The Better Auth docs for passkey setup on Expo native apps are not yet read.
 * No official source states that an SSE stream from the same site sends the session cookie in the web build.
 * No official source describes the offline expiry behavior.
 * A device unused for more than 7 days asks for sign-in again.
@@ -88,11 +89,7 @@ Magic links, rejected:
 
 ## Open Questions
 
-1. Which sign-in methods does the first version offer? Example: you open Run My Day on a new laptop and type your email and password, or you tap "Sign in with Google".
-2. Is the Google Calendar connection a separate step after sign-in? Example: you sign in, then tap "Connect Google Calendar" in settings, and the Workout event appears.
-3. How long does a session last without use? Example: the tablet stays in a drawer for 10 days. With the 7-day default, it asks for sign-in again.
-4. What happens when a session expires offline? Example: the phone is offline for 8 days while you tick off routine steps. Back online, it asks for sign-in, and the ticks are sent after sign-in.
-5. Is signing out other devices needed in the first version? Example: you lose the phone and sign it out from the laptop.
+1. Is signing out other devices needed in the first version? Example: you lose the phone and sign it out from the laptop.
 
 ## Sources
 

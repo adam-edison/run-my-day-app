@@ -21,7 +21,7 @@ Challenges:
 Problems with building in layers:
 
 * When the whole app is built one layer at a time, the layers first run together near the end, which catches problems too late.
-* A requirement found while building a screen can change the layers below it, necessary to support the change.
+* A requirement found while building a screen can change the layers below it.
 
 Example: the task view screen is built last, after every table, endpoint, and actor is done. While building it, each task's skip count turns out to be needed on screen. A history query, a new endpoint field, and new actor state must then be added to layers that were already reviewed.
 

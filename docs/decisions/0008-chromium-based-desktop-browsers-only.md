@@ -7,18 +7,18 @@
 
 Run My Day runs as an app on Android and iOS, and as a web app on desktop. The web app depends on a service worker for offline use. Playwright, the tool for web boundary tests, supports service workers only in Chromium-based browsers.
 
-## Decision
-
-The web app supports Chromium-based desktop browsers only. Phone browsers, Safari, and Firefox are not supported. On a phone, Run My Day is used through the Android or iOS app.
-
-The supported browsers are the Chromium-based browsers with the largest desktop market share:
+The Chromium-based browsers with the largest worldwide desktop market share in October 2026 are:
 
 - Google Chrome, 66.98%
 - Microsoft Edge, 13.24%
 - Opera, 2.65%
 - Brave, 1.01%
 
-The shares are worldwide desktop shares for October 2026. Other Chromium-based browsers are not supported.
+## Decision
+
+The web app supports Chromium-based desktop browsers only. Phone browsers, Safari, and Firefox are not supported. On a phone, Run My Day is used through the Android or iOS app.
+
+The supported browsers are Google Chrome, Microsoft Edge, Opera, and Brave. Other Chromium-based browsers are not supported.
 
 Example: on a Mac, you open Run My Day in Chrome, not Safari.
 
@@ -31,6 +31,7 @@ Example: on a Mac, you open Run My Day in Chrome, not Safari.
 
 - **Tested offline use:** Every supported browser runs the same automated offline tests.
 - **Smaller test matrix:** One browser engine is tested on desktop.
+- **Most users covered:** The four supported browsers have the largest desktop market share among Chromium-based browsers.
 
 ## Consequences
 

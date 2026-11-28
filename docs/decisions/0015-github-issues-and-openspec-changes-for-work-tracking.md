@@ -27,7 +27,7 @@ Board:
 Requirements:
 
 * The parent issue holds a general description of the feature's requirements.
-* The OpenSpec change's proposal fleshes out those requirements and names the parent issue as its source.
+* The OpenSpec change's proposal fleshes out those requirements and lists the parent issue as its source.
 * After the proposal is reviewed, the parent issue's description is not edited. The OpenSpec change, and then the feature spec, hold the current requirements.
 
 OpenSpec changes:
@@ -37,13 +37,13 @@ OpenSpec changes:
 * The change's `tasks.md` is the only list of work items for that feature.
 * `tasks.md` is grouped by pull request. Each group is one pull request.
 * Each apply run builds one group, then opens one pull request.
-* Each pull request names the parent issue and the group it completes.
+* Each pull request links the parent issue and the group it completes.
 * The change is archived after its last pull request merges. Archiving adds its spec changes to the feature specs.
 
 Walking skeleton:
 
 * The walking skeleton is one small OpenSpec change.
-* Its `tasks.md` has many small groups, because setup runs to thousands of lines.
+* Its `tasks.md` has many small groups.
 
 Small tasks:
 
@@ -68,6 +68,7 @@ OpenSpec specs without changes, rejected:
 * Each work item is listed once, in `tasks.md`.
 * Behavior is reviewed before code, when a wrong assumption costs least.
 * The feature specs are updated when a change is archived.
+* The walking skeleton's setup runs to thousands of lines. Many small groups keep each of its pull requests small.
 
 ## Consequences
 

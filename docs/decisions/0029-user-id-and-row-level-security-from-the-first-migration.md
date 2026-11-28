@@ -43,13 +43,12 @@ One code path:
 
 * The self-hosted version runs the same multi-user code with one account.
 * No code path checks for a "single-user mode".
-* Local hosting and self-hosting require sign-in with Better Auth, as the hosted version does. Tailscale limits which devices reach the server, and sign-in limits who uses them.
+* Local hosting and self-hosting require sign-in with Better Auth, as the hosted version does.
 * Rate limits are per user, not per server.
 
 Google Cloud project:
 
 * The hosted version uses one Google Cloud project for all its users.
-* With push notifications and a 5-minute check, 1,000 users with 2 calendars each make about 400 requests per minute, against a limit of 10,000 per project.
 
 Example: a request for user A sets A's user ID in its transaction. A query on `task` returns only A's "Stretch hips", even without a `WHERE user_id = ...` clause.
 
@@ -71,6 +70,8 @@ Single-user shortcuts now, migration later, rejected:
 * RLS matches the principle that the database enforces data integrity.
 * OWASP advises storing encryption keys apart from the encrypted data.
 * The Twelve-Factor App advises config in environment variables. Its test is whether the code could be open-sourced without leaking credentials.
+* Tailscale limits which devices reach a local or self-hosted server. Sign-in limits who uses those devices.
+* With push notifications and a 5-minute check, 1,000 users with 2 calendars each make about 400 requests per minute. One Google Cloud project allows 10,000 requests per minute.
 
 ## Consequences
 
@@ -81,6 +82,7 @@ Single-user shortcuts now, migration later, rejected:
 * No official source states that one multi-user code path should serve the self-hosted version.
 * No official source states that push channels, outbox entries, and history rows need `user_id` for this case.
 * No official source states that rate limits should be per user for this case.
+
 ## Sources
 
 ### [PostgreSQL: Row Security Policies](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)

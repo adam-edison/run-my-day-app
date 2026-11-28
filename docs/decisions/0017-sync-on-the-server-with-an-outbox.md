@@ -5,7 +5,7 @@
 
 ## Context
 
-A change made offline has to reach the server and every other device. Two devices can edit the same task while offline.
+A change made offline has to reach the server and every other device. Two devices can edit the same task while offline. Later changes can depend on earlier ones. A server bug can make the server unable to apply a change.
 
 ## Decision
 
@@ -19,13 +19,13 @@ Failed outbox entries:
 
 * The device checks each change with the same validation as the server, from the shared core package, before the change is saved.
 * When the server cannot be reached, or answers with a server error, the entry stays at the head of the outbox. The device retries it with exponential backoff.
-* The server never drops an outbox entry and never sets one aside. Later entries can depend on earlier ones, so entries are applied only in order.
+* The server never drops an outbox entry and never sets one aside. Entries are applied only in order.
 * When the server cannot apply an entry because of a bug, the device stops sending at that entry. The device keeps that entry and every later entry in its outbox, in order.
 * The device keeps working as it does offline.
 * When the device's app version is no longer supported, the server answers "update required." The device keeps its outbox and asks the user to update the app.
 * The server records each blocked device and the error. The record holds no outbox entries.
 * The server emails the operator about each blocked device, as recorded in DR-0028.
-* The app tells the user that the administrator has been emailed about a sync problem. It tells the user not to clear the app's data or the browser's storage, so the changes can sync after the fix.
+* The app tells the user that the administrator has been emailed about a sync problem. It tells the user not to clear the app's data or the browser's storage.
 * When a new server version starts, the server tells each blocked device to retry: through SSE to an open app, and through a visible push notification to a closed app.
 * When the retry succeeds, the rest of the outbox follows in order. The app tells the user that the problem is fixed and the changes have synced. The server deletes the blocked-device record.
 * When the retry fails again, the device stays blocked.
@@ -44,7 +44,7 @@ Example: a calendar app cannot complete a change, reverts it, and tells the user
 
 Setting a rejected entry aside on the server and replaying it later, rejected:
 
-* Later entries can depend on the rejected one, so a replay out of order can apply to nothing.
+* Later entries can depend on the rejected one. A replay out of order can apply to nothing.
 * Each repeated attempt by the user adds another set-aside entry.
 
 Example: the phone renames "Notes" to "Ideas," moves "Ideas" into "Work," and deletes "Work." The rename is set aside, and the move and the delete are applied. When the rename is replayed, "Ideas" no longer exists.
@@ -62,7 +62,11 @@ Whole-row last write wins, rejected:
 ## Rationale
 
 * No sync service is added.
-* Server receipt order avoids device clocks, which drift.
+* Server receipt order avoids device clocks. Device clocks drift.
+* Per-field resolution keeps both edits when two devices change different fields of the same task.
+* Later entries can depend on earlier ones. Applying entries only in order keeps each entry pointed at data that exists.
+* Stopping at a failed entry and keeping the outbox loses no change. After the fix, the kept entries sync without the user redoing anything.
+* Keeping the app's data on a blocked device lets its changes sync after the fix.
 
 ## Consequences
 

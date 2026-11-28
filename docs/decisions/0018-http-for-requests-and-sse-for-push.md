@@ -9,7 +9,7 @@ Clients send requests to the server, such as outbox entries. The server pushes n
 
 Requirement: a notice from the server must reach an open client within 2 seconds.
 
-The server uses oRPC, which supports these transports:
+The server uses oRPC. oRPC supports these transports:
 
 * RPC over HTTP
 * OpenAPI REST
@@ -48,16 +48,17 @@ OpenAPI REST, not used now:
 
 ## Rationale
 
-* Push is one-way, which SSE fits.
+* Push only goes from the server to the client. SSE is one-way, from the server to the client.
 * Requests and push both use HTTP.
 * oRPC documents streaming in Expo on Android and iOS through expo/fetch.
-* An outbox entry is a request with a response, so HTTP gives the acknowledgment.
+* An outbox entry is a request with a response. HTTP returns the response as the acknowledgment.
+* Some proxies cut long-lived connections. The fetch after each reconnect brings the changes made while the stream was down.
 
 ## Consequences
 
 * Expo SDK 56 or later is needed for streaming without extra setup.
-* Setting `EXPO_PUBLIC_USE_RN_FETCH` turns streaming off, so it must not be set.
-* Some proxies cut long-lived connections, so the stream reconnects and fetches changes.
+* `EXPO_PUBLIC_USE_RN_FETCH` must not be set. Setting it turns streaming off.
+* When a proxy cuts the stream, the client reconnects and fetches the changes.
 * A suspended app receives no push. During a run with the phone locked, the app stays awake only if background audio (iOS) or a foreground service (Android) keeps it running. This is tested in the phone trial from DR-0012.
 
 ## Sources

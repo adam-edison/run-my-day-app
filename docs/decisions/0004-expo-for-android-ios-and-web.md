@@ -31,7 +31,7 @@ The status stays Proposed until a trial passes: one screen plus a service worker
 
 ## Consequences
 
-- Web support in Expo is less mature than native support, so some libraries work only on native.
+- Some libraries work only on native, not on the web.
 - Service workers can serve stale files from their cache. Updates to the web app need a clear refresh path.
 - Builds go through Expo Build.
 - App store releases go through Expo Submit.

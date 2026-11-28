@@ -11,6 +11,8 @@ Announcements are spoken text built from templates at run time, such as "Squats,
 
 Chrome checks the timers of a hidden tab once per second.
 
+The Web Audio clock schedules playback to the sample. An AudioContext created before a user gesture starts in the suspended state.
+
 ## Decision
 
 Timing:
@@ -23,7 +25,7 @@ Timing:
 Speech:
 
 * kokoro-js generates each announcement as audio in the browser, before the announcement is due.
-* The first trial uses the q8f16 model, an 86 MB download. A larger model is used only if the voice quality is not good enough.
+* The first trial uses the q8f16 model. A larger model is used only if the voice quality is not good enough.
 * The model is downloaded once and kept for offline use.
 
 The status stays Proposed until two trials pass in the Expo web build:
@@ -48,12 +50,13 @@ Starting sounds directly with `setTimeout`, rejected:
 ## Rationale
 
 * The Web Audio clock schedules playback to the sample.
+* A hidden tab's timers run once per second. A lookahead window longer than that keeps each sound scheduled before it is due.
 * kokoro-js output is audio that the Web Audio clock can schedule.
 * Speech is generated on the device, so it works offline.
 
 ## Consequences
 
-* The model download is at least 86 MB.
+* The q8f16 model is an 86 MB download. A larger model would be a larger download.
 * No official source states whether the Web Audio clock stays on time in a hidden tab. The trial checks it.
 * kokoro-js generation speed is not documented. The trial checks it.
 

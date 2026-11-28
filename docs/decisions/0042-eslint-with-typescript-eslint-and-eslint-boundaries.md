@@ -19,12 +19,18 @@ Latest npm versions:
 * typescript-eslint 8.74.0
 * eslint-plugin-boundaries 7.4.5, updated 2026-11-25
 
+Other linters:
+
+* Oxlint is 50 to 100 times faster than ESLint, by its own benchmarks.
+* Oxlint has type-aware linting, and ESLint Boundaries lists Oxlint as supported.
+* Biome v2 has some type-aware rules.
+
 Example: a display component in the Expo app adds `import { createActor } from "xstate"`. ESLint Boundaries reports an error in the editor and in CI.
 
 ## Decision
 
 * The linter is ESLint 10 with typescript-eslint 8 and ESLint Boundaries 7.
-* Type-aware linting runs in CI and before push, as the typescript-eslint docs suggest.
+* Type-aware linting runs in CI and before push.
 
 ## Alternatives Considered
 
@@ -47,13 +53,11 @@ dependency-cruiser for the boundary check, rejected:
 * typescript-eslint documents type-aware rules.
 * ESLint Boundaries documents import policies by element type and by external package.
 * All three packages are actively released.
+* The typescript-eslint docs suggest running type-aware linting in CI and before push.
 
 ## Consequences
 
 * Type-aware linting is slower, because TypeScript builds the whole project first.
-* Oxlint is 50 to 100 times faster than ESLint, by its own benchmarks.
-* Oxlint has type-aware linting, and ESLint Boundaries lists Oxlint as supported.
-* Biome v2 has some type-aware rules.
 * No official source states whether type-aware linting is fast enough in a pre-commit hook for this repository.
 * No official source states that `no-restricted-imports` with a per-folder override can reject `xstate` outside the core package. This idea is not verified.
 

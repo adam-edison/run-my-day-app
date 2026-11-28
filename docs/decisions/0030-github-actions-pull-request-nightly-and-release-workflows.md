@@ -20,6 +20,8 @@ Facts from earlier decisions:
 * The technology stack lists ESLint, Knip, Prettier, commitlint, actionlint, Betterleaks, and Renovate.
 * Secrets come from Doppler, as recorded in DR-0011.
 
+Betterleaks ships no GitHub Action. It runs as a CLI or as the Docker image `ghcr.io/betterleaks/betterleaks:v2`.
+
 Example: a pull request changes the "Morning" routine screen. The fast checks run on the pull request. Playwright and Maestro test the change that night on `main`.
 
 ## Decision
@@ -36,7 +38,7 @@ Pull request checks:
 * ESLint, `tsc` type check, Prettier check, Knip, Vitest, and Jest.
 * actionlint checks the workflow files.
 * commitlint checks every commit in the pull request.
-* Betterleaks scans for secrets. It ships no GitHub Action, so the job runs the CLI or the Docker image `ghcr.io/betterleaks/betterleaks:v2`.
+* Betterleaks scans for secrets. The job runs the Betterleaks CLI or the Docker image `ghcr.io/betterleaks/betterleaks:v2`.
 * `actions/setup-node` caches the package manager's download folder.
 
 Required status checks on `main`:
@@ -63,7 +65,7 @@ Everything on each pull request, rejected:
 ## Rationale
 
 * The slow tests stay off the pull request path, as recorded in DR-0009 and DR-0010.
-* Public repositories use standard runners for free, so the nightly runs cost nothing.
+* Public repositories use standard runners for free. The nightly runs cost nothing.
 * A skipped required check counts as passing.
 * commitlint documents a GitHub Actions job that checks all commits in a pull request.
 * GitHub advises unique job names for required checks.
@@ -85,9 +87,7 @@ Everything on each pull request, rejected:
 
 1. When does the scheduled run start? Example: every night at 03:00 UTC, so failures are visible each morning.
 2. Does a failed nightly run open a GitHub issue automatically, or only send the usual email? Example: a Maestro failure on the iOS simulator opens an issue on the board.
-3. Do docs-only pull requests skip the code checks? Example: a typo fix in `docs/domain-model.md` runs only Prettier and commitlint.
-4. Does the Vitest boundary test against Postgres run on each pull request in a Postgres service container? Example: the routine endpoint tests start a `postgres` service in the job.
-5. Does the release workflow require a manual start (`workflow_dispatch`), or does it start when a release tag is pushed? Example: pushing tag `v0.3.0` starts Playwright and Maestro.
+3. Does the Vitest boundary test against Postgres run on each pull request in a Postgres service container? Example: the routine endpoint tests start a `postgres` service in the job.
 
 ## Sources
 

@@ -7,7 +7,7 @@
 
 Run My Day plays sounds and music during routines, such as a start sound on a step or background music for a workout. Earlier plans connected cloud storage, such as Google Drive, OneDrive, and Dropbox, as music sources.
 
-Reading all of a user's Google Drive files requires restricted OAuth scopes, such as `drive.readonly`. The non-sensitive `drive.file` scope reaches only the files that the user opens with the app or picks in the Google Picker. Google requires each app that accesses restricted scope data from or through a server to pass a third-party CASA security assessment every 12 months. The developer pays the assessor's fees. Streaming from cloud storage APIs also adds latency, which conflicts with the requirement that the first sound of each step plays within 100 milliseconds of its start mark.
+Reading all of a user's Google Drive files requires restricted OAuth scopes, such as `drive.readonly`. The non-sensitive `drive.file` scope reaches only the files that the user opens with the app or picks in the Google Picker. Google requires each app that accesses restricted scope data from or through a server to pass a third-party CASA security assessment every 12 months. The developer pays the assessor's fees. Streaming from cloud storage APIs adds latency. The first sound of each step must play within 100 milliseconds of its start mark.
 
 ## Decision
 

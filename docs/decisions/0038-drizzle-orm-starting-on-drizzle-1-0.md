@@ -1,4 +1,4 @@
-# DR-0038: Keep Drizzle ORM and Start on Drizzle 1.0
+# DR-0038: Drizzle ORM, Starting on Drizzle 1.0
 
 **Status:** Draft  
 **Date:** 2026-11-28
@@ -25,27 +25,19 @@ expo-sqlite on the web:
 * The static host must send the Cross-Origin-Embedder-Policy and Cross-Origin-Opener-Policy headers.
 * The web build of SQLite has no full-text search.
 
-Example: the user ticks off a routine step on the phone. A `useLiveQuery` query on the routine screen updates the checklist without a manual refresh.
+Example: the user ticks off a routine step on the phone. The checklist on the routine screen must update without a manual refresh.
 
 ## Decision
 
-* The server and the devices keep Drizzle ORM.
+* The server and the devices use Drizzle ORM.
 * The project starts on Drizzle 1.0.
 * Migrations on devices use `babel-plugin-inline-import` and add `sql` to Metro's `sourceExts`.
 * The web build configures Metro for wasm files.
 * The static host sends the Cross-Origin-Embedder-Policy and Cross-Origin-Opener-Policy headers.
 
+Example: the user ticks off a routine step on the phone. A `useLiveQuery` query on the routine screen updates the checklist without a manual refresh.
+
 ## Alternatives Considered
-
-Prisma, rejected:
-
-* Prisma was not checked for expo-sqlite support.
-* The npm latest version is a release candidate, 8.0.0-rc.36.
-
-Kysely, rejected:
-
-* Kysely is a query builder.
-* Kysely was not checked for expo-sqlite support.
 
 Starting on Drizzle 0.45, rejected:
 
@@ -62,11 +54,8 @@ Starting on Drizzle 0.45, rejected:
 * No official source recommends starting on 1.0. This choice is own reasoning.
 * Drizzle's expo-sqlite page does not mention the web.
 * The web build of SQLite has no full-text search.
-* Prisma and Kysely were not compared against sources.
-
-## Open Questions
-
-1. Does the project start on Drizzle 1.0, which is a release candidate now, or on 0.45, which is stable now, and upgrade later? Example: on 1.0, the first migration folder already uses the new format. On 0.45, the migration folder and relational queries change during the upgrade.
+* Prisma is not yet researched as an option. Its expo-sqlite support is not checked. Its npm latest version is a release candidate, 8.0.0-rc.36.
+* Kysely is not yet researched as an option. Kysely is a query builder. Its expo-sqlite support is not checked.
 
 ## Sources
 

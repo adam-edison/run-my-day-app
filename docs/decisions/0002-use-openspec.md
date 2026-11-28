@@ -18,10 +18,9 @@ Adopt OpenSpec as the framework for specification-driven development, using incr
 - **GitHub Spec Kit:** Provides a comprehensive specification-driven workflow but was considered too token-intensive and process-heavy for solo development.
 - **BMAD Method:** Provides structured, role-based AI development workflows but appeared better suited to organizational and team-based development than rapid solo development.
 
-OpenSpec was selected for its comparatively lightweight, flexible, and incremental approach.
-
 ## Rationale
 
+- **Lightweight approach:** OpenSpec is lighter, more flexible, and more incremental than Spec Kit and BMAD Method.
 - **Token efficiency:** Minimize AI context consumption and unnecessary artifact generation.
 - **Development velocity:** Prioritize rapid iteration with minimal process overhead.
 - **AI-assisted development:** Provide coding agents with structured requirements and persistent project context.

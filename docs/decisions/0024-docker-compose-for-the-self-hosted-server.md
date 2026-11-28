@@ -64,6 +64,7 @@ Plain Node.js process with Postgres installed on the machine, rejected:
 * A `.env` file stores secret values on disk on the user's machine.
 * GitHub Container Registry storage and bandwidth are currently free. GitHub promises at least one month's notice before any change.
 * GitHub's Container registry page states that public images can be accessed anonymously. The same page also states that an access token is needed to install public packages.
+
 ## Sources
 
 ### [GitHub Packages billing](https://docs.github.com/en/billing/concepts/product-billing/github-packages)

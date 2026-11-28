@@ -9,7 +9,9 @@ The repository is public on GitHub, as recorded in DR-0001.
 
 A dependency update is a small task. Up to 3 small tasks run beside the big task, as recorded in DR-0014.
 
-Renovate finds package files automatically, including in monorepos. Its latest version, 45.3.2, was published on 2026-11-27.
+Renovate finds package files automatically, including in monorepos. Its latest version, 45.3.2, was published on 2026-11-27. A Renovate schedule can be set per dependency or per package manager.
+
+Dependabot is built into GitHub.
 
 Example: Expo releases a new SDK. Renovate opens one pull request that updates `expo` and every related `expo-*` package together.
 
@@ -18,7 +20,6 @@ Example: Expo releases a new SDK. Renovate opens one pull request that updates `
 * Renovate opens the dependency update pull requests.
 * The `group:monorepos` preset groups the packages of one monorepo, such as Expo or typescript-eslint, into one pull request.
 * The Dependency Dashboard lists every pending update in one issue.
-* A schedule can be set per dependency or per package manager.
 
 ## Alternatives Considered
 
@@ -38,7 +39,6 @@ Dependabot, rejected:
 
 * The Mend Renovate app is hosted by Mend, an outside company.
 * The price of the Mend Renovate app is not verified.
-* Dependabot is built into GitHub.
 
 ## Sources
 

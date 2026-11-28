@@ -1,11 +1,11 @@
-# DR-0035: Keep Fastify 5 as the HTTP Framework
+# DR-0035: Fastify 5 for the HTTP Server
 
 **Status:** Draft  
 **Date:** 2026-11-28
 
 ## Context
 
-Sync is built on the existing Fastify server through oRPC, as recorded in DR-0017. Requests use oRPC over HTTP, and push uses server-sent events (SSE) through oRPC streaming, as recorded in DR-0018. The stack uses Pino logging through Fastify and uses @fastify/rate-limit.
+Sync runs on a Fastify server through oRPC, as recorded in DR-0017. Requests use oRPC over HTTP, and push uses server-sent events (SSE) through oRPC streaming, as recorded in DR-0018. The stack uses Pino logging through Fastify and uses @fastify/rate-limit.
 
 Fastify facts:
 
@@ -16,11 +16,11 @@ Fastify facts:
 * oRPC ships a Fastify adapter.
 * Request bodies that oRPC handles skip Fastify's `bodyLimit`.
 
-Example: a client sends a sync upload of 50 MB. Fastify's `bodyLimit` does not stop it, because oRPC reads the body. A limit set through oRPC rejects it.
+Example: a client sends a sync upload of 50 MB. oRPC reads the body. Fastify's `bodyLimit` does not stop the upload.
 
 ## Decision
 
-* The server keeps Fastify 5 as its HTTP framework.
+* The server uses Fastify 5 as its HTTP framework.
 * The server sets a request body limit through oRPC.
 
 ## Alternatives Considered
@@ -28,23 +28,19 @@ Example: a client sends a sync upload of 50 MB. Fastify's `bodyLimit` does not s
 Hono, rejected:
 
 * Hono runs on many runtimes, but the server runs only on Node.js.
-* Pino logging, rate limiting, and the sync design in DR-0017 already assume Fastify.
-
-Express, rejected:
-
-* Express was not checked against sources.
+* Pino logging, rate limiting, and the sync design in DR-0017 assume Fastify.
 
 ## Rationale
 
 * Fastify 5 is on an active major line with a published support policy.
 * oRPC documents a Fastify adapter.
-* The existing logging, rate limiting, and sync design stay as they are.
+* Pino logging through Fastify, @fastify/rate-limit, and the sync design in DR-0017 all fit a Fastify server.
 
 ## Consequences
 
 * Fastify's `bodyLimit` does not cover oRPC request bodies. The server needs a separate body limit through oRPC.
 * No official source states that Hono's support for many runtimes adds nothing for a Node.js-only server. This point is own reasoning.
-* Express was not compared against sources.
+* Express is not yet researched as an option.
 
 ## Sources
 

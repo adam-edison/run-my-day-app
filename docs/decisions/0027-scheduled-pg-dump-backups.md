@@ -28,7 +28,7 @@ Example: on a self-hosted Mac mini, a dump runs at 17:00. The disk fails at 17:4
 * The server reports an error when a dump check fails, or when no new dump exists for 2 hours in local hosting and self-hosting.
 * The restore steps, including creating the database roles first, are documented.
 
-Example: at 14:00 the job on a Mac mini writes a custom-format dump to a Dropbox folder. `pg_restore --list` reads it, and Dropbox copies it to the cloud. At 16:00 the disk is full and no dump has been written since 14:00, so the server reports an error.
+Example: at 14:00 the job on a Mac mini writes a custom-format dump to a Dropbox folder. `pg_restore --list` reads it, and Dropbox copies it to the cloud. At 16:00 the disk is full and no dump has been written since 14:00. The server reports an error.
 
 ## Alternatives Considered
 
@@ -50,11 +50,11 @@ Copying the Docker volume's files, rejected:
 
 * A dump is a consistent snapshot and does not block normal use.
 * Custom format is compressed and allows restoring single tables.
-* A dump loads into newer Postgres versions, so it also serves major upgrades.
+* A dump loads into newer Postgres versions. The same dump also serves major upgrades.
 
 ## Consequences
 
-* Changes since the last dump are lost. Devices keep 90 days of history and the outbox, so some recent changes could sync again.
+* Changes since the last dump are lost. Devices keep 90 days of history and the outbox. Some recent changes could sync again from the devices.
 * `pg_dump` does not include roles. `pg_dumpall` covers roles.
 * Roles must exist before a restore.
 * No official source states the schedule, the retention, or the restore test for this case.

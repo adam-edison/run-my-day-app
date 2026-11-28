@@ -15,7 +15,7 @@ The code stays ready for phones:
 
 - Every component is a React Native component, and all logic is in the shared core package. No web-only shortcuts are taken.
 - Only the web platform shell is built. The Android and iOS parts of the platform shell, such as background audio, are built later in platform-specific files.
-- Layouts are responsive from the start, so they fit phone screens.
+- Layouts are responsive from the start.
 
 The phone capability trials run early, before features depend on their results:
 
@@ -24,7 +24,7 @@ The phone capability trials run early, before features depend on their results:
 - audio starting within 100 milliseconds of its start mark on a phone
 - local storage for offline use
 
-The Expo web trial from DR-0004 is the first task, because all early development runs in the web build.
+The Expo web trial from DR-0004 is the first task.
 
 ## Alternatives Considered
 
@@ -36,11 +36,13 @@ The Expo web trial from DR-0004 is the first task, because all early development
 - **Fast development:** Features are built and tested in a browser, with no native builds.
 - **Early proof:** The trials show whether the phones can do what the design assumes before features depend on it.
 - **One codebase:** Shared components and core code carry over to the phones unchanged.
+- **Phone-ready layouts:** Responsive layouts fit phone screens.
+- **Web trial first:** All early development runs in the web build.
 
 ## Consequences
 
 - The phone apps are not usable until mobile work starts.
-- A failed trial can change the design, so the trials run first.
+- A failed trial can change the design.
 - Layouts made for a desktop screen may still need changes on phones.
 
 ## Sources

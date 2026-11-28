@@ -15,7 +15,7 @@ Example: a recurrence rule repeats a task every second Tuesday. A property test 
 
 ## Decision
 
-* The unit tests keep fast-check.
+* The unit tests use fast-check.
 * fast-check is used only in fast unit tests that run in Vitest.
 
 ## Alternatives Considered

@@ -30,7 +30,7 @@ Sentry:
 * No DSN is set by default. With no DSN, nothing is sent.
 * The project's own deployment sets the project's DSN.
 * A self-hoster may set the DSN of their own Sentry account.
-* Fastify uses the Sentry Node SDK. Fastify needs no separate SDK.
+* Fastify uses the Sentry Node SDK.
 * The Expo app uses `@sentry/react-native`.
 
 Logging and redaction:
@@ -50,8 +50,7 @@ Alert conditions:
 
 * Any new server error in Sentry.
 * A calendar watch renewal fails, or a watch expires without renewal.
-* The 5-minute backup calendar check misses its schedule or fails. Sentry Crons watches this check with the one cron monitor included in every Sentry plan.
-* A missed check-in also shows that the whole server is down.
+* The 5-minute backup calendar check misses its schedule or fails. Sentry Crons watches this check.
 * No new database dump exists for 2 hours, or a dump check fails. The server reports this error itself, as recorded in DR-0027.
 * A device is blocked because the server cannot apply an outbox entry, as recorded in DR-0017. The alert fires on the first such entry. Network failures and server errors that are retried raise no alert.
 * Alerts reach the operator by email.
@@ -69,7 +68,6 @@ Self-hosters report to the project's Sentry by default, rejected:
 No Sentry, logs only, rejected:
 
 * Errors on phones and in browsers never reach the server log.
-* Sentry's Expo SDK captures those errors once `Sentry.init()` is called.
 
 ## Rationale
 
@@ -80,6 +78,9 @@ No Sentry, logs only, rejected:
 * Sentry also scrubs data on its own servers. Advanced Data Scrubbing can redact more before data is saved.
 * The Node SDK instruments Fastify and skips errors with 3xx and 4xx status codes.
 * `@sentry/react-native` uploads source maps during the release build.
+* Sentry's Expo SDK captures errors on phones and in browsers once `Sentry.init()` is called.
+* Every Sentry plan includes one cron monitor. That monitor covers the 5-minute backup calendar check.
+* A missed check-in also shows that the whole server is down.
 
 ## Consequences
 

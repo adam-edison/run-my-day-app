@@ -1,4 +1,4 @@
-# DR-0037: Keep Zod 4 for Schemas and Validation
+# DR-0037: Zod 4 for Schemas and Validation
 
 **Status:** Draft  
 **Date:** 2026-11-28
@@ -20,18 +20,14 @@ Example: the server validates a sync upload that ticks off a routine step with a
 
 ## Decision
 
-* The app keeps Zod 4 for schemas and validation.
+* The app uses Zod 4 for schemas and validation.
 * When client bundle size matters, the clients use Zod Mini.
 
 ## Alternatives Considered
 
 Valibot, rejected:
 
-* Valibot would replace a working choice without a stated need.
-
-ArkType, rejected:
-
-* ArkType was not checked against sources.
+* No stated need calls for Valibot in place of Zod 4.
 
 ## Rationale
 
@@ -42,8 +38,8 @@ ArkType, rejected:
 ## Consequences
 
 * The full Zod API does not tree-shake well.
-* No official source states that replacing Zod with Valibot brings no benefit. This point is own reasoning.
-* ArkType was not compared against sources.
+* No official source states that Valibot brings no benefit over Zod for this case. This point is own reasoning.
+* ArkType is not yet researched as an option.
 
 ## Sources
 

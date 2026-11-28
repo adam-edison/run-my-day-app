@@ -23,7 +23,7 @@ Example: the task "Stretch" is created on the phone. The phone saves "Stretch" a
 TanStack Query for every screen, rejected:
 
 * TanStack Query would keep a second copy on top of the device's database, and the two copies could disagree.
-* Reads from the device's database are local, so loading states, refetches, and retries for reads are not needed.
+* Reads from the device's database are local. Loading states, refetches, and retries for reads are not needed.
 
 TanStack Query for history older than 90 days only, rejected:
 

@@ -1,4 +1,4 @@
-# DR-0040: Keep @fastify/rate-limit with the In-Memory Store
+# DR-0040: @fastify/rate-limit with the In-Memory Store
 
 **Status:** Draft  
 **Date:** 2026-11-28
@@ -16,19 +16,15 @@ The server runs on Fastify 5.
 * The default store is in memory. Each server instance counts requests on its own.
 * More than one instance needs a shared Redis store through ioredis.
 
-Example: a script floods the sync endpoint with outbox uploads. After the limit, the server answers each request with a 429 response.
+Example: a script floods the sync endpoint with outbox uploads. The server must limit the flood.
 
 ## Decision
 
-* The server keeps @fastify/rate-limit.
-* The server keeps the in-memory store while one server instance runs.
+* The server uses @fastify/rate-limit.
+* The server uses the in-memory store while one server instance runs.
 * Redis is added when a second server instance is added.
 
-## Alternatives Considered
-
-Rate limits at a proxy or host, rejected:
-
-* Rate limits at a proxy or host were not checked against sources.
+Example: a script floods the sync endpoint with outbox uploads. After the limit, the server answers each request with a 429 response.
 
 ## Rationale
 
@@ -39,8 +35,8 @@ Rate limits at a proxy or host, rejected:
 
 * With the in-memory store, each server instance counts requests on its own.
 * A second server instance needs Redis through ioredis.
-* No official source recommends keeping the in-memory store until a second instance is added. This choice is own reasoning.
-* Rate limits at a proxy or host were not compared against sources.
+* No official source recommends using the in-memory store until a second instance is added. This choice is own reasoning.
+* Rate limits at a proxy or host are not yet researched as an option.
 
 ## Sources
 

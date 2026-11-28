@@ -59,7 +59,6 @@ Example: the change that adds the Google push address adds a "fake push notifica
 ASVS as the only method, rejected:
 
 * ASVS is a checklist of requirements, not a method for finding threats in the design phase.
-* The ASVS level definitions were not read.
 
 MASVS as the only method, rejected:
 
@@ -83,11 +82,10 @@ MASVS as the only method, rejected:
 
 ## Open Questions
 
-1. Is the threat model one STRIDE document, updated per change? Example: the change that adds the Google push address adds a "fake push notification" row.
-2. Is the offline SQLite database encrypted on phones? Example: a stolen unlocked phone shows tomorrow's appointments.
-3. Are Google refresh tokens encrypted in PostgreSQL? Example: a database backup leaks, and the tokens in it cannot be used without a separate key.
-4. Which checklist and level is used for the review before the hosted version? Example: ASVS for the Fastify server and MASVS for the Android and iOS apps.
-5. Who runs the security review? Example: you with Claude's security-review skill, or an outside reviewer before launch.
+1. Is the offline SQLite database encrypted on phones? Example: a stolen unlocked phone shows tomorrow's appointments.
+2. Are Google refresh tokens encrypted in PostgreSQL? Example: a database backup leaks, and the tokens in it cannot be used without a separate key.
+3. Which ASVS level is used for the review before the hosted version? Example: the Fastify server is checked against one ASVS level before the hosted version takes other people's data.
+4. Who runs the security review? Example: you with Claude's security-review skill, or an outside reviewer before launch.
 
 ## Sources
 

@@ -1,4 +1,4 @@
-# DR-0036: Keep oRPC for the API
+# DR-0036: oRPC for the API
 
 **Status:** Draft  
 **Date:** 2026-11-28
@@ -23,11 +23,11 @@ tRPC facts:
 * tRPC supports typed SSE.
 * oRPC's comparison page lists no contract-first support in tRPC and only partial OpenAPI support.
 
-Example: the laptop loses Wi-Fi for 30 seconds. On reconnect, the push stream sends the last event ID it received. The server resumes from that event, and the laptop receives the moved Workout block.
+Example: the laptop loses Wi-Fi for 30 seconds. The Workout block moves during that time. After the reconnect, the laptop must receive the moved Workout block.
 
 ## Decision
 
-* The API keeps oRPC.
+* The API uses oRPC.
 * The push handler keeps running while the client is connected.
 * The push stream resumes from `lastEventId` after a reconnect.
 
@@ -38,11 +38,6 @@ tRPC, rejected:
 * oRPC's comparison page lists no contract-first support in tRPC.
 * oRPC's comparison page lists only partial OpenAPI support in tRPC.
 
-ts-rest, rejected:
-
-* The oRPC docs do not compare ts-rest.
-* ts-rest was not checked against sources.
-
 ## Rationale
 
 * oRPC's docs list contract-first support, typed SSE, and first-party OpenAPI.
@@ -52,7 +47,7 @@ ts-rest, rejected:
 
 * An oRPC stream ends when its handler returns. EventSource clients then try to reconnect. A push handler that returns early causes repeated reconnects.
 * No official source states that oRPC is younger than tRPC. This point is own reasoning.
-* ts-rest was not compared against sources.
+* ts-rest is not yet researched as an option. The oRPC comparison page does not cover ts-rest.
 
 ## Sources
 

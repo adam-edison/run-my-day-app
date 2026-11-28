@@ -1,4 +1,4 @@
-# DR-0039: Keep PostgreSQL on the Server
+# DR-0039: PostgreSQL on the Server
 
 **Status:** Accepted  
 **Date:** 2026-11-28
@@ -16,11 +16,11 @@ PostgreSQL facts:
 * Of the managed hosts checked, only Neon lists version 19. AWS RDS and Azure offer it as a preview. Google Cloud SQL, Crunchy Bridge, and DigitalOcean list versions up to 18.
 * A `pg_dump` backup loads into newer PostgreSQL versions.
 
-Example: the phone and the laptop both edit the Workout block's end time while offline. The server stores both outbox entries in PostgreSQL and resolves the conflict per field.
+Example: the phone and the laptop both edit the Workout block's end time while offline. The server must store both outbox entries and resolve the conflict per field.
 
 ## Decision
 
-* The server keeps PostgreSQL.
+* The server uses PostgreSQL.
 * The server uses PostgreSQL 18, in local hosting, self-hosting, and the hosted version.
 * The move to version 19 waits until the hosts offer it. The move uses `pg_dump` and `pg_restore`.
 
@@ -34,13 +34,17 @@ SQLite on the server, rejected:
 
 * Each PostgreSQL major version gets 5 years of support.
 * PostgreSQL serves more than one server instance.
+* Google Cloud SQL, Crunchy Bridge, and DigitalOcean list versions up to 18. AWS RDS and Azure offer version 19 only as a preview. Version 18 runs on every host checked.
+* Version 18 is supported until November 14, 2030.
+* A `pg_dump` backup loads into newer PostgreSQL versions. This allows the later move to version 19.
 
 ## Consequences
 
 * PostgreSQL is a separate service to run.
 * No official source states that SQLite on the server does not fit more than one instance. This point is own reasoning.
 * Drizzle and Better Auth state no PostgreSQL version limits.
-* SQLite on the server would have used the same SQL dialect as the devices. The server and the devices use different SQL dialects.
+* The server and the devices use different SQL dialects.
+
 ## Sources
 
 ### [PostgreSQL Versioning Policy](https://www.postgresql.org/support/versioning/)

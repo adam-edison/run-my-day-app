@@ -26,7 +26,6 @@ Example: at 10:05 the Workout event moves while the phone is on mobile data. Goo
 * Tailscale Funnel publishes only the Google webhook path to the internet.
 * The app and the API stay private to the user's devices, in local hosting and self-hosting.
 * Every phone and laptop that uses a local or self-hosted server has the Tailscale app installed and signed in.
-* Funnel's beta status is accepted. A lost push notification is found by the 5-minute backup check.
 * The status stays Proposed until a test shows that SSE works through Tailscale Serve.
 
 Example: the laptop opens the app at its tailnet address. Google posts a push notification to the Funnel address of the webhook path. No other path is public.
@@ -36,7 +35,7 @@ Example: the laptop opens the app at its tailnet address. Google posts a push no
 Cloudflare Tunnel for everything, rejected:
 
 * It needs a domain on Cloudflare.
-* The whole app is public, so sign-in (Better Auth) and rate limiting are the only protection.
+* The whole app is public. Sign-in (Better Auth) and rate limiting are the only protection.
 * Cloudflare returns error 524 when the server sends no response for 125 seconds. The SSE stream needs a regular heartbeat.
 
 Tailscale for devices plus Cloudflare Tunnel for the webhook only, rejected:
@@ -64,6 +63,7 @@ A VPS with a public IP address and a normal certificate, rejected:
 * Every phone and laptop needs the Tailscale app installed and signed in.
 * No official source describes SSE through Tailscale Serve or Funnel. The test checks it.
 * No official source compares these options for this case. The choice is not verified.
+
 ## Sources
 
 ### [Tailscale Funnel](https://tailscale.com/kb/1223/funnel)

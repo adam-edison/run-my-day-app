@@ -27,10 +27,9 @@ Example: the laptop opens `https://home-mac.tailnet-name.ts.net/` and gets both 
 * Fastify sets `Cross-Origin-Embedder-Policy: credentialless` on the files.
 * Fastify sets `Cross-Origin-Opener-Policy: same-origin` on the files.
 * The app and the API share one origin.
-* A CDN may be added to the hosted version later, if load times require it.
 * When a new service worker is waiting, the app shows an update bar with an update button.
 * The update button activates the waiting service worker, then reloads the page.
-* A new service worker never takes over without the user's action, so a running routine is not interrupted.
+* A new service worker never takes over without the user's action.
 
 Example: the laptop loads the "Morning" routine page from the Fastify server. The page calls the API on the same origin with no CORS setup.
 
@@ -47,7 +46,7 @@ A new service worker waits until every tab is closed, rejected:
 
 Cloudflare Pages or Netlify, rejected:
 
-* The app and the API are on different origins, so the server needs CORS.
+* The app and the API are on different origins. The server would need CORS.
 * A public site cannot reach a server that is private inside a tailnet unless the device runs Tailscale.
 * Each self-hoster needs an account with the host.
 
@@ -62,12 +61,15 @@ GitHub Pages, rejected:
 * One origin needs no CORS setup for API calls.
 * The app is reachable wherever the server is reachable, including inside a private tailnet.
 * A self-hoster deploys one thing.
+* An update bar lets the user choose when the new version loads. A running routine is not interrupted.
+* The update button brings a tab that stays open all day to the new version without closing the tab.
 
 ## Consequences
 
 * The Fastify process also serves static files. For one user the load is small.
 * No official source compares one origin with a static host for this case. The choice is not verified.
-* Chrome ignores caching headers when it checks for a new service worker script, so a cached `sw.js` does not delay an update.
+* A cached `sw.js` does not delay an update. Chrome ignores caching headers when it checks for a new service worker script.
+* A CDN may be added to the hosted version later, if load times require it.
 * A tab left open keeps the old version until the user presses the update button.
 
 ## Sources

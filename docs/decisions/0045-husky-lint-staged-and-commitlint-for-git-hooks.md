@@ -18,7 +18,9 @@ Git hooks in worktrees:
 
 Tools:
 
-* Husky is 2 kB with no dependencies, and it uses git's `core.hooksPath`. Its latest version is 9.1.7.
+* Husky is 2 kB with no dependencies, and it uses git's `core.hooksPath`. Its latest version is 9.1.7. It is the only release that npm metadata shows in the last months. npm metadata was last updated on 2026-09-02.
+* Husky's install script warns that hook files with the old `husky.sh` lines will fail in Husky v10.
+* lefthook can run hook jobs in parallel. Its version 2.2.4 was updated on 2026-11-26.
 * lint-staged runs formatters and linters on staged files only. It supports one config per package in a monorepo. Its latest version is 17.6.2.
 * commitlint checks commit messages against a convention when they are written. Its latest version is 21.2.4.
 
@@ -51,10 +53,7 @@ simple-git-hooks, rejected:
 * A new worktree has no `.husky/_` until dependencies are installed in it. Until then, no hook runs in that worktree. This point is not verified by an official source.
 * Two worktrees that commit at the same moment could touch the same stash list. No report of this problem was found. This point is not verified.
 * No official source states that lefthook replaces lint-staged's staged-file handling. This point is not verified.
-* The choice to keep Husky is not verified by an official source.
-* Husky 9.1.7 is the only release that npm metadata shows in the last months. npm metadata was last updated on 2026-09-02.
-* Husky's install script warns that hook files with the old `husky.sh` lines will fail in Husky v10.
-* lefthook can run hook jobs in parallel. Its version 2.2.4 was updated on 2026-11-26.
+* The choice of Husky is not verified by an official source.
 * No alternative to lint-staged or commitlint was researched. Both work with Husky and lefthook.
 
 ## Open Questions

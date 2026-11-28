@@ -23,13 +23,19 @@ Phones:
 * iOS uses AlarmKit. Android uses an exact alarm.
 * On Android, setup asks the user to grant the exact alarm permission. The app opens the system "Alarms & reminders" settings screen for this.
 * On Android, the app checks the permission each time it opens. Without the permission, the app shows only the request to grant it, and the rest of the app cannot be used.
-* Alerts are scheduled on the phone from the last calendar read, so they work offline.
+* Alerts are scheduled on the phone from the last calendar read.
 * When the calendar changes, the server sends a visible push, and the alert is rescheduled.
 
 Web:
 
 * With the tab open, even hidden, the block starts by itself.
 * With the tab closed, the server sends a web push at each block start.
+
+Trials:
+
+* The status stays Proposed until two trials pass:
+  * Phones: tapping the alert opens the app into the block.
+  * Expo web: audio keeps playing in a hidden tab.
 
 Example: at 09:40 a push shows "Workout starts 09:45" on the phone. At 09:45 the phone's alarm rings, and the laptop shows a notification. The alarm is tapped, and the Workout block runs on the phone.
 
@@ -48,14 +54,15 @@ A desktop app outside the browser, rejected:
 
 * Phones and web closed tabs behave the same: an alert you tap.
 * A phone alarm rings when the phone is locked and offline.
+* Alerts scheduled on the phone from the last calendar read work offline.
+* An Android app that targets Android 13 or higher does not get the exact alarm permission at install. The permission check at each start keeps exact alarms working after the user or the system revokes it.
+* A hidden Chrome tab's single timer fires at most 1 second late. An open tab, even hidden, can start the block by itself.
+* A closed tab receives web push while Chrome is running. No web API schedules a notification ahead of time.
 
 ## Consequences
 
 * With Chrome fully quit, or the tab closed while offline, no web alert appears.
 * Alerts after a calendar change depend on the server reading the calendar. The server reads Google Calendar with push notifications, as recorded in DR-0021.
-* The status stays Proposed until two trials pass:
-  * Phones: tapping the alert opens the app into the block.
-  * Expo web: audio keeps playing in a hidden tab.
 
 ## Sources
 
