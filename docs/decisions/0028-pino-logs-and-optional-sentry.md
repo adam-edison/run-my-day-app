@@ -1,6 +1,6 @@
 # DR-0028: Pino Logs and Optional Sentry
 
-**Status:** Draft  
+**Status:** Accepted  
 **Date:** 2026-11-28
 
 ## Context
@@ -14,7 +14,7 @@ Facts from earlier decisions:
 * The repository is public under the MIT license, as recorded in DR-0001.
 * Sync runs on the Fastify server through oRPC, with an outbox on each device, as recorded in DR-0017.
 * The server renews each Google Calendar watch before it expires, and checks each calendar every 5 minutes as a backup, as recorded in DR-0021.
-* Every secret comes from Doppler as an environment variable, checked by Varlock, as recorded in DR-0011.
+* Every secret is an environment variable from Doppler or a local file, checked by Varlock, as recorded in DR-0011 and DR-0024.
 
 The DSN is the Sentry project address that the SDK sends errors to.
 
@@ -37,6 +37,7 @@ Logging and redaction:
 
 * Pino's `redact` option removes the `authorization` header, cookies, session tokens, Google access and refresh tokens, and passwords.
 * The log holds no task titles, step text, or calendar event titles.
+* Sentry reports follow the same rule. A report holds IDs, such as the task ID, and never titles or step text.
 
 Log levels:
 
@@ -49,10 +50,13 @@ Alert conditions:
 
 * Any new server error in Sentry.
 * A calendar watch renewal fails, or a watch expires without renewal.
-* The 5-minute backup calendar check misses its schedule or fails, watched by Sentry Crons.
-* The server rejects a sync push from one device several times in a row.
+* The 5-minute backup calendar check misses its schedule or fails. Sentry Crons watches this check with the one cron monitor included in every Sentry plan.
+* A missed check-in also shows that the whole server is down.
+* No new database dump exists for 2 hours, or a dump check fails. The server reports this error itself, as recorded in DR-0027.
+* A device is blocked because the server cannot apply an outbox entry, as recorded in DR-0017. The alert fires on the first such entry. Network failures and server errors that are retried raise no alert.
+* Alerts reach the operator by email.
 
-Example: the watch on the Workout calendar fails to renew at 03:00. The server logs an `error` line, and Sentry raises an alert.
+Example: the watch on the Workout calendar fails to renew at 03:00. The server logs an `error` line, and Sentry emails an alert.
 
 ## Alternatives Considered
 
@@ -84,16 +88,30 @@ No Sentry, logs only, rejected:
 * No official source states the log levels for this case.
 * No official source states the alert conditions for this case. Sentry Alerts act when issues match rules, and Sentry Crons watches scheduled jobs.
 * No official source states that a DSN in public code is a problem.
-
-## Open Questions
-
-1. Should a self-hoster's install send errors anywhere by default? Example: a self-hoster installs Run My Day and sets no `SENTRY_DSN`. With this decision, a crash in the "Morning" block run reaches no one.
-2. Which data may appear in a Sentry report? Example: a crash while running the "Stretch hips" task. Should the report include the task title, or only the task ID?
-3. Where should alerts go? Example: the watch on the Workout calendar fails to renew at 03:00. Should Sentry send an email, or a push to a phone app?
-4. Should the 5-minute backup calendar check be watched by Sentry Crons? Example: the check stops running, and moved Workout events are found only by push notifications.
-5. How many failed sync attempts from one device should raise an alert? Example: the phone's outbox entry for the "Stretch" task is rejected 3 times.
+* Sentry sends some notifications by email by default. The pages read do not state whether alert rules send email by default, or whether email alerts are on the free Developer plan.
 
 ## Sources
+
+### [Sentry Pricing documentation](https://docs.sentry.io/pricing/)
+
+Retrieved 2026-11-28.
+
+- Fact: Every Sentry plan includes one cron monitor.
+  > "All Sentry plans include one cron monitor and one uptime monitor. Additional monitors can only be purchased with your PAYG budget."
+
+### [Notifications | Sentry](https://docs.sentry.io/product/notifications/)
+
+Retrieved 2026-11-28.
+
+- Fact: Sentry sends some notifications by email by default.
+  > "By default, Sentry sends these notifications by email to members who are subscribed to the issue"
+
+### [Job Monitoring | Sentry Crons](https://docs.sentry.io/product/monitors-and-alerts/monitors/crons/job-monitoring/)
+
+Retrieved 2026-11-28.
+
+- Fact: Sentry Crons can alert when a scheduled job does not run.
+  > "**Missed check-in:** The job didn't execute in the predicted timeframe or frequency."
 
 ### [Sentry Pricing](https://sentry.io/pricing/)
 

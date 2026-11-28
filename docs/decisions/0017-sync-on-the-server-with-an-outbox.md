@@ -15,7 +15,33 @@ A change made offline has to reach the server and every other device. Two device
 
 Example: offline, the phone moves the "Stretch" task's due date to Friday, and the laptop changes its title to "Stretch hips." After both reconnect, the task is "Stretch hips," due Friday.
 
+Failed outbox entries:
+
+* The device checks each change with the same validation as the server, from the shared core package, before the change is saved.
+* When the server cannot be reached, or answers with a server error, the entry stays at the head of the outbox. The device retries it with exponential backoff.
+* The server never drops an outbox entry and never sets one aside. Later entries can depend on earlier ones, so entries are applied only in order.
+* When the server cannot apply an entry because of a bug, the device stops sending at that entry. The device keeps that entry and every later entry in its outbox, in order.
+* The device keeps working as it does offline.
+* When the device's app version is no longer supported, the server answers "update required." The device keeps its outbox and asks the user to update the app.
+* The server records each blocked device and the error. The record holds no outbox entries.
+* The server emails the operator about each blocked device, as recorded in DR-0028.
+* The app tells the user that the administrator has been emailed about a sync problem. It tells the user not to clear the app's data or the browser's storage, so the changes can sync after the fix.
+* When a new server version starts, the server tells each blocked device to retry: through SSE to an open app, and through a visible push notification to a closed app.
+* When the retry succeeds, the rest of the outbox follows in order. The app tells the user that the problem is fixed and the changes have synced. The server deletes the blocked-device record.
+* When the retry fails again, the device stays blocked.
+
+Example: on a train, the phone makes 40 changes offline. Change 12, a rename of "Notes" to "Ideas," hits a bug. Changes 13 and 14 move "Ideas" into "Work" and delete "Work." The phone stops at change 12, shows the sync problem message, and the operator gets an email. After the fix is deployed, the phone gets a push notification, retries change 12, and changes 13 to 40 follow in order.
+
 ## Alternatives Considered
+
+Dropping a rejected entry and continuing, rejected:
+
+* The user's change is lost, and the user must make it again.
+* After hours of offline changes, the user cannot remember every change to redo.
+
+Setting a rejected entry aside on the server and replaying it later, rejected:
+
+* Later entries can depend on the rejected one. A rename replayed after its folder was deleted applies to nothing.
 
 PowerSync, rejected:
 
@@ -36,8 +62,27 @@ Whole-row last write wins, rejected:
 
 * The sync code is built and maintained in this codebase.
 * When two devices edit the same field, only the edit the server receives last is kept.
+* While a device is blocked by a bug, its changes do not reach the server or the user's other devices.
+* Clearing the app's data on a blocked device loses its unsynced changes.
+* No source states the stop-and-wait handling for bugs. Replicache warns that errors that hold the queue "block synchronization and thus should be used carefully."
 
 ## Sources
+
+### [Push Endpoint | Replicache](https://doc.replicache.dev/reference/server-push)
+
+Retrieved 2026-11-28.
+
+- Fact: Network and HTTP errors are retried with exponential backoff.
+  > "Replicache will exponentially back off sending pushes in the case of both network level and HTTP level errors."
+- Fact: Errors that hold the queue block synchronization.
+  > "Temporary errors block synchronization and thus should be used carefully."
+
+### [Handling write validation errors | PowerSync](https://docs.powersync.com/handling-writes/handling-write-validation-errors)
+
+Retrieved 2026-11-28.
+
+- Fact: Replaying a set-aside entry later can conflict with newer writes.
+  > "If you apply a dead-lettered write later, newer writes from the same client may already be in your source database"
 
 ### [React Native & Expo SDK - PowerSync](https://docs.powersync.com/client-sdks/reference/react-native-and-expo)
 

@@ -6,7 +6,6 @@ Repository: `/Users/aedison/repositories/run-my-day-app`, branch `main`. This is
 
 Hosting and operations:
 
-- [ ] Observability: what is logged to Pino and reported to Sentry, and what raises an alert
 - [ ] Choices that must not block the paid hosted version
 
 CI/CD and release:
