@@ -27,13 +27,15 @@ Data separation:
 
 * Every user-owned table gets a `user_id` column from the first migration.
 * Push channels, outbox entries, and history rows also carry `user_id`.
-* RLS policies filter each table by the request's user ID.
+* RLS is turned on from the first migration. RLS policies filter each table by the request's user ID.
 * The server connects as a role that does not own the tables, or the tables use `FORCE ROW LEVEL SECURITY`.
 
 Secrets and configuration:
 
 * Google refresh tokens are encrypted at rest.
-* The encryption key comes from an environment variable and is stored apart from the database.
+* The encryption key comes from the `TOKEN_ENCRYPTION_KEY` environment variable, from Doppler or a local `.env` file, as recorded in DR-0024.
+* The key is stored apart from the database and is never in a database dump.
+* The install step looks for `TOKEN_ENCRYPTION_KEY`. When it does not exist, the install step generates a random key and writes it to the local `.env` file.
 * All configuration comes from environment variables, including the Google client ID, the Sentry DSN, and the backup check interval.
 * The public code holds no credentials.
 
@@ -41,7 +43,13 @@ One code path:
 
 * The self-hosted version runs the same multi-user code with one account.
 * No code path checks for a "single-user mode".
+* Local hosting and self-hosting require sign-in with Better Auth, as the hosted version does. Tailscale limits which devices reach the server, and sign-in limits who uses them.
 * Rate limits are per user, not per server.
+
+Google Cloud project:
+
+* The hosted version uses one Google Cloud project for all its users.
+* With push notifications and a 5-minute check, 1,000 users with 2 calendars each make about 400 requests per minute, against a limit of 10,000 per project.
 
 Example: a request for user A sets A's user ID in its transaction. A query on `task` returns only A's "Stretch hips", even without a `WHERE user_id = ...` clause.
 
@@ -67,18 +75,12 @@ Single-user shortcuts now, migration later, rejected:
 ## Consequences
 
 * Table owners bypass RLS unless `FORCE ROW LEVEL SECURITY` is set.
+* When the encryption key is lost, the stored Google tokens cannot be read. Each user must connect Google Calendar again.
+* The user must back up the `.env` file apart from the database dumps.
 * Each request must set the user ID in its transaction. This adds work to every Drizzle query.
 * No official source states that one multi-user code path should serve the self-hosted version.
 * No official source states that push channels, outbox entries, and history rows need `user_id` for this case.
 * No official source states that rate limits should be per user for this case.
-
-## Open Questions
-
-1. Should RLS be turned on from the first migration, or only `user_id` columns now? Example: the `task` table for "Stretch hips" gets a `user_id` and a policy on day one, or only the column.
-2. Where does the token encryption key live? Example: `TOKEN_ENCRYPTION_KEY` from Doppler for the project's own deployment, and from a self-hoster's own secret store for theirs.
-3. Does the self-hosted version require a sign-in with Better Auth, as the hosted version will? Example: the self-hoster opens the web app and must sign in before seeing "Morning."
-4. Should the hosted version use one shared Google Cloud project for all users? Example: DR-0021 gives 10,000 requests per minute per project, shared by every hosted user.
-
 ## Sources
 
 ### [PostgreSQL: Row Security Policies](https://www.postgresql.org/docs/current/ddl-rowsecurity.html)

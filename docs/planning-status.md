@@ -6,7 +6,6 @@ Repository: `/Users/aedison/repositories/run-my-day-app`, branch `main`. This is
 
 Hosting and operations:
 
-- [ ] Choices that must not block the paid hosted version
 
 CI/CD and release:
 
