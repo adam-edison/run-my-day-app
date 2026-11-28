@@ -38,10 +38,16 @@ Dropping a rejected entry and continuing, rejected:
 
 * The user's change is lost, and the user must make it again.
 * After hours of offline changes, the user cannot remember every change to redo.
+* A user who repeats the change hits the same bug again.
+
+Example: a calendar app cannot complete a change, reverts it, and tells the user to try again. On a 3-hour train ride, the phone makes 40 changes offline, and several of them are dropped. The user cannot remember which changes to make again.
 
 Setting a rejected entry aside on the server and replaying it later, rejected:
 
-* Later entries can depend on the rejected one. A rename replayed after its folder was deleted applies to nothing.
+* Later entries can depend on the rejected one, so a replay out of order can apply to nothing.
+* Each repeated attempt by the user adds another set-aside entry.
+
+Example: the phone renames "Notes" to "Ideas," moves "Ideas" into "Work," and deletes "Work." The rename is set aside, and the move and the delete are applied. When the rename is replayed, "Ideas" no longer exists.
 
 PowerSync, rejected:
 
