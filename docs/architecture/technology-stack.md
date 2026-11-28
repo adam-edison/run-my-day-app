@@ -53,6 +53,10 @@
 
 - [XState v5](https://stately.ai/docs/xstate) - Client state in actors, each a statechart with nested and parallel states. The actors are Day, Block run, Task run, Waits, Announcer, and Sync. Only the shared core package imports XState.
 
+## Calendar
+
+- [Google Calendar API](https://developers.google.com/workspace/calendar/api/guides/push) - Read by the server, with push notifications, a backup check every 5 minutes, and incremental sync. Outlook and iCloud are added later.
+
 ## Alerts
 
 - [AlarmKit](https://developer.apple.com/documentation/alarmkit) - Block-start alerts on iOS when the app is not open.

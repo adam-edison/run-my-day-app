@@ -52,7 +52,7 @@ A desktop app outside the browser, rejected:
 ## Consequences
 
 * With Chrome fully quit, or the tab closed while offline, no web alert appears.
-* Alerts after a calendar change depend on the server reading the calendar. That is decided with calendar integration.
+* Alerts after a calendar change depend on the server reading the calendar. The server reads Google Calendar with push notifications, as recorded in DR-0021.
 * The status stays Proposed until two trials pass:
   * Phones: tapping the alert opens the app into the block.
   * Expo web: audio keeps playing in a hidden tab.

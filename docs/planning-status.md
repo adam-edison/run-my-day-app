@@ -6,14 +6,13 @@ Repository: `/Users/aedison/repositories/run-my-day-app`, branch `main`. This is
 
 Core architecture:
 
-- [ ] Calendar integration: which calendars, sign-in, and push or polling within the 1-minute requirement
 - [ ] Audio timing and text-to-speech in the web build
 - [ ] Recurrence with rrule
 
 Hosting and operations:
 
 - [ ] Hosting of the server and Postgres for the single-user, self-hosted version
-- [ ] Remote access from phones and other machines, such as Tailscale
+- [ ] Remote access from phones and other machines, such as Tailscale, plus a public HTTPS address for Google Calendar push notifications
 - [ ] Hosting of the static web build
 - [ ] Database backups and restore
 - [ ] Observability: what is logged to Pino and reported to Sentry, and what raises an alert
