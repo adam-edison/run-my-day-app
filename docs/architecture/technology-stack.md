@@ -8,14 +8,14 @@
 ## API & Communication
 
 - [Fastify](https://fastify.dev/) - High-performance HTTP server framework, plugin encapsulation, request lifecycle management, and backend infrastructure.
-- [oRPC](https://orpc.dev/) - Contract-first, end-to-end type-safe APIs, request/response validation, and OpenAPI generation.
+- [oRPC](https://orpc.dev/) - Contract-first, end-to-end type-safe APIs, request/response validation, and OpenAPI generation. Requests use oRPC's RPC protocol over HTTP. Push to open clients uses server-sent events through oRPC streaming, with expo/fetch on Android and iOS. Sync of the outbox runs through oRPC on the Fastify server.
 - [TanStack Query](https://tanstack.com/query/latest) - Asynchronous server state management, caching, mutations, request deduplication, and cache invalidation with type-safe oRPC integration.
 
 ## Architecture & Code Quality
 
 - [ESLint](https://eslint.org/) - Static code analysis, coding standards, and deterministic rule enforcement.
 - [TypeScript ESLint](https://typescript-eslint.io/) - Type-aware linting and TypeScript-specific code quality enforcement.
-- [ESLint Boundaries](https://www.jsboundaries.dev/) - Architectural boundary enforcement, module isolation, and dependency restrictions.
+- [ESLint Boundaries](https://www.jsboundaries.dev/) - Architectural boundary enforcement, module isolation, and dependency restrictions. Rejects any import of XState outside the core package.
 - [Knip](https://knip.dev/) - Detection of unused files, exports, dependencies, and dead code.
 - [Prettier](https://prettier.io/) - Deterministic code formatting and consistent source code style across the repository.
 
@@ -28,23 +28,38 @@
 ## Environment & Configuration
 
 - [Varlock](https://varlock.dev/) - Declarative environment variable schemas, configuration validation, type generation, and sensitive configuration handling.
-- [Doppler CLI](https://docs.doppler.com/docs/cli) - Centralized secret management, environment-specific configuration retrieval, and secure secret injection for development and deployment workflows.
+- [Doppler CLI](https://docs.doppler.com/docs/cli) - Centralized secret management, environment-specific configuration retrieval, and secure secret injection for development and deployment workflows. `doppler run` passes secrets as environment variables, and reads its latest encrypted snapshot when Doppler can't be reached. The token is stored in the macOS Keychain.
 
 ## Database & Persistence
 
-- [Drizzle ORM](https://orm.drizzle.team/) - Type-safe SQL queries, declarative database schemas, relational modeling, and migration management.
-- [PostgreSQL](https://www.postgresql.org/) - Relational data storage, database-level constraints, transactions, indexing, and data integrity enforcement.
+- [Drizzle ORM](https://orm.drizzle.team/) - Type-safe SQL queries, declarative database schemas, relational modeling, and migration management, on the server and on each device.
+- [PostgreSQL](https://www.postgresql.org/) - Relational data storage, database-level constraints, transactions, indexing, and data integrity enforcement on the server.
+- [expo-sqlite](https://docs.expo.dev/versions/latest/sdk/sqlite/) - Offline client storage on Android, iOS, and web, with one SQLite schema and one set of queries for every platform. Holds definitions, the last calendar read, 90 days of history, history snapshots, and the outbox.
 
 ## Testing & Verification
 
-- [Vitest](https://vitest.dev/) - Unit, integration, and contract testing for business logic, schemas, and application components.
+- [Vitest](https://vitest.dev/) - Unit tests for the core package and the server, and the server's boundary tests against the API and the database. Runs on every commit.
+- [Jest](https://jestjs.io/) with [jest-expo](https://docs.expo.dev/develop/unit-testing/) - Display tests of React Native components, with the default jest-expo preset. Runs on every commit.
+- [React Native Testing Library](https://oss.callstack.com/react-native-testing-library/) - Rendering and querying components in display tests, by text and role.
 - [fast-check](https://fast-check.dev/) - Property-based unit testing with generated inputs, edge case discovery, reproducible failures, and automatic shrinking. Restricted to fast, isolated unit tests, excluding integration and end-to-end testing.
-- [Playwright](https://playwright.dev/) - Browser-based end-to-end testing, user workflow verification, and regression testing.
-- [Maestro](https://docs.maestro.dev/) - Declarative mobile end-to-end testing, native iOS and Android user workflow verification, and regression testing.
+- [Playwright](https://playwright.dev/) - Boundary tests of the exported Expo web build in Chromium, against the real server: the service worker, offline use, sync after reconnecting, and code written only for the web. Runs on a schedule and before a release.
+- [Maestro](https://docs.maestro.dev/) - Device tests on an Android emulator and an iOS simulator in GitHub Actions. Runs on a schedule and before a release.
 
 ## Presentation & Client Applications
 
-- [Expo](https://docs.expo.dev/) - Universal React Native application development targeting iOS, Android, and web from a shared TypeScript codebase.
+- [Expo](https://docs.expo.dev/) - Universal React Native application development targeting iOS, Android, and web from a shared TypeScript codebase. The web build is exported as static files. Expo API routes are not used.
+- [Workbox](https://developer.chrome.com/docs/workbox) - Generates the service worker for offline use of the web build, after the static export.
+- Supported web browsers: Chromium-based desktop browsers only, namely Google Chrome, Microsoft Edge, Opera, and Brave.
+
+## Client State
+
+- [XState v5](https://stately.ai/docs/xstate) - Client state in actors, each a statechart with nested and parallel states. The actors are Day, Block run, Task run, Waits, Announcer, and Sync. Only the shared core package imports XState.
+
+## Alerts
+
+- [AlarmKit](https://developer.apple.com/documentation/alarmkit) - Block-start alerts on iOS when the app is not open.
+- [Android exact alarms](https://developer.android.com/develop/background-work/services/alarms) - Block-start alerts on Android when the app is not open. The app requires the exact alarm permission before it can be used.
+- [Push API](https://developer.mozilla.org/en-US/docs/Web/API/Push_API) - Web push from the server at each block start when the web app's tab is closed.
 
 ## Domain Utilities
 
@@ -72,7 +87,8 @@
 
 - [GitHub Actions](https://docs.github.com/en/actions) - Automated build, verification, and deployment workflows with integrations for cloud deployment services.
 - [actionlint](https://github.com/rhysd/actionlint) - Static analysis of GitHub Actions workflows, including syntax validation, expression type checking, and configuration error detection.
-- [Expo EAS](https://docs.expo.dev/eas/) - Managed application builds, code signing, app store submission, over-the-air updates, and deployment automation for Expo applications.
+- [Expo Build](https://docs.expo.dev/build/introduction/) - Managed builds and code signing for the Android and iOS apps.
+- [Expo Submit](https://docs.expo.dev/submit/introduction/) - App store submission for the Android and iOS apps.
 
 ## Text-to-Speech
 

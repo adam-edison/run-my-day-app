@@ -2,11 +2,7 @@
 
 Repository: `/Users/aedison/repositories/run-my-day-app`, branch `main`. This is planning only: no code yet.
 
-## 1. Documents to write
-
-- [ ] Update `docs/architecture/technology-stack.md` to match decision records 0004 to 0018, such as adding Jest, jest-expo, React Native Testing Library, and expo-sqlite
-
-## 2. Open decisions, in order
+## 1. Open decisions, in order
 
 Core architecture:
 
@@ -28,7 +24,7 @@ CI/CD and release:
 
 - [ ] GitHub Actions pipeline: checks on each pull request, on a schedule, and before a release
 - [ ] Releases: how a version is cut and numbered
-- [ ] App distribution: EAS builds, TestFlight, Play internal testing, and EAS over-the-air updates
+- [ ] App distribution: Expo Build, Expo Submit, TestFlight, Play internal testing, and Expo over-the-air updates
 
 Security:
 
@@ -39,7 +35,7 @@ Remaining technology records:
 
 - [ ] One record for each remaining technology in `technology-stack.md`: Fastify, oRPC, Zod, Drizzle, PostgreSQL, ESLint and its plugins, Knip, Prettier, Husky, lint-staged, commitlint, fast-check, Renovate, Betterleaks, actionlint, and @fastify/rate-limit. Each needs a rationale.
 
-## 3. Domain model wrap-up (step 2 of planning)
+## 2. Domain model wrap-up (step 2 of planning)
 
 - [ ] **Create `docs/glossary.md`:** every term, with a definition and an example. Definitions use only glossary terms.
 - [ ] **Shrink `docs/domain-model.md` to the overview:** the diagrams of how items relate. Behavior rules move into OpenSpec feature specs as requirements with scenarios, and most existing examples become scenarios.
@@ -56,7 +52,7 @@ Remaining technology records:
   - more repeat options, projects in any order, and project dependencies
   - editing past runs, spacing between steps, and draft or paused progressions
 
-## 4. Remaining planning steps
+## 3. Remaining planning steps
 
 - [ ] **MVP scope:** pick the features for the first version.
 - [ ] **Architecture:** finish principles, constraints, security, and performance.
@@ -64,7 +60,7 @@ Remaining technology records:
 - [ ] **Feature roadmap:** an ordered list of GitHub issues.
 - [ ] **First OpenSpec change.**
 
-## 5. How the user wants to work
+## 4. How the user wants to work
 
 - Write in plain, technical, passive-voice English. Items never act on their own: not "a view picks" but "the view's filter matches." No shorthand ("waits," "decides," "lives on"). Use existing terms and never invent labels.
 - Every rule gets an example drawn from the real use case. Show a concrete example of every change made.
