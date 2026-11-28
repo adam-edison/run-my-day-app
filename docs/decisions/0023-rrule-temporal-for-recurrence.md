@@ -21,6 +21,10 @@ The domain model defines the repeat rules:
 
 The domain logic lives in a shared core package. The core package runs on the devices and on the server, as recorded in DR-0005, DR-0016, and DR-0017.
 
+Moments, such as a completion time, are stored in UTC. A rule in local clock time, such as "every day at 07:00," needs the user's time zone. UTC does not follow daylight saving time, and the user's clock does.
+
+React Native runs on the Hermes engine. Hermes on iOS rejects some time zone aliases, such as "US/Eastern," and treats an alias and its canonical name, such as "America/New_York," as different zones. `temporal-polyfill` fails on those aliases. Node resolves aliases correctly.
+
 RFC 5545 is the iCalendar standard for recurrence rules. Google Calendar and other calendars use it. Temporal is the new JavaScript date API with real time zone and plain-date types.
 
 Example: "Water plants" repeats every 3 days by completion date. It is completed at 23:30 on Monday. The next due date is Thursday, on the phone and on the server alike.
@@ -32,6 +36,9 @@ Example: "Water plants" repeats every 3 days by completion date. It is completed
 * The core package adds the repeat options that RFC 5545 does not define: repeating by completion date, the "if missed" setting, and specific dates.
 * The "day starts at" setting and the time zone decide which date is today.
 * The core package converts each date that rrule-temporal returns to a calendar date.
+* The user's time zone is stored only as its canonical IANA identifier, in IANA's exact case, such as "America/New_York."
+* The server converts any alias to its canonical identifier before the time zone reaches a device.
+* Device tests on iOS and Android cover every supported time zone, including "Asia/Kolkata."
 
 Example: "Team report" repeats on the 2nd Tuesday of each month, by due date, with "if missed" set to "jump to today." rrule-temporal lists the 2nd Tuesdays. The report due on Tuesday is missed, and on Thursday the core package picks the next 2nd Tuesday after today.
 
@@ -52,16 +59,20 @@ Hand-written patterns on Temporal plain dates only, rejected:
 * It claims full RFC 5545 compliance.
 * It is built on Temporal, with time zone aware results.
 * It is maintained. Version 2.3.0 was published 2026-11-18.
+* Every identifier that failed on Hermes in the bug report is accepted in its exact canonical form. Canonical identifiers avoid the failure.
+* Node resolves aliases correctly, so the server can convert them.
 
 ## Consequences
 
 * The core package still contains the code for repeating by completion date, the "if missed" setting, and specific dates.
 * rrule-temporal is maintained by one person.
 * rrule-temporal uses native Temporal when present and otherwise bundles `temporal-polyfill`.
+* The bugs in `temporal-polyfill` and Hermes are open, with no fix from the maintainers. A time zone picker that offers an alias would break repeats on iOS.
 
 ## Assumptions
 
-* `temporal-polyfill` runs inside React Native on the Hermes engine. A source contradicts this.
+* `temporal-polyfill` works on Hermes when it receives only canonical identifiers. The device tests check this.
+* "Asia/Kolkata" failed in the bug report, although IANA treats it as canonical. Apple's list may hold "Asia/Calcutta" as the primary name. The device tests check this.
 
 ## Open Questions
 
@@ -77,6 +88,15 @@ Retrieved 2026-11-28.
   > "On React Native's Hermes engine, some zone identifiers throw and a zone never equals its alias. On Node 22 with the same version neither happens."
 - Fact: On iOS, 21 of 439 tried identifiers throw. All 21 are IANA links.
   > "The same happens for 21 of 439 identifiers tried, all IANA links"
+- Fact: Every identifier that failed is accepted in its exact case.
+  > "In their exact case all 21 are accepted."
+
+### [Intl.DateTimeFormat on iOS matches some timeZone identifiers case-sensitively, and does not canonicalize links | Hermes issue 2323](https://github.com/meta/hermes/issues/2323)
+
+Retrieved 2026-11-28.
+
+- Fact: Hermes on iOS treats an alias and its canonical name as different zones.
+  > "Intl.DateTimeFormat on iOS matches some timeZone identifiers case-sensitively, and does not canonicalize links"
 
 ### [jkbrzt/rrule on GitHub](https://github.com/jkbrzt/rrule)
 
