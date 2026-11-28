@@ -1,18 +1,18 @@
 # DR-0029: User ID and Row-Level Security from the First Migration
 
-**Status:** Draft  
+**Status:** Accepted  
 **Date:** 2026-11-28
 
 ## Context
 
-The first server is single-user and self-hosted. A paid hosted version will later serve many paying users on one server. Some choices must be made now so that the hosted version is not blocked.
+Run My Day is offered as local hosting, self-hosting, and a paid hosted version, as recorded in DR-0049. The hosted version serves many paying users on one server. Some choices must be made now so that the hosted version is not blocked.
 
 Facts from earlier decisions:
 
 * Each user connects Google Calendar once, and the server stores that user's refresh token, as recorded in DR-0021.
 * The hosted version must serve thousands of users, as recorded in DR-0021.
 * Each self-hoster creates their own Google Cloud project, as recorded in DR-0021.
-* Every secret comes from Doppler as an environment variable, checked by Varlock against `.env.schema`, as recorded in DR-0011.
+* Every secret is an environment variable from Doppler or a local file, checked by Varlock against `.env.schema`, as recorded in DR-0011 and DR-0024.
 * Better Auth handles sign-in and sessions, with Drizzle integration.
 * The architecture principles require the database to enforce data integrity.
 * The repository is public under MIT, as recorded in DR-0001.
