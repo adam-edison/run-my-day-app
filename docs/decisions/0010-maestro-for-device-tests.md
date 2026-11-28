@@ -12,12 +12,16 @@ Simulators and emulators differ from real devices in some hardware and API behav
 - background audio with the screen locked
 - audio timing by ear
 - on-device text-to-speech speed
-- Android battery saving in the background
+- battery saving that a phone maker adds on top of Android
 - touch and layout on a real screen
+
+Android's own battery saving, Doze and App Standby, can be tested on an emulator.
 
 ## Decision
 
 Maestro runs device tests on an Android emulator and an iOS simulator in GitHub Actions. The tests run on a schedule and before a release.
+
+The Android emulator tests put the emulator into Doze and App Standby and check that background audio and block-start alarms still work.
 
 The behavior in that list is checked by hand before a release, on an Android phone and an iPad.
 
@@ -41,7 +45,7 @@ The behavior in that list is checked by hand before a release, on an Android pho
 ## Assumptions
 
 * Appium tests run slower than Maestro tests. Not found in official sources as of 2026-11-28.
-* Simulators and emulators don't show Android battery saving in the background. A source contradicts this.
+* Battery saving added by a phone maker, such as Samsung, stops background apps more than Android's own battery saving. No emulator reproduces it. Not found in official sources as of 2026-11-28.
 
 ## Sources
 
