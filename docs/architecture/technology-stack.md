@@ -9,8 +9,6 @@
 
 - [Fastify](https://fastify.dev/) - High-performance HTTP server framework, plugin encapsulation, request lifecycle management, and backend infrastructure.
 - [oRPC](https://orpc.dev/) - Contract-first, end-to-end type-safe APIs, request/response validation, and OpenAPI generation. Requests use oRPC's RPC protocol over HTTP. Push to open clients uses server-sent events through oRPC streaming, with expo/fetch on Android and iOS. Sync of the outbox runs through oRPC on the Fastify server.
-- [TanStack Query](https://tanstack.com/query/latest) - Asynchronous server state management, caching, mutations, request deduplication, and cache invalidation with type-safe oRPC integration.
-
 ## Architecture & Code Quality
 
 - [ESLint](https://eslint.org/) - Static code analysis, coding standards, and deterministic rule enforcement.

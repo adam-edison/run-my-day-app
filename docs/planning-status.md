@@ -6,7 +6,6 @@ Repository: `/Users/aedison/repositories/run-my-day-app`, branch `main`. This is
 
 Core architecture:
 
-- [ ] TanStack Query: kept, dropped, or limited, given that the Sync actor holds server data
 - [ ] Calendar integration: which calendars, sign-in, and push or polling within the 1-minute requirement
 - [ ] Audio timing and text-to-speech in the web build
 - [ ] Recurrence with rrule
