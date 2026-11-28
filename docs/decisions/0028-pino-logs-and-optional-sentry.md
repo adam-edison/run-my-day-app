@@ -16,7 +16,7 @@ Facts from earlier decisions:
 * The server renews each Google Calendar watch before it expires, and checks each calendar every 5 minutes as a backup, as recorded in DR-0021.
 * Every secret is an environment variable from Doppler or a local file, checked by Varlock, as recorded in DR-0011 and DR-0024.
 
-The DSN is the Sentry project address that the SDK sends errors to.
+The DSN is the Sentry project address that the SDK sends errors to. A DSN is safe to keep public. It allows only sending new events, not reading data.
 
 Example: a self-hoster installs Run My Day and sets no `SENTRY_DSN`. A crash in the "Morning" block run is written to the Pino log and sent nowhere else.
 
@@ -63,7 +63,6 @@ Self-hosters report to the project's Sentry by default, rejected:
 
 * The free plan's 5,000 errors would be shared by every installation.
 * Error reports may contain personal data from people who never agreed to send it. OWASP lists personal data among the data to exclude from logs.
-* The DSN would ship in the public code.
 
 No Sentry, logs only, rejected:
 
@@ -95,7 +94,6 @@ No Sentry, logs only, rejected:
 ## Assumptions
 
 * The listed alert conditions cover every failure that needs the operator's action. Not found in official sources as of 2026-11-28.
-* A DSN in the public code is a problem. A source contradicts this.
 * Sentry alert rules send email by default. Not found in official sources as of 2026-11-28.
 
 ## Sources
