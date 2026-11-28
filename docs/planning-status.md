@@ -6,7 +6,6 @@ Repository: `/Users/aedison/repositories/run-my-day-app`, branch `main`. This is
 
 Core architecture:
 
-- [ ] Audio timing and text-to-speech in the web build
 - [ ] Recurrence with rrule
 
 Hosting and operations:
