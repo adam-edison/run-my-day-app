@@ -14,3 +14,5 @@ These behaviors belong in OpenSpec specs once those exist. Each one moves to its
 - An achievement view shows its trophy, the conditions it took, and the history records that met them.
 - Metric analysis can group entries by hour of day, such as when you drink most of your water or when your self-reported energy is lowest.
 - When Run My Day refuses a setting, such as a circular condition, it shows a plain message that explains how to fix it.
+- A recurring task shows when it was last completed, in a place you can find at a glance, such as next to its due date.
+- A task can be marked optional. This flag is separate from every other task setting. When an optional task is not completed, Run My Day does not count a skip. A recurring optional task moves to its next due date. A non-recurring optional task moves to the next day. An example is "Clean the stovetop if it is dirty".
